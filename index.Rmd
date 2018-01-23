@@ -36,27 +36,6 @@ Before starting graduate school, I worked briefly in nonprofit and government on
 
 ## Contact:
 
-<div class="row">
-  <div class="col-sm-1"></div>
-  <div class="col-sm-3">
-
-### Address
-  Andrew Proctor <br>
-  Department of Economics <br>
-  P.O. Box 6501 <br>
-  113 83 Stockholm <br>
-  Sweden
-  
-  </div>
-  <div class="col-sm-3">
-### Email:  
-andrew.proctor@phdstudent.hhs.se  
-</div>
-</div>
-
-
-
-
 <div class = "row">
 <div class = "col-md-6">
 ### Address
