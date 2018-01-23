@@ -1,0 +1,15 @@
+name: "Andrew Proctor"
+output_dir: "."
+navbar:
+  left:
+    - text: "Home"
+      href: index.html
+    - text: "Teaching"
+      href: Teaching.html
+    - text: "CV"
+      icon: fa-gear  
+      href: CV.html
+
+output:
+  html_document:
+    theme: flatly
