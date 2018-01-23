@@ -1,0 +1,35 @@
+---
+title: "Andrew Proctor"
+author: "Stockholm School of Economics"
+output:
+  html_document:
+    highlight: tango
+    theme: flatly
+  html_notebook:
+    highlight: tango
+    theme: flatly
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+```
+
+
+
+
+<div class = "row">
+<div class = "col-md-6">
+<br>
+<img src="handels.jpg" alt="Andrew Proctor">
+</div
+<div class = "col-md-6">
+# Hello!
+
+####My name is Andrew Proctor and I'm a PhD student in economics at the Stockholm School of Economics.####
+I’m in the second year of the doctoral program at the Stockholm School of Economics, where I focus primarily on labor economics and applied microeconometrics.  I am especially interested in intergenerational mobility and the determinants of labor market inequality.
+
+Before starting graduate school, I worked briefly in nonprofit and government on community development issues, particularly homelessness.
+</div>
+</div>
+
+
