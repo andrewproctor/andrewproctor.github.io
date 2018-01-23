@@ -5,7 +5,7 @@ navbar:
   - text: Home
     href: index.html
   - text: Teaching
-    href: Teaching.html
+    href: teaching.html
   - text: CV
     href: CV.html
 output:
