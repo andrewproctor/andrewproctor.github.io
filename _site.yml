@@ -1,14 +1,16 @@
-name: "Andrew Proctor"
-output_dir: "."
+name: Andrew Proctor
+output_dir: .
 navbar:
   left:
-    - text: "Home"
-      href: index.html
-    - text: "Teaching"
-      href: Teaching.html
-    - text: "CV"
-      href: CV.html
-
+  - text: Home
+    href: index.html
+  - text: Teaching
+    href: Teaching.html
+  - text: CV
+    href: CV.html
 output:
   html_document:
     theme: flatly
+    lib_dir: site_libs
+    self_contained: no
+

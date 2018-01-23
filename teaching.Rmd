@@ -1,0 +1,27 @@
+---
+title: "Teaching"
+output:
+  html_document:
+    highlight: tango
+    theme: flatly
+  html_notebook:
+    highlight: tango
+    theme: flatly
+---
+
+<br>
+
+
+## Empirical Economics (HHS 651)
+
+[Introduction to Stata (Seminar I and II) ]("assets/StataSeminar1and2.pdf")
+
+[Violations of Regression Assumptions and Methods for Longitudinal Data (Stata Seminar III) ]("assets/StataSeminar3.pdf")
+
+[Instrumental Variables Regression (Stata Seminar IV)]("assets/StataSeminar4.pdf")
+
+<br>
+
+## R Mini-Course:
+https://andrewproctor.github.io/rminicourse/
+
