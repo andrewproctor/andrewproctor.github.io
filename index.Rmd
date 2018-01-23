@@ -55,3 +55,23 @@ andrew.proctor@phdstudent.hhs.se
 </div>
 
 
+
+
+<div class = "row">
+<div class = "col-md-6">
+### Address
+  Andrew Proctor <br>
+  Department of Economics <br>
+  P.O. Box 6501 <br>
+  113 83 Stockholm <br>
+  Sweden
+  
+</div
+<div class = "col-md-6">
+### Email:  
+andrew.proctor@phdstudent.hhs.se  
+</div>
+</div>
+
+
+
