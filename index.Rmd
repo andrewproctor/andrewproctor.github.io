@@ -2,10 +2,10 @@
 title: "Andrew Proctor"
 author: "Stockholm School of Economics"
 output:
-  html_notebook:
+  html_document:
     highlight: tango
     theme: flatly
-  html_document:
+  html_notebook:
     highlight: tango
     theme: flatly
 ---
