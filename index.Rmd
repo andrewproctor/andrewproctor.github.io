@@ -2,10 +2,10 @@
 title: "Andrew Proctor"
 author: "Stockholm School of Economics"
 output:
-  html_document:
+  html_notebook:
     highlight: tango
     theme: flatly
-  html_notebook:
+  html_document:
     highlight: tango
     theme: flatly
 ---
@@ -15,12 +15,21 @@ knitr::opts_chunk$set(echo = FALSE)
 ```
 
 
-
-
 <div class = "row">
 <div class = "col-md-6">
 <br>
 <img src="handels.jpg" alt="Andrew Proctor">
+
+## Contact:
+
+### Address
+  Andrew Proctor <br>
+  Department of Economics <br>
+  P.O. Box 6501 <br>
+  113 83 Stockholm <br>
+  Sweden
+
+
 </div
 <div class = "col-md-6">
 # Hello!
@@ -29,28 +38,20 @@ knitr::opts_chunk$set(echo = FALSE)
 I’m in the second year of the doctoral program at the Stockholm School of Economics, where I focus primarily on labor economics and applied microeconometrics.  I am especially interested in intergenerational mobility and the determinants of labor market inequality.
 
 Before starting graduate school, I worked briefly in nonprofit and government on community development issues, particularly homelessness.
-</div>
-</div>
-
+<br>
+<br>
+<br>
+<br>
 <br>
 
-## Contact:
-
-<div class = "row">
-<div class = "col-md-6">
-### Address
-  Andrew Proctor <br>
-  Department of Economics <br>
-  P.O. Box 6501 <br>
-  113 83 Stockholm <br>
-  Sweden
-  
-</div
-<div class = "col-md-6">
 ### Email:  
-andrew.proctor@phdstudent.hhs.se  
+andrew.proctor@phdstudent.hhs.se 
 </div>
 </div>
+
+
+
+
 
 
 
