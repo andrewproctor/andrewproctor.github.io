@@ -23,8 +23,8 @@ knitr::opts_chunk$set(echo = FALSE)
 ## Contact:
 
 ### Address
-  Andrew Proctor <br>
   Department of Economics <br>
+  Stockholm School of Economics <br>
   P.O. Box 6501 <br>
   113 83 Stockholm <br>
   Sweden
