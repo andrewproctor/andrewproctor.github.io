@@ -65,5 +65,7 @@ citecolor: blue
 </div>
 
 ### Intro to Data Science in R (SSE Masters Course 7316):
-https://andrewproctor.github.io/rcourse/
+  <a href="https://andrewproctor.github.io/rcourse/" style="color:blue;">https://andrewproctor.github.io/rcourse/</a>
+
+
 
