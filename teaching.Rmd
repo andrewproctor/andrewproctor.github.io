@@ -3,16 +3,20 @@ title: "Teaching"
 output:
   html_document:
     highlight: tango
-    theme: flatly
-  html_notebook:
-    highlight: tango
-    theme: flatly
+urlcolor: blue
+linkcolor: blue	
+citecolor: blue
+
 ---
 
 <br>
 
 
-## Empirical Economics (HHS 651)
+### Empirical Economics (SSE Bachelors Course 651)
+
+<br>
+
+#### **Slides**
 
 [Introduction to Stata (Seminar I and II) ](assets/StataSeminar1and2.pdf)
 
@@ -22,6 +26,16 @@ output:
 
 <br>
 
-## R Mini-Course:
-https://andrewproctor.github.io/rminicourse/
+#### **Assignments**
+
+**Assignment 1**: [Instructions](assets/Assignment-1.pdf) [Theory Solutions](assets/Assignment-1-Theory-Solutions.pdf) 
+[Do File](assets/Assignment-1-do-file.pdf) [Do File](assets/Assignment-1-log-file.txt) 
+
+
+<br>
+<br>
+
+
+### Intro to Data Science in R (SSE Masters Course 7316):
+https://andrewproctor.github.io/rcourse/
 

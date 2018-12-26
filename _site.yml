@@ -13,4 +13,7 @@ output:
     theme: flatly
     lib_dir: site_libs
     self_contained: no
+urlcolor: blue
+linkcolor: blue	
+citecolor: blue
 
