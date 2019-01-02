@@ -90,7 +90,7 @@ citecolor: blue
 
 **Instrumental Variables**: <a href="https://andrewproctor.github.io/assets/IV_exercise_instructions.pdf" style="color:blue;">Instructions</a> | 
   <a href="https://andrewproctor.github.io/assets/IV_exercise_solutions.do" style="color:blue;">Do File</a> | 
-  <a href="https://andrewproctor.github.io/assets/IV_exercise_solutions_log.txt" style="color:blue;">Log File</a> | 
+  <a href="https://andrewproctor.github.io/assets/IV_exercise_solutions_log.txt" style="color:blue;">Log File</a> 
 
 </div
 <div class = "col-md-6">
