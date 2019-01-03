@@ -35,7 +35,7 @@ knitr::opts_chunk$set(echo = FALSE)
 # Hello!
 
 ####My name is Andrew Proctor and I'm a PhD student in economics at the Stockholm School of Economics.####
-I'm in the second year of the doctoral program at the Stockholm School of Economics, where I focus primarily on labor economics and applied microeconometrics.  I am especially interested in intergenerational mobility and the determinants of labor market inequality.
+I'm in the third year of the doctoral program at the Stockholm School of Economics, where I focus primarily on labor economics and applied microeconometrics.  I am especially interested in human capital, intergenerational mobility and the determinants of labor market inequality.
 
 Before starting graduate school, I worked briefly in nonprofit and government on community development issues, particularly homelessness.
 <br>
