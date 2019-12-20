@@ -83,7 +83,7 @@ citecolor: blue
 
 #### **Seminar Exercises**
 
-**Panel Methods**: <a href="https://andrewproctor.github.io/assets/panel_exercise_instructions.pdf" style="color:blue;">Instructions</a> | 
+**Panel Methods**: <a href="https://andrewproctor.github.io/assets/panel_exercise_2018_instructions.pdf" style="color:blue;">Instructions</a> | 
   <a href="https://andrewproctor.github.io/assets/panel_exercise_solutions.do" style="color:blue;">Do File</a> | 
   <a href="https://andrewproctor.github.io/assets/panel_exercise_solutions_log.txt" style="color:blue;">Log File</a> | 
   <a href="https://andrewproctor.github.io/assets/panel_exercise_regoutput.doc" style="color:blue;">Regression Output</a>
