@@ -18,13 +18,15 @@ citecolor: blue
 
 #### **Slides**
 
-  <a href="https://andrewproctor.github.io/assets/StataSeminar1and2.pdf" style="color:blue;">Introduction to Stata (Seminar I and II)</a>
+  <a href="https://andrewproctor.github.io/assets/StataSeminar1and2.pdf" 
+  style="color:blue;">Introduction to Stata (Seminar I and II)</a>
   
-  <a href="https://andrewproctor.github.io/assets/StataSeminar3.pdf" style="color:blue;">Violations of Regression Assumptions and Methods for Longitudinal Data (Stata Seminar III)</a>
+  <a href="https://andrewproctor.github.io/assets/StataSeminar3.pdf" 
+  style="color:blue;">Violations of Regression Assumptions and Methods for Longitudinal Data (Stata Seminar III)</a>
   
-  <a href="https://andrewproctor.github.io/assets/StataSeminar4.pdf" style="color:blue;">Instrumental Variables Regression (Stata Seminar IV)</a>
-
-<br>
+  <a href="https://andrewproctor.github.io/assets/StataSeminar4.pdf" 
+  style="color:blue;">Instrumental Variables Regression (Stata Seminar IV)</a>
+<br><br>
 
 <div class = "row">
 <div class = "col-md-6">
