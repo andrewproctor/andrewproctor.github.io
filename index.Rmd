@@ -14,7 +14,7 @@ knitr::opts_chunk$set(echo = FALSE)
 
 <div class = "row">
 <div class = "col-xs-12 col-md-6">
-<br><br><br><br>
+<br><br><br>
 <img src="handels.jpg" alt="Andrew Proctor">
 </div>
 
@@ -38,11 +38,8 @@ support of a grant from the Jan Wallander and Tom Hedelius Foundation.
 
 Before starting graduate school, I worked briefly in nonprofit and government on 
 community development issues, particularly homelessness.
-<br>
-<br>
-<br>
-<br>
-<br>
+<br><br>
+
 </div>
 </div>
 
