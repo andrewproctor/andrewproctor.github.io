@@ -5,9 +5,6 @@ output:
   html_document:
     highlight: tango
     theme: flatly
-  html_notebook:
-    highlight: tango
-    theme: flatly
 ---
 
 ```{r setup, include=FALSE}
@@ -34,10 +31,20 @@ knitr::opts_chunk$set(echo = FALSE)
 <div class = "col-md-6">
 # Hello!
 
-####My name is Andrew Proctor and I'm a PhD student in economics at the Stockholm School of Economics.####
-I'm in the third year of the doctoral program at the Stockholm School of Economics, where I focus primarily on labor economics and applied microeconometrics.  I am especially interested in human capital, intergenerational mobility and the determinants of labor market inequality.
+#### My name is Andrew Proctor and I'm a PhD student in economics at the Stockholm School of Economics.####
+I'm in the 4^th^ year of the doctoral program at the Stockholm School of Economics. 
+I am especially interested in the application of structural and reduced form 
+methods to consider human capital acquisition and the determinants of labor 
+market inequality.  
 
-Before starting graduate school, I worked briefly in nonprofit and government on community development issues, particularly homelessness.
+Since January 2019, I have been a visiting doctoral student at the 
+[Swedish Institute for Social Research (SOFI)](https://www.sofi.su.se/english/) 
+at Stockholm University, and I am also currently a visiting doctoral student at 
+[Duke University](https://econ.duke.edu/) for the 2019-2020 academic year, with the 
+support of a grant from the Jan Wallander and Tom Hedelius Foundation. 
+
+Before starting graduate school, I worked briefly in nonprofit and government on 
+community development issues, particularly homelessness.
 <br>
 <br>
 <br>

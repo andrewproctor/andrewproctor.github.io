@@ -97,10 +97,10 @@ citecolor: blue
 
 #### **Assignments**
 
-**Panel Methods**: <a href="https://andrewproctor.github.io/assets/IV_assignment_2018_instructions.pdf" style="color:blue;">Instructions</a> | 
-  <a href="https://andrewproctor.github.io/assets/IV_assignment_2018_solutions.pdf" style="color:blue;">Solutions</a> | 
-  <a href="https://andrewproctor.github.io/assets/IV_assignment_2018_solutions.do" style="color:blue;">Do File</a> | 
-  <a href="https://andrewproctor.github.io/assets/IV_assignment_2018_solutions_log.txt" style="color:blue;">Log File</a>
+**Panel Methods**: <a href="https://andrewproctor.github.io/assets/panel_assignment_2018_instructions.pdf" style="color:blue;">Instructions</a> | 
+  <a href="https://andrewproctor.github.io/assets/panel_assignment_2018_solutions.pdf" style="color:blue;">Solutions</a> | 
+  <a href="https://andrewproctor.github.io/assets/panel_assignment_2018_solutions.do" style="color:blue;">Do File</a> | 
+  <a href="https://andrewproctor.github.io/assets/panel_assignment_2018_solutions_log.txt" style="color:blue;">Log File</a>
 
 **Instrumental Variables**: <a href="https://andrewproctor.github.io/assets/IV_assignment_2018_instructions.pdf" style="color:blue;">Instructions</a> | 
   <a href="https://andrewproctor.github.io/assets/IV_assignment_2018_solutions.pdf" style="color:blue;">Solutions</a> | 
