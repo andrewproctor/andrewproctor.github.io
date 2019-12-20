@@ -23,18 +23,17 @@ citecolor: blue
   style="color:teal;">Introduction to Stata (Seminar I and II)</a>
   
   <a href="https://andrewproctor.github.io/assets/StataSeminar3.pdf" 
-  style="color:teal;">Violations of Regression Assumptions and Methods for Longitudinal Data (Stata Seminar III)</a>
+  style="color:teal;">Violations of Regression Assumptions and Methods for Longitudinal Data (Stata Seminar III)</a><br>
   
   <a href="https://andrewproctor.github.io/assets/StataSeminar4.pdf" 
-  style="color:teal;">Instrumental Variables Regression (Stata Seminar IV)</a>
-<br><br>
+  style="color:teal;">Instrumental Variables Regression (Stata Seminar IV)</a><br><br /><br />
+  
+  
 </div>
-
 <div class = "row">
 <div class = "col-md-6">
 <div class = "col-xs-1 col-md-0"></div>
 <div class = "col-xs-11 col-md-12">
-
 #### **Assignments**
 
 **Assignment 1**: <a href="https://andrewproctor.github.io/assets/Assignment-1.pdf" style="color:teal;">Instructions</a> | 

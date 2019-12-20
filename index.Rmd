@@ -25,7 +25,7 @@ knitr::opts_chunk$set(echo = FALSE)
 <div class = "col-xs-11 col-md-12">
 # Hello!
 
-#### My name is Andrew Proctor and I'm a PhD student in economics at the <a href="(https://www.hhs.se/en/research/departments/de/" 
+#### My name is Andrew Proctor and I'm a PhD student in economics at the <a href="https://www.hhs.se/en/research/departments/de/" 
   style="color:teal;">Stockholm School of Economics</a>####
 
 I am especially interested in applying structural and reduced form 
@@ -33,10 +33,10 @@ methods to explore human capital acquisition and the determinants of labor
 market inequality.  
 
 Since January 2019, I have been a visiting doctoral student at the 
-<a href="(https://www.sofi.su.se/english/" 
+<a href="https://www.sofi.su.se/english/" 
   style="color:teal;">Swedish Institute for Social Research (SOFI)</a>
 at Stockholm University. I am also currently a visiting doctoral student at 
-<a href="(https://econ.duke.edu/" 
+<a href="https://econ.duke.edu/" 
   style="color:teal;">Duke University</a> for the 2019-2020 academic year, with the 
 support of a grant from the Jan Wallander and Tom Hedelius Foundation. 
 
