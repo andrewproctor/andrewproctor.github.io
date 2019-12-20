@@ -9,12 +9,11 @@ citecolor: blue
 
 ---
 
-<br>
-
+<br />
 
 ### **Empirical Economics (SSE Bachelors Course 651) - 2017**
 
-<br>
+<br />
 <div class = "col-xs-11 col-md-12">
 
 #### **Slides**
@@ -50,8 +49,8 @@ citecolor: blue
   <a href="https://andrewproctor.github.io/assets/Assignment-3-Theory-Solutions.pdf" style="color:teal;">Theory Solutions</a> | 
   <a href="https://andrewproctor.github.io/assets/Assignment-3-do-file.pdf" style="color:teal;">Do File</a> | 
   <a href="https://andrewproctor.github.io/assets/Assignment-3-log-file.pdf" style="color:teal;">Log File</a>
-
-<br>
+  
+<br /><br />
 
 </div></div>
 <div class = "col-md-6">
@@ -79,13 +78,12 @@ citecolor: blue
 
 #### **Slides**
 
-  <a href="https://andrewproctor.github.io/assets/panelseminar_slides_2018.pdf" style="color:teal;">Panel Data Regression</a>
+<a href="https://andrewproctor.github.io/assets/panelseminar_slides_2018.pdf" style="color:teal;">Panel Data Regression</a>
   
-  <a href="https://andrewproctor.github.io/assets/IVseminar_slides_2018.pdf" style="color:teal;">Instrumental Variables Regression</a>
+<a href="https://andrewproctor.github.io/assets/IVseminar_slides_2018.pdf" style="color:teal;">Instrumental Variables Regression</a> 
   
-  **IV Seminar Supplement --- **   Correcting standard errors when doing IV regression by hand:  <a href="https://andrewproctor.github.io/assets/Correcting_SE.do" style="color:teal;"> Do File </a>
-
-<br>
+**IV Seminar Supplement** --- Correcting standard errors when doing IV regression by hand: <a href="https://andrewproctor.github.io/assets/Correcting_SE.do" style="color:teal;">Do-File</a><br><br /><br />
+  
 </div>
 <div class = "row">
 <div class = "col-md-6">
@@ -102,7 +100,7 @@ citecolor: blue
   <a href="https://andrewproctor.github.io/assets/IV_exercise_solutions.do" style="color:teal;">Do File</a> | 
   <a href="https://andrewproctor.github.io/assets/IV_exercise_solutions_log.txt" style="color:teal;">Log File</a> 
   
-<br>
+<br /><br />
 
 </div></div>
 <div class = "col-md-6">
