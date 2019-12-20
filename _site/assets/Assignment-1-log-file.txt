@@ -1,0 +1,952 @@
+------------------------------------------------------------------------------------------------------
+      name:  <unnamed>
+       log:  C:\Users\AN.4271\Dropbox\HHS 651\Assignments\Assignment 1\assignment1log.log
+  log type:  text
+ opened on:  13 Sep 2017, 23:18:34
+
+. 
+. ************              HHS 651: Assignment 1          *********************
+. ***************    Stata Solutions - Andrew Proctor      *********************
+. 
+. 
+. 
+. ********** Data Manipulation
+. 
+. **** Import Dataset CSV File
+. import delimited using "prgswep1.csv", clear
+(1,328 vars, 4,469 obs)
+
+.  
+. **** Question 1:  Describe Dataset
+.         describe, short
+
+Contains data
+  obs:         4,469                          
+ vars:         1,328                          
+ size:    12,155,680                          
+Sorted by: 
+     Note: Dataset has changed since last saved.
+
+.         
+.         /*  Discussion: There are 4,469 observations (individuals) and 1,328 
+>         variables in the dataset.  */
+.                 
+.                 
+. **** Question 2:  Explanatory Variables
+. 
+.         **** 2a. Gender (gender_r)
+.                 *** Explore Gender Variable 
+.                 codebook gender_r  //  View storage format of variable 'gender_r' //
+
+------------------------------------------------------------------------------------------------------
+gender_r                                                                                      GENDER_R
+------------------------------------------------------------------------------------------------------
+
+                  type:  numeric (byte)
+
+                 range:  [1,2]                        units:  1
+         unique values:  2                        missing .:  0/4,469
+
+            tabulation:  Freq.  Value
+                         2,253  1
+                         2,216  2
+
+. 
+.                 *** Create a "Female" Indicator Variable
+.                 gen female = (gender_r == 2) if !missing(gender_r) 
+
+.                         /*  For individuals whose gender is listed in gender_r, assigns a 
+>                         value of 1 for female if gender is equal to 2, 1 if not.  Missing 
+>                         values in gender_r would also appear as missing in the female
+>                         variable.*/
+.                 
+.                 tabulate female  // Displays the freq/percent of each value of "female."
+
+     female |      Freq.     Percent        Cum.
+------------+-----------------------------------
+          0 |      2,253       50.41       50.41
+          1 |      2,216       49.59      100.00
+------------+-----------------------------------
+      Total |      4,469      100.00
+
+.                 
+.                 /*  
+>                 Discussion: The variable "gender_r" represents the gender listed 
+>                 for each variable.  When the CSV file was read into Stata, the variable 
+>                 was interpreted as a 'numeric' type variable.   50.41% of observations 
+>                 are male, 49.59% female, and there are no missing observations. 
+>                 */
+.                 
+.                 *** Note: Another way to create the female indicator variable would be:
+.                 //      gen female_alt = 0 if !missing(gender_r)
+.                 //      replace female_alt = 1 if ( gender_r == 2 & !missing(gender_r))
+.                 //      tabulate female_alt
+. 
+.         **** 2b.  Years of Schooling (yrsqual)
+.                 *** Explore 'Years of Schooling' Variable 
+.                 codebook yrsqual // View storage format of variable 'j_q04a' //
+
+------------------------------------------------------------------------------------------------------
+yrsqual                                                                                        YRSQUAL
+------------------------------------------------------------------------------------------------------
+
+                  type:  string (str2)
+
+         unique values:  11                       missing "":  0/4,469
+
+              examples:  "11"
+                         "12"
+                         "15"
+                         "16"
+
+.                 tabulate yrsqual 
+
+    YRSQUAL |      Freq.     Percent        Cum.
+------------+-----------------------------------
+         10 |        196        4.39        4.39
+         11 |        793       17.74       22.13
+         12 |        837       18.73       40.86
+         13 |        395        8.84       49.70
+         14 |        440        9.85       59.54
+         15 |        518       11.59       71.13
+         16 |        500       11.19       82.32
+         20 |         53        1.19       83.51
+          6 |        134        3.00       86.51
+          9 |        601       13.45       99.96
+          D |          2        0.04      100.00
+------------+-----------------------------------
+      Total |      4,469      100.00
+
+.                         /* Since 'yrsqual' is a string-variable, only the first
+>                         9 values are shown using the codebook command.  Using tabulate, we 
+>                         see some of the observations have a missing value "D" -  which means 
+>                         "Don't Know" according to the downloaded codebook. */  
+. 
+.                 ***** Format- Years of Schooling Variable
+.                 replace yrsqual =  ".d" if yrsqual == "D" 
+(2 real changes made)
+
+.                         /* Since we need to format the variable as a numeric (quantitive) 
+>                         variable, we need to Stata to interpret the missing values 
+>                         correctly.  Missing values in Stata are denoted my ".", where 
+>                         letters can follow the "." to indicate what type of missing data we 
+>                         have.  So we change "D" to ".d". */
+.                 
+.                 destring(yrsqual), gen(yearsch) 
+yrsqual: all characters numeric; yearsch generated as byte
+(2 missing values generated)
+
+.                         /* Now, we need to Stata to convert the variable to numeric, 
+>                         by parsing the text (string) values as numbers. */
+.                 
+.                 tabulate yearsch // Check to make sure no more missing values.
+
+    YRSQUAL |      Freq.     Percent        Cum.
+------------+-----------------------------------
+          6 |        134        3.00        3.00
+          9 |        601       13.45       16.45
+         10 |        196        4.39       20.84
+         11 |        793       17.75       38.59
+         12 |        837       18.74       57.33
+         13 |        395        8.84       66.17
+         14 |        440        9.85       76.02
+         15 |        518       11.60       87.62
+         16 |        500       11.19       98.81
+         20 |         53        1.19      100.00
+------------+-----------------------------------
+      Total |      4,467      100.00
+
+.                 
+.                 tabulate yearsch, missing /* Note: You can see missing values again in 
+>                                                tabulate by using option, ", missing" */
+
+    YRSQUAL |      Freq.     Percent        Cum.
+------------+-----------------------------------
+          6 |        134        3.00        3.00
+          9 |        601       13.45       16.45
+         10 |        196        4.39       20.83
+         11 |        793       17.74       38.58
+         12 |        837       18.73       57.31
+         13 |        395        8.84       66.14
+         14 |        440        9.85       75.99
+         15 |        518       11.59       87.58
+         16 |        500       11.19       98.77
+         20 |         53        1.19       99.96
+         .d |          2        0.04      100.00
+------------+-----------------------------------
+      Total |      4,469      100.00
+
+.                 
+.                 summarize yearsch  // Produces basic descriptive statistics for 'age'
+
+    Variable |        Obs        Mean    Std. Dev.       Min        Max
+-------------+---------------------------------------------------------
+     yearsch |      4,467    12.32707    2.571902          6         20
+
+.                 
+.                 /*  
+>                 Discussion:  The variable "yrsqual" is a derived measure of years 
+>                 of schooling.  The variable was stored in Stata as a "string" type of 
+>                 variable (Why?  Because some observations take on the non-numeric "D"
+>                 value).  After converting the variable to numeric, we see the mean is 
+>                 12.33, with std. dev. of 2.57, min of 6 and max of 20. There are 2 
+>                 missing observations.                                   
+>                 */
+.                 
+.         **** 2c. Age (age_r)
+.                 *** Explore Gender Variable 
+.                 codebook age_r  //  View storage format of variable 'gender_r' //
+
+------------------------------------------------------------------------------------------------------
+age_r                                                                                            AGE_R
+------------------------------------------------------------------------------------------------------
+
+                  type:  numeric (byte)
+
+                 range:  [16,65]                      units:  1
+         unique values:  50                       missing .:  0/4,469
+
+                  mean:   40.9009
+              std. dev:   14.7528
+
+           percentiles:        10%       25%       50%       75%       90%
+                                20        28        42        54        61
+
+.                 
+.                 rename age_r age  /* Rename 'age_r' to 'age' (not necessary, 
+>                                     but makes regression more understandable later */
+
+.                 
+.                 *** Generate 'Potential Experience' Variable
+.                 gen potent_exper = max(0,age - 19) /* Generates a 'Potential Experience" 
+>                                                      variable, equal to age - 19 for
+>                                                      individuals who are at least 19, 
+>                                                      0 otherwise. */
+
+.                 
+.                 summarize potent_exper, detail 
+
+                        potent_exper
+-------------------------------------------------------------
+      Percentiles      Smallest
+ 1%            0              0
+ 5%            0              0
+10%            1              0       Obs               4,469
+25%            9              0       Sum of Wgt.       4,469
+
+50%           23                      Mean           22.03424
+                        Largest       Std. Dev.      14.54202
+75%           35             46
+90%           42             46       Variance       211.4704
+95%           44             46       Skewness      -.0069625
+99%           46             46       Kurtosis       1.745389
+
+. 
+.                 /*  
+>                 Discussion:  The variable "age_r" is a derived measure of age (in years) 
+>                 of the individual.  The variable is stored in Stata as numeric and there
+>                 are no missing observations. Using "summarize, detail" we see that the
+>                 mean is 22.03 years and median (50th percentile) is 23 years.
+>                 */
+. 
+.         **** 2d.  Cognitive Ability (using pvpsl1)
+.                 *** Explore 'Problem-solving scale score' Variable 
+.                 codebook pvpsl1 // View storage format of variable 'pvpsl1' //
+
+------------------------------------------------------------------------------------------------------
+pvpsl1                                                                                          PVPSL1
+------------------------------------------------------------------------------------------------------
+
+                  type:  numeric (float)
+
+                 range:  [107.30074,429.56497]        units:  .00001
+         unique values:  3,959                    missing .:  506/4,469
+
+                  mean:   290.709
+              std. dev:   43.3638
+
+           percentiles:        10%       25%       50%       75%       90%
+                           232.211   263.069   294.227   320.793   342.671
+
+. 
+.                 *** Generate Quantile of Cognitive Ability
+.                 egen cogn_rank = rank(pvpsl1) if !missing(pvpsl1) /* Rank of individuals'
+>                                                                      pvpsl1 if known. */
+(506 missing values generated)
+
+.                                                                                                     
+>                     
+.                 egen count_cogn = count(pvpsl1) if !missing(pvpsl1) /* Total number of 
+>                                                                       nomissing observations 
+>                                                                       for pvpsl1. */
+(506 missing values generated)
+
+.         
+.                 *** Percentile Rank 
+.                 gen cogn_samp_pctile  = ((cogn_rank -1) / (count_cogn - 1)) * 100 
+(506 missing values generated)
+
+.                                 
+.                 /*  
+>                 Discussion:  The variable "pvpsl1" is a derived measure of an 
+>                 individuals' problem solving ability.  The variable is stored as a 
+>                 numeric variable in Stata and there are 506 missing observations. 
+>                 */
+.                 
+. **** Question 3:  Dependent Variable (Monthly Earnings Quintile)
+.         codebook monthlyincpr // View storage format of variable 'earnhrbonus' //
+
+------------------------------------------------------------------------------------------------------
+monthlyincpr                                                                              MONTHLYINCPR
+------------------------------------------------------------------------------------------------------
+
+                  type:  numeric (byte)
+
+                 range:  [1,6]                        units:  1
+         unique values:  6                        missing .:  1,236/4,469
+
+            tabulation:  Freq.  Value
+                           449  1
+                            84  2
+                           879  3
+                           749  4
+                           613  5
+                           459  6
+                         1,236  .
+
+.         
+.         *** Explore 'Employment Status'
+.         codebook monthlyincpr
+
+------------------------------------------------------------------------------------------------------
+monthlyincpr                                                                              MONTHLYINCPR
+------------------------------------------------------------------------------------------------------
+
+                  type:  numeric (byte)
+
+                 range:  [1,6]                        units:  1
+         unique values:  6                        missing .:  1,236/4,469
+
+            tabulation:  Freq.  Value
+                           449  1
+                            84  2
+                           879  3
+                           749  4
+                           613  5
+                           459  6
+                         1,236  .
+
+. 
+.         recode monthlyincpr (1 = 5) (2 = 17.5) (3 = 37.5) (4 = 62.5) (5 = 82.5) ///
+>                 (6 = 95), gen(income_pctile)
+(3233 differences between monthlyincpr and income_pctile)
+
+.         
+.         * Alternate recode
+. //      gen income_pctile = .
+. //      replace income_pctile = 5 if (monthlyincpr == 1 & !missing(monthlyincpr))
+. //      replace income_pctile = 17.5 if (monthlyincpr == 2 & !missing(monthlyincpr))
+. //      replace income_pctile = 37.5 if (monthlyincpr == 3 & !missing(monthlyincpr))
+. //      replace income_pctile = 62.5 if (monthlyincpr == 4 & !missing(monthlyincpr))
+. //      replace income_pctile = 82.5 if (monthlyincpr == 5 & !missing(monthlyincpr))
+. //      replace income_pctile = 95 if (monthlyincpr == 6 & !missing(monthlyincpr))
+.         
+.         replace income_pctile = 0 if c_d05 ==2 // Assign value of 0 for unemployed.
+(209 real changes made)
+
+.         
+.         drop if c_d05 ==3 | c_d05 == 4 // Drop if not in labor market or unknown.
+(905 observations deleted)
+
+.         
+.         codebook income_pctile // Check number of missing values of new var.
+
+------------------------------------------------------------------------------------------------------
+income_pctile                                                    RECODE of monthlyincpr (MONTHLYINCPR)
+------------------------------------------------------------------------------------------------------
+
+                  type:  numeric (float)
+
+                 range:  [0,95]                       units:  .1
+         unique values:  7                        missing .:  122/3,564
+
+            tabulation:  Freq.  Value
+                           209  0
+                           449  5
+                            84  17.5
+                           879  37.5
+                           749  62.5
+                           613  82.5
+                           459  95
+                           122  .
+
+.         
+.         /*
+>         Discussion:  The number missing observations for "monthlyincpr" is  1,236.  
+>         The number of missing observations for the revised measure is 122.
+>         */
+.         
+. *** Question 4:  Regression Analysis
+.         *** 4a:  Regress Income Rank on Cognitive Ability, Potential Experience, and Female Gender
+.         reg income_pctile cogn_samp_pctile potent_exper i.female if ///
+>                 ((age >= 30) & (age <= 65))
+
+      Source |       SS           df       MS      Number of obs   =     2,451
+-------------+----------------------------------   F(3, 2447)      =    149.75
+       Model |  314365.533         3  104788.511   Prob > F        =    0.0000
+    Residual |  1712304.16     2,447  699.756503   R-squared       =    0.1551
+-------------+----------------------------------   Adj R-squared   =    0.1541
+       Total |   2026669.7     2,450  827.212121   Root MSE        =    26.453
+
+----------------------------------------------------------------------------------
+   income_pctile |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
+-----------------+----------------------------------------------------------------
+cogn_samp_pctile |   .3391429   .0199983    16.96   0.000     .2999276    .3783583
+    potent_exper |   .4132204   .0588681     7.02   0.000     .2977839    .5286569
+        1.female |  -12.38118   1.071982   -11.55   0.000    -14.48327   -10.27909
+           _cons |   37.81954   2.311408    16.36   0.000     33.28702    42.35206
+----------------------------------------------------------------------------------
+
+.                 /* 
+>                    Note:  A more concise way to write the condition for age in this
+>                    interval is to use the command inrange as follows (I will use
+>                    inrange in the remainder of the solution). 
+>                    
+>                    Additionally, an alternative to use any 'if' condition in the
+>                    regression whatsoever would be the command: 
+>                    "keep if inrange(age, 30,65)" but deleting observations outside this 
+>                    range is both unnecessary and would make things more difficult if you 
+>                    want to do further analysis on the full sample. */
+. 
+.         
+.         reg income_pctile cogn_samp_pctile potent_exper i.female if ///
+>                 inrange(age, 30, 65)
+
+      Source |       SS           df       MS      Number of obs   =     2,451
+-------------+----------------------------------   F(3, 2447)      =    149.75
+       Model |  314365.533         3  104788.511   Prob > F        =    0.0000
+    Residual |  1712304.16     2,447  699.756503   R-squared       =    0.1551
+-------------+----------------------------------   Adj R-squared   =    0.1541
+       Total |   2026669.7     2,450  827.212121   Root MSE        =    26.453
+
+----------------------------------------------------------------------------------
+   income_pctile |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
+-----------------+----------------------------------------------------------------
+cogn_samp_pctile |   .3391429   .0199983    16.96   0.000     .2999276    .3783583
+    potent_exper |   .4132204   .0588681     7.02   0.000     .2977839    .5286569
+        1.female |  -12.38118   1.071982   -11.55   0.000    -14.48327   -10.27909
+           _cons |   37.81954   2.311408    16.36   0.000     33.28702    42.35206
+----------------------------------------------------------------------------------
+
+. 
+.                 /*
+>                 Discussion:  
+>                 
+>                 The coefficient on cogn_samp_pctile implies that a one percentile 
+>                 increase in cognitive ability is estimated to shift an individual's percentile 
+>                 of earnings up by .3391429 (that is, .3391429 percentage points if 
+>                 percentile is expressed on a 0-1 scale).
+>                 
+>                 The coefficient on  potent_exper implies that a one year increase in
+>                 potential experience is estimated to increase ones' percentile 
+>                 of earnings by .4132204 percentage points.
+>                 
+>                 The coefficient on female suggests that being female is estimated to 
+>                 increase the percentile of income by 12.38118 percentage points, 
+>                 compared to being a male.
+>                 
+>                 The constant estimate suggests that that the predicted percentile
+>                 of income for a male (female = 0) with 0 years of potential experience 
+>                 and in the 0th percentile of cognitive ability is the 37th percentile.
+>                 */
+.         
+.         
+.         *** 4b: Add Exper^2 and Age
+.         reg income_pctile cogn_samp_pctile c.potent_exper##c.potent_exper ///
+>                 i.female age if inrange(age, 30, 65)
+note: age omitted because of collinearity
+
+      Source |       SS           df       MS      Number of obs   =     2,451
+-------------+----------------------------------   F(4, 2446)      =    122.42
+       Model |  338057.281         4  84514.3203   Prob > F        =    0.0000
+    Residual |  1688612.41     2,446   690.35667   R-squared       =    0.1668
+-------------+----------------------------------   Adj R-squared   =    0.1654
+       Total |   2026669.7     2,450  827.212121   Root MSE        =    26.275
+
+-----------------------------------------------------------------------------------------------
+                income_pctile |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
+------------------------------+----------------------------------------------------------------
+             cogn_samp_pctile |   .3331509   .0198898    16.75   0.000     .2941482    .3721535
+                 potent_exper |   2.324822   .3315113     7.01   0.000     1.674751    2.974894
+                              |
+c.potent_exper#c.potent_exper |  -.0343134   .0058574    -5.86   0.000    -.0457993   -.0228275
+                              |
+                     1.female |   -12.5878   1.065342   -11.82   0.000    -14.67687   -10.49874
+                          age |          0  (omitted)
+                        _cons |   14.84099   4.544964     3.27   0.001     5.928615    23.75337
+-----------------------------------------------------------------------------------------------
+
+. 
+.         /*
+>                 Discussion:
+>                 
+>                 Age:  The age variable is omitted.  If you look at the top of the
+>                 regression output, it notes that age is omitted because of
+>                 collinearity (Stata automatically detects perfect collinearity and drops
+>                 one of the collinear variables.  Age here is a linear function of potential
+>                 experience and the constant, since age = potentexper + 19. This is a violation 
+>                 of the MLR Assumption 3, which is simply "no perfect collinearity."
+>                 
+>                 Square of Potential Experience:  The quadratic of experience is
+>                 negative and significant.  This indicates that the benefit of an
+>                 additional year of experience is diminishing as the years of 
+>                 experience one already has increases.  Omission of a relevant quadratic 
+>                 term like this is a common example of the mispecification of functional
+>                 form that is a violation of MLR Assumption 4 (zero conditional mean) for 
+>                 estimating the true model. 
+>                 
+>                 R^2:  The R^2 in the second model is higher than the first (0.1668 as
+>                 opposed to 0.1551), indicating adding the square of experience increases
+>                 the total amount of explained variation in income percentile.  R^2 will
+>                 never decrease with the addition of subsequent variables.  To see this,
+>                 note that R^2= 1 - (Sum of Squared Residuals / Total Sum of Squares).
+>                 Everything except the Sum of Squared Residuals are the same across
+>                 the two models, and since the second model contains all predictors from
+>                 the firt model, the sum of squared residuals will be no greater than in
+>                 the first model.
+>                 
+>         */
+.         
+.         *** 4c: Compare School Years vs Cognitive Ability
+.         reg income_pctile cogn_samp_pctile potent_exper i.female if inrange(age, 30, 65)
+
+      Source |       SS           df       MS      Number of obs   =     2,451
+-------------+----------------------------------   F(3, 2447)      =    149.75
+       Model |  314365.533         3  104788.511   Prob > F        =    0.0000
+    Residual |  1712304.16     2,447  699.756503   R-squared       =    0.1551
+-------------+----------------------------------   Adj R-squared   =    0.1541
+       Total |   2026669.7     2,450  827.212121   Root MSE        =    26.453
+
+----------------------------------------------------------------------------------
+   income_pctile |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
+-----------------+----------------------------------------------------------------
+cogn_samp_pctile |   .3391429   .0199983    16.96   0.000     .2999276    .3783583
+    potent_exper |   .4132204   .0588681     7.02   0.000     .2977839    .5286569
+        1.female |  -12.38118   1.071982   -11.55   0.000    -14.48327   -10.27909
+           _cons |   37.81954   2.311408    16.36   0.000     33.28702    42.35206
+----------------------------------------------------------------------------------
+
+.         scalar R2model4a = e(r2_a)      // Save R^2 as a scalar.  (Also in reg output)
+
+.         
+.         reg income_pctile yearsch potent_exper i.female if inrange(age, 30, 65)
+
+      Source |       SS           df       MS      Number of obs   =     2,727
+-------------+----------------------------------   F(3, 2723)      =    165.66
+       Model |  366723.701         3  122241.234   Prob > F        =    0.0000
+    Residual |   2009262.6     2,723  737.885642   R-squared       =    0.1543
+-------------+----------------------------------   Adj R-squared   =    0.1534
+       Total |   2375986.3     2,726  871.601725   Root MSE        =    27.164
+
+------------------------------------------------------------------------------
+income_pct~e |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+     yearsch |   4.009879   .2173342    18.45   0.000     3.583722    4.436035
+potent_exper |   .1575075   .0536649     2.94   0.003     .0522795    .2627354
+    1.female |  -15.24822   1.048829   -14.54   0.000     -17.3048   -13.19164
+       _cons |   8.157888   3.436421     2.37   0.018     1.419632    14.89614
+------------------------------------------------------------------------------
+
+.         scalar R2model4c = e(r2_a) // Save R^2 as a scalar.  (Also in reg output)
+
+. 
+.         display R2model4a - R2model4c /* Displays difference in R^2 output. Note: For 
+>                                          the assigmnent, you could just compare them
+>                                          from the regression output of each model. */
+.00066432
+
+.         
+.         /*
+>         Discussion:  
+>         
+>         The two models perform nearly identically, with the 
+>         regression model from 4(a) explaining .066432% more of the variation in 
+>         income quintiles.  
+>         
+>         (Not graded) Potential Problems with Either Model: 
+>         The two models preview common challenges in applied econometrics we will 
+>         discuss in subsequent lectures.  As you can see from the covariance matrix 
+>         below, Cov(cogn_samp_pctile, yearsch) is not equal to zero, and both appear 
+>         likely to affect incomes, implying omitted variable bias (i.e. a violation 
+>         of MLR Assumption 4).  One response would be to control for both cognitive
+>         ability and schooling.  But this brings up an issue from Ch.3: endogeneity. 
+>         The basic idea is that OLS is biased if you include explanatory variables 
+>         that are caused by other variables in the model.  If cognitive ability 
+>         increases years of schooling, then years of schooling is endogenous when you 
+>         both are in the model. Equally, one might imagine that, as individual gains 
+>         more years of schooling, their cognitive ability increases.  If this is
+>         true, cognitive ability is also endogenous to schooling (when two variables
+>         causally influence each other, this is a particular type of endogenity called
+>         simultaneity). 
+>         
+>         */
+. 
+.         correlate cogn_samp_pctile yearsch, covariance
+(obs=3,236)
+
+             | cogn_s~e  yearsch
+-------------+------------------
+cogn_samp_~e |  831.174
+     yearsch |  23.2517  5.44831
+
+
+. 
+.         
+. **** Extra Question for three person groups
+.         
+.         **** Question 5(a) Explore Structure of the variable "g_q03h" - which is
+.         ** 'Skill use work - Numeracy - How often - Use advanced math or statistics'
+.         codebook g_q03h
+
+------------------------------------------------------------------------------------------------------
+g_q03h                                                                                          G_Q03h
+------------------------------------------------------------------------------------------------------
+
+                  type:  string (str1)
+
+         unique values:  9                        missing "":  0/3,564
+
+            tabulation:  Freq.  Value
+                         2,851  "1"
+                           372  "2"
+                           131  "3"
+                            77  "4"
+                            33  "5"
+                             7  "D"
+                             1  "N"
+                             1  "R"
+                            91  "V"
+
+.         
+.                 /* 
+>                         From looking at 'math use at work' with the codebook command, we
+>                         see that this variable takes on only 9 unique values, meaning that
+>                         all values are displayed by Codebook.  From this, we can see right
+>                         away that we have the following 'Missing value' indicators that need
+>                         to be relabelled: 'D', 'N', 'R', and 'V'.
+>                 */
+.         
+.         **** Question 5(b) Suitably reformat g_q03h and provide the mean and
+.         **** standard deviation using the original vaue scheme.
+. 
+.                 *** Recode Missing Values for g_q03h
+.                 replace g_q03h = ".d" if g_q03h=="D"
+variable g_q03h was str1 now str2
+(7 real changes made)
+
+.                 replace g_q03h = ".n" if g_q03h=="N"
+(1 real change made)
+
+.                 replace g_q03h = ".r" if g_q03h=="R"
+(1 real change made)
+
+.                 replace g_q03h = ".v" if g_q03h=="V"
+(91 real changes made)
+
+.         
+.                 *** Convert g_q03h to a numeric variable by destringing
+.                 destring g_q03h, replace
+g_q03h: all characters numeric; replaced as byte
+(100 missing values generated)
+
+.                 
+.                 *** Produce summary statistics for g_q03h using original coding of
+.                 *** use frequencies
+.                 summarize g_q03h
+
+    Variable |        Obs        Mean    Std. Dev.       Min        Max
+-------------+---------------------------------------------------------
+      g_q03h |      3,464    1.287818    .7269503          1          5
+
+.                 
+.                 /*
+>                         The mean (pre-transformation) of this variable is 1.287818 and the
+>                         standard deviation is 0.7269503.
+>                 */
+.         
+.         **** Question 5(c) - Recode g_q03h so that the values represents number of 
+.         *** times each month an individual uses advanced math or statistics at work
+.                 recode g_q03h (1 = 0) (1 = 0.5) (3 = 2.5) (4 = 12) (5 = 20) ///
+>                                 , gen(mathuseatwork)
+(3092 differences between g_q03h and mathuseatwork)
+
+.                 
+.                 /*      
+>                         This question highlights a common problem in applied work, which is
+>                         that survey data often uses an ordinal or interval approach to
+>                         asking retrospectative information.  You as the researcher must then
+>                         decide how to make that interpretable numerically and justify it.
+>                         
+>                         In assigning values here myself, I assume that individuals work
+>                         4 5-day work weeks per month, for a total of 20 work days. So if an
+>                         individual reports they use math at work "everyday," (5 in the old
+>                         schema) that equates to 20 days per month.
+>                         
+>                         "Never" (1 in original coding) is straightforwardly represented as
+>                         0 times per month.  
+>                         
+>                         For less than once a month (1), I code this as
+>                         as the midpoint between 0 and 1, i.e. 0.5 days per month. 
+>                         
+>                         For less than once a week but at least once a month (3), this
+>                         should be less than four (i.e. at most 3) according to my 
+>                         assumptions about a 4 week work month, but greater than 1.  I again
+>                         use the midpoint of (1,3), that is is 2.5 days per month.
+>                         
+>                         For at least once a week but not every day (4), this again should be
+>                         less than 20 but less than 4.  So once again taking the midpoint of
+>                         (4,20), I code this as 12 days per month.
+>                 */              
+.                                 
+.                 **** Summarize recoded math use at work variable                
+.                 summarize mathuseatwork
+
+    Variable |        Obs        Mean    Std. Dev.       Min        Max
+-------------+---------------------------------------------------------
+mathuseatw~k |      3,464    .7665993    2.663051          0         20
+
+. 
+.                 /*
+>                         The mean of the variable after transforming it to be more directly
+>                         interpretable is .7665993  and the standard deviation is 2.663051.
+>                 */
+.         
+.         **** Question 5(d) - Regressions relating to a math use at work -> cognitive
+.         **** ability -> income pathwawy.
+.                 
+.                 *** Question 5(d)(i) Regression of Cognitive Ability on math use at work
+.                 reg cogn_samp_pctile mathuseatwork if (inrange(age, 30, 65) & (c_d05==1)) 
+
+      Source |       SS           df       MS      Number of obs   =     2,436
+-------------+----------------------------------   F(1, 2434)      =     66.80
+       Model |  54148.3048         1  54148.3048   Prob > F        =    0.0000
+    Residual |     1973109     2,434  810.644616   R-squared       =    0.0267
+-------------+----------------------------------   Adj R-squared   =    0.0263
+       Total |   2027257.3     2,435  832.549199   Root MSE        =    28.472
+
+-------------------------------------------------------------------------------
+cogn_samp_p~e |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
+--------------+----------------------------------------------------------------
+mathuseatwork |   1.723182   .2108404     8.17   0.000     1.309736    2.136627
+        _cons |   46.61091    .604462    77.11   0.000      45.4256    47.79623
+-------------------------------------------------------------------------------
+
+.                 
+.                 *** Question 5(d)(ii)Regression of Earnings Pctile on Cognitive Ability
+.                 reg income_pctile cogn_samp_pctile if (inrange(age, 30, 65) & (c_d05==1)) 
+
+      Source |       SS           df       MS      Number of obs   =     2,372
+-------------+----------------------------------   F(1, 2370)      =    221.39
+       Model |  148408.939         1  148408.939   Prob > F        =    0.0000
+    Residual |  1588709.09     2,370   670.34139   R-squared       =    0.0854
+-------------+----------------------------------   Adj R-squared   =    0.0850
+       Total |  1737118.03     2,371   732.65206   Root MSE        =    25.891
+
+----------------------------------------------------------------------------------
+   income_pctile |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
+-----------------+----------------------------------------------------------------
+cogn_samp_pctile |   .2753122   .0185031    14.88   0.000     .2390283     .311596
+           _cons |   48.22926   1.040668    46.34   0.000     46.18855    50.26998
+----------------------------------------------------------------------------------
+
+.                 
+.                 *** Question 5(d)(iii) Regression of Earnings Pctile on math use at work
+.                 reg income_pctile mathuseatwork if (inrange(age, 30, 65) & (c_d05==1)) 
+
+      Source |       SS           df       MS      Number of obs   =     2,609
+-------------+----------------------------------   F(1, 2607)      =     82.45
+       Model |  60710.6835         1  60710.6835   Prob > F        =    0.0000
+    Residual |  1919661.01     2,607  736.348681   R-squared       =    0.0307
+-------------+----------------------------------   Adj R-squared   =    0.0303
+       Total |  1980371.69     2,608  759.344975   Root MSE        =    27.136
+
+-------------------------------------------------------------------------------
+income_pctile |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
+--------------+----------------------------------------------------------------
+mathuseatwork |   1.811131   .1994614     9.08   0.000     1.420012    2.202249
+        _cons |   58.28769   .5558673   104.86   0.000     57.19771    59.37768
+-------------------------------------------------------------------------------
+
+.                 
+.                 /*
+>                         Discussion:
+>                         
+>                         Regression 5(d)(i) suggests that for each additional day per month
+>                         that an individual uses advanced math at work, their percentile of
+>                         cognitive ability increases by  1.723182, which is statistically 
+>                         significant (p-value < 0.01).  It's not immediately required for 
+>                         this question, but you may note that these estimates seem almost 
+>                         implausibly high - as we will discuss further in 5(f).
+>                         
+>                         Regression 5(d)(ii), like analysis in question 4, suggests that
+>                         cognitive ability has a positive impact on earning, with a
+>                         1 percentile increase in positive ability estimated to increase
+>                         earnings percentile by 0.2753122, which is statistically 
+>                         significant (p-value < 0.01). If both this relationship and the
+>                         relationship from 5(d)(i) are indeed correct, then math use at
+>                         work should have a direct effect on earnings percentile via this
+>                         pathway.
+>                         
+>                         Regression 5(d)(iii) estimates that cognitive ability does indeed
+>                         have an effect earnings percentile - in fact even larger than the
+>                         estimated effect through the cognitive ability - earnings pathway.
+>                         An increase in math use of work by once a month is estimated to
+>                         increase earnings percentile by  1.811131, which is statistically 
+>                         significant (p-value < 0.01).  Again, these results are implausibly
+>                         high - raising the spector of reverse cauality / endogeneity and
+>                         foreshadowing 5(f).
+>                 */
+.                 
+. 
+.         **** Question 5(e) - Regressions relating to an erroneous math use at work 
+.         **** -> years of schooling -> income pathway.
+.         
+.                 *** Question 5(e)(i) Regression of years of schooling on math use at work 
+.                 reg yearsch mathuseatwork  if (inrange(age, 30, 65) & (c_d05==1)) 
+
+      Source |       SS           df       MS      Number of obs   =     2,699
+-------------+----------------------------------   F(1, 2697)      =     92.68
+       Model |  531.014066         1  531.014066   Prob > F        =    0.0000
+    Residual |  15452.2219     2,697  5.72941118   R-squared       =    0.0332
+-------------+----------------------------------   Adj R-squared   =    0.0329
+       Total |   15983.236     2,698  5.92410527   Root MSE        =    2.3936
+
+-------------------------------------------------------------------------------
+      yearsch |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
+--------------+----------------------------------------------------------------
+mathuseatwork |   .1647676   .0171149     9.63   0.000      .131208    .1983273
+        _cons |   12.83879   .0481801   266.47   0.000     12.74431    12.93326
+-------------------------------------------------------------------------------
+
+.                 
+.                 *** Question 5(e)(i) Regression of income percentile on years of schooling
+.                 reg income_pctile yearsch  if (inrange(age, 30, 65) & (c_d05==1)) 
+
+      Source |       SS           df       MS      Number of obs   =     2,612
+-------------+----------------------------------   F(1, 2610)      =    241.93
+       Model |  168142.737         1  168142.737   Prob > F        =    0.0000
+    Residual |  1813992.45     2,610  695.016266   R-squared       =    0.0848
+-------------+----------------------------------   Adj R-squared   =    0.0845
+       Total |  1982135.19     2,611  759.147909   Root MSE        =    26.363
+
+------------------------------------------------------------------------------
+income_pct~e |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+     yearsch |   3.305584   .2125233    15.55   0.000     2.888852    3.722315
+       _cons |   16.83114   2.810066     5.99   0.000     11.32095    22.34132
+------------------------------------------------------------------------------
+
+. 
+.         /*
+>                         Discussion:
+>                         
+>                         Regression 5(e)(i) estimates that math use at work
+>                         has a positive, statistically significant effect on years of
+>                         schooling.  Regression 5(e)(ii) then suggests that years
+>                         of schooling has a positive, statistically significant effect on
+>                         earnings percentile.  
+>                         
+>                         This would point to a second causal pathway
+>                         for math use at work to effect earnings, but thinking about
+>                         regression 5(e)(i) - it doesn't make any sense under our assumptions.
+>                         If schooling strictly predates math use at work, then math use at
+>                         work cannot effect schooling.  Instead, what we very likely have is
+>                         reverse causality - an individual's schooling instead affects their 
+>                         math use at work.  To see that a coefficient will be different from
+>                         zero when the true relationship runs in reverse of what is estimated,
+>                         consider the expression for Beta in terms of the sample correlation
+>                         and standard deviations:
+>                            
+>                             - For regression of y on x, the coefficient on x is:
+>                                                 beta_x = Corr(x,y) * (StdDev_x / StdDev_y)
+>                             - And for the regression of x on y, the coefficient on y is:
+>                                                 beta_y = Corr(x,y) * (StdDev_y / StdDev_x)
+>                         
+>                         Since the fraction (StdDev_y / StdDev_x) and it's inverse are always
+>                         strictly positive, then for nonzero Corr(x,y), running regression
+>                         in the 'wrong' direction (from y to x) will always yield a nonzero 
+>                         coefficient with the same sign as the effect in the right direction
+>                         (from x to y).
+>                                                 
+>                         To demonstrate this argument, we run a regression interchanging
+>                         our dependent and independent variables in 5(e)(i).
+>                         
+>                 */
+.         
+.         *** Demonstrating that regression can't tell us the direction of causality
+.                 reg mathuseatwork yearsch
+
+      Source |       SS           df       MS      Number of obs   =     3,463
+-------------+----------------------------------   F(1, 3461)      =    128.98
+       Model |  882.317455         1  882.317455   Prob > F        =    0.0000
+    Residual |  23676.1402     3,461  6.84083798   R-squared       =    0.0359
+-------------+----------------------------------   Adj R-squared   =    0.0356
+       Total |  24558.4577     3,462  7.09371973   Root MSE        =    2.6155
+
+------------------------------------------------------------------------------
+mathuseatw~k |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+     yearsch |   .2095326   .0184499    11.36   0.000     .1733588    .2457063
+       _cons |  -1.910755   .2399203    -7.96   0.000    -2.381155   -1.440355
+------------------------------------------------------------------------------
+
+. 
+.         **** Question 5(f) - Inference from 5(d) in light of 5(e)
+.         
+.         /*
+>                         Discussion:
+>                         In 5(e), we see a rather stark case where causality cannot run in
+>                         the direction estimated by OLS, where math use at work is estimated
+>                         to increase years of schooling that predates work.
+>                         
+>                         This same concern is likely to extend to the relationship in 5(d).
+>                         Individuals with higher cognitive ability are probably more likely
+>                         to work in jobs with greater use of advanced math.  In general, 
+>                         there is likely to be the same issue of simultaneity in the 
+>                         relationship between math use at work and congitive ability.  
+>                         
+>                         Generally, this question highlights the difficulty in finding good
+>                         variables where there is no concern about OVB or reverse cauality.
+>                         
+>                         Specifically, extending the logic from 5(d), it seems reasonable to 
+>                         believe that higher paying jobs may often require greater use of
+>                         mathematics - irrespective of someone's aptitude or qualifications.  
+>                         Hence, rather than higher math use 'causing' higher earnings, higher 
+>                         earnings in these situations would be 'causing' more math use.  But
+>                         since more math use might actually have the effect we originally
+>                         hypothesized - increasing congitive ability and thereby leading to
+>                         greater earnings - it's hard to disentangle these two effects.
+>                         
+>                         The potentially problematic nature of the relationship between math 
+>                         use at work and cognitive abiltiy highlights another possible
+>                         challenge to the regression we have specified in 4(a):  while
+>                         cognitive ability is likely to influence earnings, earnings may also
+>                         be affecting the measurement of cognitive ability through higher 
+>                         math use at better paid jobs.
+>         
+>                         Note:  Questions 5 is meant to get at the questions of
+>                         reverse causality and simultaneity more in-depth.  The timing of
+>                         effects problem in 5(e) is meant especially to highlight that
+>                         causality can't run in the direction specified.  But it is also 
+>                         possible to make a critique centered entirely around more typical 
+>                         ommited variable bias (OVB).  Students who don't address reverse 
+>                         causality but instead make a clear and well-reasoned analysis to 
+>                         this question using OVB will still earn full credit.
+>                 */
+. *****
+. log close _all
+      name:  <unnamed>
+       log:  C:\Users\AN.4271\Dropbox\HHS 651\Assignments\Assignment 1\assignment1log.log
+  log type:  text
+ closed on:  13 Sep 2017, 23:18:42
+------------------------------------------------------------------------------------------------------
