@@ -15,6 +15,7 @@ citecolor: blue
 ### **Empirical Economics (SSE Bachelors Course 651) - 2017**
 
 <br>
+<div class = "col-xs-11 col-md-12">
 
 #### **Slides**
 
@@ -27,9 +28,12 @@ citecolor: blue
   <a href="https://andrewproctor.github.io/assets/StataSeminar4.pdf" 
   style="color:blue;">Instrumental Variables Regression (Stata Seminar IV)</a>
 <br><br>
+</div>
 
 <div class = "row">
-<div class = "col-md-6 col-xs-6 col-sm-6">
+<div class = "col-md-6">
+<div class = "col-xs-1 col-md-0"></div>
+<div class = "col-xs-11 col-md-12">
 
 #### **Assignments**
 
@@ -50,8 +54,10 @@ citecolor: blue
 
 <br>
 
-</div
-<div class = "col-md-6 col-xs-6 col-sm-6">
+</div></div>
+<div class = "col-md-6">
+<div class = "col-xs-1 col-md-0"></div>
+<div class = "col-xs-11 col-md-12">
 
 #### **Case-Based Seminars**
 
@@ -64,11 +70,13 @@ citecolor: blue
 <br>
 <br>
 
-</div>
+</div></div>
 
 ### **Empirical Economics - 2018 (Second Half)**
 
 <br>
+
+<div class = "col-xs-11 col-md-12">
 
 #### **Slides**
 
@@ -79,10 +87,11 @@ citecolor: blue
   **IV Seminar Supplement --- **   Correcting standard errors when doing IV regression by hand:  <a href="https://andrewproctor.github.io/assets/Correcting_SE.do" style="color:blue;"> Do File </a>
 
 <br>
-
+</div>
 <div class = "row">
-<div class = "col-md-6 col-xs-6 col-sm-6">
-
+<div class = "col-md-6">
+<div class = "col-xs-1 col-md-0"></div>
+<div class = "col-xs-11 col-md-12">
 #### **Seminar Exercises**
 
 **Panel Methods**: <a href="https://andrewproctor.github.io/assets/panel_exercise_2018_instructions.pdf" style="color:blue;">Instructions</a> | 
@@ -93,10 +102,13 @@ citecolor: blue
 **Instrumental Variables**: <a href="https://andrewproctor.github.io/assets/IV_exercise_instructions.pdf" style="color:blue;">Instructions</a> | 
   <a href="https://andrewproctor.github.io/assets/IV_exercise_solutions.do" style="color:blue;">Do File</a> | 
   <a href="https://andrewproctor.github.io/assets/IV_exercise_solutions_log.txt" style="color:blue;">Log File</a> 
+  
+<br>
 
-</div
-<div class = "col-md-6 col-xs-6 col-sm-6">
-
+</div></div>
+<div class = "col-md-6">
+<div class = "col-xs-1 col-md-0"></div>
+<div class = "col-xs-11 col-md-12">
 #### **Assignments**
 
 **Panel Methods**: <a href="https://andrewproctor.github.io/assets/panel_assignment_2018_instructions.pdf" style="color:blue;">Instructions</a> | 
@@ -113,7 +125,7 @@ citecolor: blue
 
 <br>
 <br>
-
+</div>
 </div>
 
 ### **Intro to Data Science in R (SSE Masters Course 7316)**
