@@ -49,7 +49,7 @@ citecolor: blue
 **Assignment 3**: <a href="https://andrewproctor.github.io/assets/Assignment-3.pdf" style="color:teal;">Instructions</a> | 
   <a href="https://andrewproctor.github.io/assets/Assignment-3-Theory-Solutions.pdf" style="color:teal;">Theory Solutions</a> | 
   <a href="https://andrewproctor.github.io/assets/Assignment-3-do-file.pdf" style="color:teal;">Do File</a> | 
-  <a href="https://andrewproctor.github.io/assets/Assignment-3-log-file.txt" style="color:teal;">Log File</a>
+  <a href="https://andrewproctor.github.io/assets/Assignment-3-log-file.pdf" style="color:teal;">Log File</a>
 
 <br>
 
