@@ -29,7 +29,7 @@ citecolor: blue
 <br><br>
 
 <div class = "row">
-<div class = "col-md-6">
+<div class = "col-md-6 col-xs-6 col-sm-6">
 
 #### **Assignments**
 
@@ -51,7 +51,7 @@ citecolor: blue
 <br>
 
 </div
-<div class = "col-md-6">
+<div class = "col-md-6 col-xs-6 col-sm-6">
 
 #### **Case-Based Seminars**
 
@@ -81,7 +81,7 @@ citecolor: blue
 <br>
 
 <div class = "row">
-<div class = "col-md-6">
+<div class = "col-md-6 col-xs-6 col-sm-6">
 
 #### **Seminar Exercises**
 
@@ -95,7 +95,7 @@ citecolor: blue
   <a href="https://andrewproctor.github.io/assets/IV_exercise_solutions_log.txt" style="color:blue;">Log File</a> 
 
 </div
-<div class = "col-md-6">
+<div class = "col-md-6 col-xs-6 col-sm-6">
 
 #### **Assignments**
 

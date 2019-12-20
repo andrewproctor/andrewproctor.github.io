@@ -13,7 +13,7 @@ knitr::opts_chunk$set(echo = FALSE)
 
 
 <div class = "row">
-<div class = "col-md-6">
+<div class = "col-md-6 col-xs-6 col-sm-6">
 <br>
 <img src="handels.jpg" alt="Andrew Proctor">
 
@@ -28,7 +28,7 @@ knitr::opts_chunk$set(echo = FALSE)
 
 
 </div
-<div class = "col-md-6">
+<div class = "col-md-6 col-xs-6 col-sm-6">
 # Hello!
 
 #### My name is Andrew Proctor and I'm a PhD student in economics at the [Stockholm School of Economics](https://www.hhs.se/en/research/departments/de/).####
