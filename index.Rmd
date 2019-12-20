@@ -26,7 +26,7 @@ knitr::opts_chunk$set(echo = FALSE)
 # Hello!
 
 #### My name is Andrew Proctor and I'm a PhD student in economics at the <a href="(https://www.hhs.se/en/research/departments/de/" 
-  style="color:darkblue;">Stockholm School of Economics</a>####
+  style="color:teal;">Stockholm School of Economics</a>####
 
 I am especially interested in applying structural and reduced form 
 methods to explore human capital acquisition and the determinants of labor 
@@ -34,10 +34,10 @@ market inequality.
 
 Since January 2019, I have been a visiting doctoral student at the 
 <a href="(https://www.sofi.su.se/english/" 
-  style="color:darkblue;">Swedish Institute for Social Research (SOFI)</a>
+  style="color:teal;">Swedish Institute for Social Research (SOFI)</a>
 at Stockholm University. I am also currently a visiting doctoral student at 
 <a href="(https://econ.duke.edu/" 
-  style="color:darkblue;">Duke University</a> for the 2019-2020 academic year, with the 
+  style="color:teal;">Duke University</a> for the 2019-2020 academic year, with the 
 support of a grant from the Jan Wallander and Tom Hedelius Foundation. 
 
 Before starting graduate school, I worked briefly in nonprofit and government on 
@@ -71,7 +71,7 @@ community development issues, particularly homelessness.
 <div class = "col-xs-1 col-md-0"></div>
 <div class = "col-xs-11 col-md-12">
 ### Email:  
-<a href = "mailto: andrew.proctor@phdstudent.hhs.se ">andrew.proctor@phdstudent.hhs.se</a>
+<a href = "mailto: andrew.proctor@phdstudent.hhs.se" style="color:teal;">andrew.proctor@phdstudent.hhs.se</a>
 </div>
 </div>
 </div>
