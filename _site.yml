@@ -7,7 +7,7 @@ navbar:
   - text: Teaching
     href: teaching.html
   - text: CV
-    href: assets/CV_AndrewProctor_Dec2019.pdf
+    href: assets/AndrewProctor_CV.pdf
 output:
   html_document:
     theme: flatly
