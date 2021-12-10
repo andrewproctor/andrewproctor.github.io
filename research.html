@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+
+
+<title>Research</title>
+
+<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/bootstrap.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css">
+  pre:not([class]) {
+    background-color: white;
+  }
+</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+<style type="text/css">
+h1 {
+  font-size: 34px;
+}
+h1.title {
+  font-size: 38px;
+}
+h2 {
+  font-size: 30px;
+}
+h3 {
+  font-size: 24px;
+}
+h4 {
+  font-size: 18px;
+}
+h5 {
+  font-size: 16px;
+}
+h6 {
+  font-size: 12px;
+}
+.table th:not([align]) {
+  text-align: left;
+}
+</style>
+
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+code {
+  color: inherit;
+  background-color: rgba(0, 0, 0, 0.04);
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+</style>
+
+
+<style type="text/css">
+/* padding for bootstrap navbar */
+body {
+  padding-top: 51px;
+  padding-bottom: 40px;
+}
+/* offset scroll position for anchor links (for fixed navbar)  */
+.section h1 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h2 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h3 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h4 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h5 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h6 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #ffffff;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script>
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark it active
+  menuAnchor.parent().addClass('active');
+
+  // if it's got a parent navbar menu mark it active as well
+  menuAnchor.closest('li.dropdown').addClass('active');
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  background: white;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "&#xe258;";
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html"></a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="index.html">Home</a>
+</li>
+<li>
+  <a href="research.html">Research</a>
+</li>
+<li>
+  <a href="teaching.html">Teaching</a>
+</li>
+<li>
+  <a href="assets/AndrewProctor_CV.pdf">CV</a>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div class="fluid-row" id="header">
+
+
+
+<h1 class="title toc-ignore">Research</h1>
+
+</div>
+
+
+<p><br /></p>
+<div id="job-market-paper-pdf" class="section level3">
+<h3><strong>Job Market Paper</strong> <a class="btn btn-primary" href="https://andrewproctor.github.io/assets/JMP_AndrewProctor.pdf" role="button">PDF</a></h3>
+<p><em>Did the apple fall far from the tree? Uncertainty and learning about ability with family-informed priors</em></p>
+<p><strong>Abstract:</strong> This paper examines the effect of uncertainty and learning about ability on intergenerational correlations in education and labor market outcomes, when children and their parents utilize family signals to inform initial beliefs about ability. I examine this question by using a cohort study and rich administrative data to estimate a dynamic discrete choice structural model of education and occupational decisions, incorporating multidimensional skills and ability endowments, as well as uncertainty and learning about ability, starting from a family-driven prior.</p>
+<p><br /></p>
+<div id="publications" class="section level4">
+<h4><strong>Publications</strong></h4>
+<div id="crowdsourcing-hypothesis-tests-making-transparent-how-design-choices-shape-research-results-joint-with-landy-et.-al." class="section level5">
+<h5><em>Crowdsourcing hypothesis tests: Making transparent how design choices shape research results</em> (joint with Landy et. al.)</h5>
+<div id="joint-with-landy-et.-al." class="section level6">
+<h6>(joint with Landy et. al.)</h6>
+<p><a class="btn btn-primary" href="https://psycnet.apa.org/doiLanding?doi=10.1037%2Fbul0000220" role="button">Publication</a> <a class="btn btn-primary" href="https://andrewproctor.github.io/assets/Landy-et-al.-2020-PsychologicalBulletin.pdf" role="button">Ungated PDF</a></p>
+<p><strong>Abstract:</strong> To what extent are research results influenced by subjective decisions that scientists make as they design studies? Fifteen research teams independently designed studies to answer five original research questions related to moral judgments, negotiations, and implicit cognition. Participants from 2 separate large samples (total N &gt; 15,000) were then randomly assigned to complete 1 version of each study. Effect sizes varied dramatically across different sets of materials designed to test the same hypothesis: Materials from different teams rendered statistically significant effects in opposite directions for 4 of 5 hypotheses, with the narrowest range in estimates being d = -0.37 to + 0.26. Meta-analysis and a Bayesian perspective on the results revealed overall support for 2 hypotheses and a lack of support for 3 hypotheses. Overall, practically none of the variability in effect sizes was attributable to the skill of the research team in designing materials, whereas considerable variability was attributable to the hypothesis being tested. In a forecasting survey, predictions of other scientists were significantly correlated with study results, both across and within hypotheses. Crowdsourced testing of research hypotheses helps reveal the true consistency of empirical support for a scientific claim.</p>
+<p><br /></p>
+</div>
+</div>
+</div>
+<div id="works-in-progress" class="section level4">
+<h4><strong>Works in Progress</strong> <br /></h4>
+<div id="gender-differences-in-perceived-abilities-and-career-sorting" class="section level5">
+<h5><em>Gender differences in perceived abilities and career sorting</em></h5>
+<div id="joint-with-shubhaa-bhattacharyya-and-patrizia-massner" class="section level6">
+<h6>(joint with Shubhaa Bhattacharyya and Patrizia Massner)</h6>
+<p><strong>Abstract:</strong> Despite the increase in female labor force participation over the last decades, occupations and college majors continue to exhibit high levels of segregation between genders. Do gendered biases in beliefs about abilities affect this career sorting? In this study, we investigate the role of gender differences in self-perceived abilities on human capital investment paths, such as choice of subject in upper secondary schooling and the choice of college major. Using nationally representative panel survey data from the Evaluation Through Follow-Up (ETF) Study in Sweden, we document the presence of large gender-biases in self-perceptions of subject-specific ability by gender. We explore the magnitude and consequences of gender-biased beliefs for career sorting by structurally estimating a dynamic model of human capital investments that incorporates limited information about ability, with ability beliefs that may deviate from rational expectations through biased beliefs. By estimating the structural model using longitudinal ETF survey data matched to Swedish administrative data, we examine the extent to which gender-specific biases in self-perceived abilities can explain educational and occupational sorting in the Swedish labor market.</p>
+<p><br /></p>
+</div>
+</div>
+<div id="bundling-frictions-of-tiebout-choice-in-the-sub-metropolis" class="section level5">
+<h5><em>Bundling Frictions of Tiebout Choice in the sub-Metropolis </em></h5>
+<p><strong>Abstract:</strong> Tiebout choice assumes that there exists a sufficient number of communities in a housing market to allow each household to choose a residence that matches their preferences for residential characteristics, which in the simplest versions of the Tiebout model consists of only preferences for public goods. In practice, the residential choice decision bundles a number of residential characteristics over which households have preferences, including public goods like schooling, but also the quality and type of housing, the composition of one’s neighbors (and students’ peers), the distance from work, and many other attributes still. This diverse array of considerations implies that the requisite number of communities in order for a household to obtain its desired bundle may be very large — a condition perhaps approximated only in large urban metropolises. This paper considers the extent to which departures from this assumption affect allocative efficiency and welfare in smaller housing markets. This question is analyzed by first estimating an equilibrium sorting model of the housing market for several markets of varying sizes. Counterfactual analysis then characterizes the welfare costs of bundling schooling quality with non-schooling amenities, both across market sizes and by household type within a given market size.</p>
+<p><br /></p>
+</div>
+<div id="a-modified-klein-spady-estimator-for-binary-choice-models" class="section level5">
+<h5><em>A Modified Klein-Spady Estimator for Binary Choice Models</em></h5>
+<p><strong>Abstract:</strong> One of the most cited studies within the field of binary choice models is that of Klein and Spady (1993), in which a semiparametric estimator is proposed that makes no assumption concerning the functional form of the choice probability function. However, although theoretically appealing, the estimator has been found to be difficult to implement. This paper proposes a modified version of the Klein-Spady estimator, which is shown to be relatively easy to implement, is numerically more stable and performs better in simulations relative to the Klein-Spady estimator.</p>
+<p><br /></p>
+</div>
+<div id="careers-of-the-extremely-intelligent" class="section level5">
+<h5><em>Careers of the Extremely Intelligent</em></h5>
+<div id="joint-with-erik-lindqvist-and-jonas-vlachos" class="section level6">
+<h6>(joint with Erik Lindqvist and Jonas Vlachos)</h6>
+<p><strong>Abstract:</strong> Does it pay to be a genius? Vast parallel literatures have documented both the importance of cognitive skill for labor market outcomes, as well as the rise in ‘’superstar’’ top earners in an increasingly polarized skill environment. Yet little is known about the returns to extreme levels of cognitive skill, nor how labor market outcomes have evolved for the extremely intelligent. The paucity of studies is arguably due to lack of adequate data: Because, almost by definition, only a small fraction of the population has very high cognitive skill, most datasets used in the literature are too small to allow precise estimation of how outcomes change at the high end of the cognitive skill distribution. In this paper, we use data from aptitude tests performed as part of universal military conscription in Sweden to study the relationship between labor market outcomes and cognitive skill. Our data set includes information on cognitive skills for more than 1 million men born between 1951 and 1975. Using this data, we find that although returns to cognitive ability are monotonically increasing and slightly convex for scores up to approximately +2 standard deviations, marginal returns began to fall and eventually become negative. We further provide preliminary evidence about the reasons for these decreasing returns to cognitive skill.</p>
+<p><br /></p>
+</div>
+</div>
+<div id="socio-economic-background-and-beliefs-about-the-consumption-value-of-education" class="section level5">
+<h5><em>Socio-economic background and beliefs about the consumption value of education</em></h5>
+<div id="joint-with-arnaud-maurel" class="section level6">
+<h6>(joint with Arnaud Maurel)</h6>
+<p><strong>Abstract:</strong> Recent work has emphasized that education and career decisions are decided not only on the basis of expected financial returns, but also criticically depend on the expected non-pecuniary enjoyment derived from these choices. Yet nearly all such analyses have treated the non-pecuniary consumption value of choices as known ex-ante by the agent, when in practice many of these components are not directly observable. Both the content and precision of these beliefs thus may depend on whether the agent has role models or peers that have experience with a prospective choice, and if so, what these experiences were like. This study examines how beliefs about non-pecuniary aspects of future educational decisions vary by socio-economic background, how these beliefs evolve, and how closely these beliefs correspond to subsequent experiences. This analysis is performed using detailed longitudinal data on students’ educational experiences and elicited beliefs about future educational experiences for a large sample of Swedish youth. Structural analysis will then consider how heterogeneous and potentially mispecified beliefs about the non-pecuniary enjoyment of education affects the educational investment and sorting decisions of youth differentially by socio-economic background.</p>
+</div>
+</div>
+</div>
+</div>
+
+
+
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open')
+  });
+});
+</script>
+
+<!-- code folding -->
+
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>
