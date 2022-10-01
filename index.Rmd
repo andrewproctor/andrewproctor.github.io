@@ -25,20 +25,22 @@ knitr::opts_chunk$set(echo = FALSE)
 <div class = "col-xs-11 col-md-12">
 # Hello!
 
-#### My name is Andrew Proctor and I'm a PhD student in economics at the <a href="https://www.hhs.se/en/research/departments/de/" 
-  style="color:teal;">Stockholm School of Economics</a>####
 
-I am especially interested in the application of structural and reduced form econometric
-methods to better understand human capital acquisition and the determinants of labor 
+#### My name is Andrew Proctor and I'm an assistant professor at  <a href="https://www.en.empwi.econ.uni-muenchen.de/index.html" 
+  style="color:teal;">Ludwig Maximilian University of Munich</a>.####
+
+I am especially interested in the use of structural and reduced form econometric
+methods to better understand human capital investment and the determinants of labor 
 market inequality.  
 
-Since August 2019, I have also been a visiting student at <a href="https://econ.duke.edu/" 
-  style="color:teal;">Duke University</a> with the support of a grant from the Jan Wallander and Tom Hedelius Foundation. 
+I was previously at PhD student at <a href="https://www.hhs.se/en/research/departments/de/" 
+  style="color:teal;"> Stockholm School of Economics </a> and a visiting PhD student at <a href="https://econ.duke.edu/" 
+  style="color:teal;">Duke University</a>. 
 
-Before starting graduate school, I worked briefly in nonprofit and government on 
+Before graduate school, I worked briefly in nonprofit and government on 
 community development issues, particularly homelessness.
 <br><br>
-
+<br>
 </div>
 </div>
 
@@ -54,11 +56,10 @@ community development issues, particularly homelessness.
 <div class = "col-xs-1 col-md-0"></div>
 <div class = "col-xs-11 col-md-12">
 ### Address:
-  Department of Economics <br>
-  Stockholm School of Economics <br>
-  P.O. Box 6501 <br>
-  113 83 Stockholm <br>
-  Sweden
+  Chair of Empirical Economic Research <br>
+  Ludwigstra&szlig;e 33 <br>
+  80539 M&uuml;nchen <br>
+  Germany
 </div>
 </div>
 
@@ -66,7 +67,7 @@ community development issues, particularly homelessness.
 <div class = "col-xs-1 col-md-0"></div>
 <div class = "col-xs-11 col-md-12">
 ### Email:  
-<a href = "mailto: andrew.proctor@phdstudent.hhs.se" style="color:teal;">andrew.proctor@phdstudent.hhs.se</a>
+<a href = "mailto: andrew.proctor@econ.lmu.de" style="color:teal;">andrew.proctor@econ.lmu.de</a>
 </div>
 </div>
 </div>
