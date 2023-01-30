@@ -9,27 +9,18 @@
 <meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
 
 
-<meta name="author" content="LMU University of Munich" />
 
 
-<title>Andrew Proctor</title>
+<title>index.knit</title>
 
-<script src="site_libs/header-attrs-2.14/header-attrs.js"></script>
+<script src="site_libs/header-attrs-2.18/header-attrs.js"></script>
 <script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<link href="site_libs/bootstrap-3.3.5/css/flatly.min.css" rel="stylesheet" />
-<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
-<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
-<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
-<style>h1 {font-size: 34px;}
-       h1.title {font-size: 38px;}
-       h2 {font-size: 30px;}
-       h3 {font-size: 24px;}
-       h4 {font-size: 18px;}
-       h5 {font-size: 16px;}
-       h6 {font-size: 12px;}
-       code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
-       pre:not([class]) { background-color: white }</style>
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+<link href="site_libs/bootstrap-5.1.3/bootstrap.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-5.1.3/bootstrap.bundle.min.js"></script>
+<script src="site_libs/bs3compat-0.4.1/transition.js"></script>
+<script src="site_libs/bs3compat-0.4.1/tabs.js"></script>
+<script src="site_libs/bs3compat-0.4.1/bs3compat.js"></script>
 <script src="site_libs/navigation-1.1/tabsets.js"></script>
 
 <style type="text/css">
@@ -130,11 +121,15 @@ $(document).ready(function () {
     href = "index.html";
   var menuAnchor = $('a[href="' + href + '"]');
 
-  // mark it active
-  menuAnchor.tab('show');
-
-  // if it's got a parent navbar menu mark it active as well
-  menuAnchor.closest('li.dropdown').addClass('active');
+  // mark the anchor link active (and if it's in a dropdown, also mark that active)
+  var dropdown = menuAnchor.closest('li.dropdown');
+  if (window.bootstrap) { // Bootstrap 4+
+    menuAnchor.addClass('active');
+    dropdown.find('> .dropdown-toggle').addClass('active');
+  } else { // Bootstrap 3
+    menuAnchor.parent().addClass('active');
+    dropdown.addClass('active');
+  }
 
   // Navbar adjustments
   var navHeight = $(".navbar").first().height() + 15;
@@ -163,8 +158,8 @@ $(document).ready(function () {
   border-radius: 4px;
 }
 
-.tabset-dropdown > .nav-tabs > li.active:before {
-  content: "";
+.tabset-dropdown > .nav-tabs > li.active:before, .tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "\e259";
   font-family: 'Glyphicons Halflings';
   display: inline-block;
   padding: 10px;
@@ -172,16 +167,9 @@ $(document).ready(function () {
 }
 
 .tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
-  content: "&#xe258;";
-  border: none;
-}
-
-.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
-  content: "";
+  content: "\e258";
   font-family: 'Glyphicons Halflings';
-  display: inline-block;
-  padding: 10px;
-  border-right: 1px solid #ddd;
+  border: none;
 }
 
 .tabset-dropdown > .nav-tabs > li.active {
@@ -258,68 +246,34 @@ $(document).ready(function () {
 
 
 
-<h1 class="title toc-ignore">Andrew Proctor</h1>
-<h4 class="author"><strong>LMU University of Munich</strong></h4>
 
 </div>
 
 
 <div class = "row">
 <div class="col-xs-12 col-md-6">
-<p><br><br><br> <img src="handels.jpg" alt="Andrew Proctor"></p>
+<p><br><br><br> <img src="profile.jpg" alt="Andrew Proctor"></p>
 </div>
 <div class="col-xs-12 col-md-6">
 <div class="col-xs-1 col-md-0">
 
 </div>
-<div id="hello" class="section level1 col-xs-11 col-md-12">
-<h1>Hello!</h1>
-<div
-id="my-name-is-andrew-proctor-and-im-an-assistant-professor-at-ludwig-maximilian-university-of-munich."
-class="section level4">
-<h4>My name is Andrew Proctor and I’m an assistant professor at
+<div class="col-xs-11 col-md-12">
+<div style="margin-top: 4.5em">
+
+</div>
+<div id="andrew-proctor" class="section level3">
+<h3>Andrew Proctor</h3>
+<p>Assistant Professor of Economics</p>
 <a href="https://www.en.empwi.econ.uni-muenchen.de/index.html" 
-  style="color:teal;">Ludwig Maximilian University of Munich</a>.</h4>
-<p>I am especially interested in the use of structural and reduced form
-econometric methods to better understand human capital investment and
-the determinants of labor market inequality.</p>
-<p>I was previously at PhD student at
-<a href="https://www.hhs.se/en/research/departments/de/" 
-  style="color:teal;"> Stockholm School of Economics </a> and a visiting
-PhD student at <a href="https://econ.duke.edu/" 
-  style="color:teal;">Duke University</a>.</p>
-<p>Before graduate school, I worked briefly in nonprofit and government
-on community development issues, particularly homelessness. <br><br>
-<br></p>
-</div>
-</div>
-</div>
-<div class="row">
-<div class="col-xs-1 col-md-0">
+  style="color:teal;">Ludwig Maximilian University of Munich</a> <br>
+Chair of Empirical Economic Research <br> Ludwigstraße 33 <br> 80539
+München <br> Germany <br>
+<div style="margin-top: 2em">
 
 </div>
-<div id="contact" class="section level2 col-xs-11 col-md-12">
-<h2>Contact</h2>
-</div>
-</div>
-<div class="row">
-<div class="col-xs-12 col-md-6">
-<div class="col-xs-1 col-md-0">
-
-</div>
-<div id="address" class="section level3 col-xs-11 col-md-12">
-<h3>Address:</h3>
-<p>Chair of Empirical Economic Research <br> Ludwigstraße 33 <br> 80539
-München <br> Germany</p>
-</div>
-</div>
-<div class="col-xs-12 col-md-6">
-<div class="col-xs-1 col-md-0">
-
-</div>
-<div id="email" class="section level3 col-xs-11 col-md-12">
-<h3>Email:</h3>
-<p><a href = "mailto: andrew.proctor@econ.lmu.de" style="color:teal;">andrew.proctor@econ.lmu.de</a></p>
+<p><strong>Email:</strong>
+<a href = "mailto: andrew.proctor@econ.lmu.de" style="color:teal;">andrew.proctor@econ.lmu.de</a></p>
 </div>
 </div>
 </div>

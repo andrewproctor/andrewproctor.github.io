@@ -1,0 +1,79 @@
+---
+title: "Andrew Proctor"
+author: "**LMU University of Munich**"
+output:
+  html_document:
+    highlight: tango
+    theme: simplex
+
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+```
+
+
+<div class = "row">
+<div class = "col-xs-12 col-md-6">
+<br><br><br>
+<img src="handels.jpg" alt="Andrew Proctor">
+</div>
+
+<div class = "col-xs-12 col-md-6">
+<div class = "col-xs-1 col-md-0">
+</div>
+<div class = "col-xs-11 col-md-12">
+# Hello!
+
+
+#### My name is Andrew Proctor and I'm an assistant professor at  <a href="https://www.en.empwi.econ.uni-muenchen.de/index.html" 
+  style="color:teal;">Ludwig Maximilian University of Munich</a>.####
+
+I am especially interested in the use of structural and reduced form econometric
+methods to better understand human capital investment and the determinants of labor 
+market inequality.  
+
+I was previously at PhD student at <a href="https://www.hhs.se/en/research/departments/de/" 
+  style="color:teal;"> Stockholm School of Economics </a> and a visiting PhD student at <a href="https://econ.duke.edu/" 
+  style="color:teal;">Duke University</a>. 
+
+Before graduate school, I worked briefly in nonprofit and government on 
+community development issues, particularly homelessness.
+<br><br>
+<br>
+</div>
+</div>
+
+<div class = "row">
+<div class = "col-xs-1 col-md-0"></div>
+<div class = "col-xs-11 col-md-12">
+## Contact
+</div>
+</div>
+
+<div class = "row">
+<div class = "col-xs-12 col-md-6">
+<div class = "col-xs-1 col-md-0"></div>
+<div class = "col-xs-11 col-md-12">
+### Address:
+  Chair of Empirical Economic Research <br>
+  Ludwigstra&szlig;e 33 <br>
+  80539 M&uuml;nchen <br>
+  Germany
+</div>
+</div>
+
+<div class = "col-xs-12 col-md-6">
+<div class = "col-xs-1 col-md-0"></div>
+<div class = "col-xs-11 col-md-12">
+### Email:  
+<a href = "mailto: andrew.proctor@econ.lmu.de" style="color:teal;">andrew.proctor@econ.lmu.de</a>
+</div>
+</div>
+</div>
+
+
+
+
+
+

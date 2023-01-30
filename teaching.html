@@ -13,22 +13,28 @@
 
 <title>Teaching</title>
 
-<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<link href="site_libs/bootstrap-3.3.5/css/flatly.min.css" rel="stylesheet" />
-<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
-<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
-<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<script src="site_libs/header-attrs-2.18/header-attrs.js"></script>
+<script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+<link href="site_libs/bootstrap-5.1.3/bootstrap.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-5.1.3/bootstrap.bundle.min.js"></script>
+<script src="site_libs/bs3compat-0.4.1/transition.js"></script>
+<script src="site_libs/bs3compat-0.4.1/tabs.js"></script>
+<script src="site_libs/bs3compat-0.4.1/bs3compat.js"></script>
 <script src="site_libs/navigation-1.1/tabsets.js"></script>
 <link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
 <script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
 
-<style type="text/css">code{white-space: pre;}</style>
 <style type="text/css">
-  pre:not([class]) {
-    background-color: white;
-  }
-</style>
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
+
+<style type="text/css">code{white-space: pre;}</style>
 <script type="text/javascript">
 if (window.hljs) {
   hljs.configure({languages: []});
@@ -41,32 +47,8 @@ if (window.hljs) {
 
 
 
-<style type="text/css">
-h1 {
-  font-size: 34px;
-}
-h1.title {
-  font-size: 38px;
-}
-h2 {
-  font-size: 30px;
-}
-h3 {
-  font-size: 24px;
-}
-h4 {
-  font-size: 18px;
-}
-h5 {
-  font-size: 16px;
-}
-h6 {
-  font-size: 12px;
-}
-.table th:not([align]) {
-  text-align: left;
-}
-</style>
+
+
 
 
 
@@ -76,10 +58,6 @@ h6 {
   max-width: 940px;
   margin-left: auto;
   margin-right: auto;
-}
-code {
-  color: inherit;
-  background-color: rgba(0, 0, 0, 0.04);
 }
 img {
   max-width:100%;
@@ -96,40 +74,16 @@ button.code-folding-btn:focus {
 summary {
   display: list-item;
 }
+details > summary > p:only-child {
+  display: inline;
+}
+pre code {
+  padding: 0;
+}
 </style>
 
 
 <style type="text/css">
-/* padding for bootstrap navbar */
-body {
-  padding-top: 60px;
-  padding-bottom: 40px;
-}
-/* offset scroll position for anchor links (for fixed navbar)  */
-.section h1 {
-  padding-top: 65px;
-  margin-top: -65px;
-}
-.section h2 {
-  padding-top: 65px;
-  margin-top: -65px;
-}
-.section h3 {
-  padding-top: 65px;
-  margin-top: -65px;
-}
-.section h4 {
-  padding-top: 65px;
-  margin-top: -65px;
-}
-.section h5 {
-  padding-top: 65px;
-  margin-top: -65px;
-}
-.section h6 {
-  padding-top: 65px;
-  margin-top: -65px;
-}
 .dropdown-submenu {
   position: relative;
 }
@@ -157,7 +111,7 @@ body {
   margin-right: -10px;
 }
 .dropdown-submenu:hover>a:after {
-  border-left-color: #ffffff;
+  border-left-color: #adb5bd;
 }
 .dropdown-submenu.pull-left {
   float: none;
@@ -169,7 +123,7 @@ body {
 }
 </style>
 
-<script>
+<script type="text/javascript">
 // manage active state of menu based on current page
 $(document).ready(function () {
   // active menu anchor
@@ -179,11 +133,28 @@ $(document).ready(function () {
     href = "index.html";
   var menuAnchor = $('a[href="' + href + '"]');
 
-  // mark it active
-  menuAnchor.parent().addClass('active');
+  // mark the anchor link active (and if it's in a dropdown, also mark that active)
+  var dropdown = menuAnchor.closest('li.dropdown');
+  if (window.bootstrap) { // Bootstrap 4+
+    menuAnchor.addClass('active');
+    dropdown.find('> .dropdown-toggle').addClass('active');
+  } else { // Bootstrap 3
+    menuAnchor.parent().addClass('active');
+    dropdown.addClass('active');
+  }
 
-  // if it's got a parent navbar menu mark it active as well
-  menuAnchor.closest('li.dropdown').addClass('active');
+  // Navbar adjustments
+  var navHeight = $(".navbar").first().height() + 15;
+  var style = document.createElement('style');
+  var pt = "padding-top: " + navHeight + "px; ";
+  var mt = "margin-top: -" + navHeight + "px; ";
+  var css = "";
+  // offset scroll position for anchor links (for fixed navbar)
+  for (var i = 1; i <= 6; i++) {
+    css += ".section h" + i + "{ " + pt + mt + "}\n";
+  }
+  style.innerHTML = "body {" + pt + "padding-bottom: 40px; }\n" + css;
+  document.head.appendChild(style);
 });
 </script>
 
@@ -195,13 +166,12 @@ $(document).ready(function () {
   max-height: 500px;
   min-height: 44px;
   overflow-y: auto;
-  background: white;
   border: 1px solid #ddd;
   border-radius: 4px;
 }
 
-.tabset-dropdown > .nav-tabs > li.active:before {
-  content: "";
+.tabset-dropdown > .nav-tabs > li.active:before, .tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "\e259";
   font-family: 'Glyphicons Halflings';
   display: inline-block;
   padding: 10px;
@@ -209,16 +179,9 @@ $(document).ready(function () {
 }
 
 .tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
-  content: "&#xe258;";
-  border: none;
-}
-
-.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
-  content: "";
+  content: "\e258";
   font-family: 'Glyphicons Halflings';
-  display: inline-block;
-  padding: 10px;
-  border-right: 1px solid #ddd;
+  border: none;
 }
 
 .tabset-dropdown > .nav-tabs > li.active {
@@ -262,7 +225,7 @@ $(document).ready(function () {
 <div class="navbar navbar-default  navbar-fixed-top" role="navigation">
   <div class="container">
     <div class="navbar-header">
-      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-bs-toggle="collapse" data-target="#navbar" data-bs-target="#navbar">
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
@@ -291,7 +254,7 @@ $(document).ready(function () {
   </div><!--/.container -->
 </div><!--/.navbar -->
 
-<div class="fluid-row" id="header">
+<div id="header">
 
 
 
@@ -301,28 +264,56 @@ $(document).ready(function () {
 
 
 <p><br /></p>
-<div id="empirical-economics-sse-bachelors-course-651---2017" class="section level3">
-<h3><strong>Empirical Economics (SSE Bachelors Course 651) - 2017</strong></h3>
+<div id="empirical-economics-sse-bachelors-course-651---2017"
+class="section level3">
+<h3><strong>Empirical Economics (SSE Bachelors Course 651) -
+2017</strong></h3>
 <br />
-<div class="col-xs-11 col-md-12">
-<h4 id="slides"><strong>Slides</strong></h4>
+<div id="slides" class="section level4 col-xs-11 col-md-12">
+<h4><strong>Slides</strong></h4>
 <p><a href="https://andrewproctor.github.io/assets/StataSeminar1and2.pdf" 
   style="color:teal;">Introduction to Stata (Seminar I and II)</a></p>
 <p><a href="https://andrewproctor.github.io/assets/StataSeminar3.pdf" 
-  style="color:teal;">Violations of Regression Assumptions and Methods for Longitudinal Data (Stata Seminar III)</a><br></p>
+  style="color:teal;">Violations of Regression Assumptions and Methods
+for Longitudinal Data (Stata Seminar III)</a><br></p>
 <p><a href="https://andrewproctor.github.io/assets/StataSeminar4.pdf" 
-  style="color:teal;">Instrumental Variables Regression (Stata Seminar IV)</a><br><br /><br /></p>
+  style="color:teal;">Instrumental Variables Regression (Stata Seminar
+IV)</a><br><br /><br /></p>
 </div>
 <div class = "row">
 <div class="col-md-6">
 <div class="col-xs-1 col-md-0">
 
 </div>
-<div class="col-xs-11 col-md-12">
-<h4 id="assignments"><strong>Assignments</strong></h4>
-<p><strong>Assignment 1</strong>: <a href="https://andrewproctor.github.io/assets/Assignment-1.pdf" style="color:teal;">Instructions</a> | <a href="https://andrewproctor.github.io/assets/Assignment-1-Theory-Solutions.pdf" style="color:teal;">Theory Solutions</a> | <a href="https://andrewproctor.github.io/assets/Assignment-1-do-file.pdf" style="color:teal;">Do File</a> | <a href="https://andrewproctor.github.io/assets/Assignment-1-log-file.txt" style="color:teal;">Log File</a></p>
-<p><strong>Assignment 2</strong>: <a href="https://andrewproctor.github.io/assets/Assignment-2.pdf" style="color:teal;">Instructions</a> | <a href="https://andrewproctor.github.io/assets/Assignment-2-Theory-Solutions.pdf" style="color:teal;">Theory Solutions</a> | <a href="https://andrewproctor.github.io/assets/Assignment-2-do-file.pdf" style="color:teal;">Do File</a> | <a href="https://andrewproctor.github.io/assets/Assignment-2-log-file.txt" style="color:teal;">Log File</a></p>
-<p><strong>Assignment 3</strong>: <a href="https://andrewproctor.github.io/assets/Assignment-3.pdf" style="color:teal;">Instructions</a> | <a href="https://andrewproctor.github.io/assets/Assignment-3-Theory-Solutions.pdf" style="color:teal;">Theory Solutions</a> | <a href="https://andrewproctor.github.io/assets/Assignment-3-do-file.pdf" style="color:teal;">Do File</a> | <a href="https://andrewproctor.github.io/assets/Assignment-3-log-file.pdf" style="color:teal;">Log File</a></p>
+<div id="assignments" class="section level4 col-xs-11 col-md-12">
+<h4><strong>Assignments</strong></h4>
+<p><strong>Assignment 1</strong>:
+<a href="https://andrewproctor.github.io/assets/Assignment-1.pdf" style="color:teal;">Instructions</a>
+|
+<a href="https://andrewproctor.github.io/assets/Assignment-1-Theory-Solutions.pdf" style="color:teal;">Theory
+Solutions</a> |
+<a href="https://andrewproctor.github.io/assets/Assignment-1-do-file.pdf" style="color:teal;">Do
+File</a> |
+<a href="https://andrewproctor.github.io/assets/Assignment-1-log-file.txt" style="color:teal;">Log
+File</a></p>
+<p><strong>Assignment 2</strong>:
+<a href="https://andrewproctor.github.io/assets/Assignment-2.pdf" style="color:teal;">Instructions</a>
+|
+<a href="https://andrewproctor.github.io/assets/Assignment-2-Theory-Solutions.pdf" style="color:teal;">Theory
+Solutions</a> |
+<a href="https://andrewproctor.github.io/assets/Assignment-2-do-file.pdf" style="color:teal;">Do
+File</a> |
+<a href="https://andrewproctor.github.io/assets/Assignment-2-log-file.txt" style="color:teal;">Log
+File</a></p>
+<p><strong>Assignment 3</strong>:
+<a href="https://andrewproctor.github.io/assets/Assignment-3.pdf" style="color:teal;">Instructions</a>
+|
+<a href="https://andrewproctor.github.io/assets/Assignment-3-Theory-Solutions.pdf" style="color:teal;">Theory
+Solutions</a> |
+<a href="https://andrewproctor.github.io/assets/Assignment-3-do-file.pdf" style="color:teal;">Do
+File</a> |
+<a href="https://andrewproctor.github.io/assets/Assignment-3-log-file.pdf" style="color:teal;">Log
+File</a></p>
 <p><br /><br /></p>
 </div>
 </div>
@@ -330,10 +321,17 @@ $(document).ready(function () {
 <div class="col-xs-1 col-md-0">
 
 </div>
-<div class="col-xs-11 col-md-12">
-<h4 id="case-based-seminars"><strong>Case-Based Seminars</strong></h4>
-<p><strong>Seminar 1</strong>: <a href="https://andrewproctor.github.io/assets/Case-Based-Seminar-1-Instructions.pdf" style="color:teal;">Instructions</a> | <a href="https://andrewproctor.github.io/assets/Case-Based-Seminar-1-Slides.pdf" style="color:teal;">Slides</a></p>
-<p><strong>Seminar 2</strong>: <a href="https://andrewproctor.github.io/assets/Case-Based-Seminar-2-Instructions.pdf" style="color:teal;">Instructions</a> | <a href="https://andrewproctor.github.io/assets/Case-Based-Seminar-2-Slides.pdf" style="color:teal;">Slides</a></p>
+<div id="case-based-seminars"
+class="section level4 col-xs-11 col-md-12">
+<h4><strong>Case-Based Seminars</strong></h4>
+<p><strong>Seminar 1</strong>:
+<a href="https://andrewproctor.github.io/assets/Case-Based-Seminar-1-Instructions.pdf" style="color:teal;">Instructions</a>
+|
+<a href="https://andrewproctor.github.io/assets/Case-Based-Seminar-1-Slides.pdf" style="color:teal;">Slides</a></p>
+<p><strong>Seminar 2</strong>:
+<a href="https://andrewproctor.github.io/assets/Case-Based-Seminar-2-Instructions.pdf" style="color:teal;">Instructions</a>
+|
+<a href="https://andrewproctor.github.io/assets/Case-Based-Seminar-2-Slides.pdf" style="color:teal;">Slides</a></p>
 <p><br> <br></p>
 </div>
 </div>
@@ -341,21 +339,39 @@ $(document).ready(function () {
 <div id="empirical-economics---2018-second-half" class="section level3">
 <h3><strong>Empirical Economics - 2018 (Second Half)</strong></h3>
 <p><br></p>
-<div class="col-xs-11 col-md-12">
-<h4 id="slides-1"><strong>Slides</strong></h4>
-<p><a href="https://andrewproctor.github.io/assets/panelseminar_slides_2018.pdf" style="color:teal;">Panel Data Regression</a></p>
-<p><a href="https://andrewproctor.github.io/assets/IVseminar_slides_2018.pdf" style="color:teal;">Instrumental Variables Regression</a></p>
-<p><strong>IV Seminar Supplement</strong> — Correcting standard errors when doing IV regression by hand: <a href="https://andrewproctor.github.io/assets/Correcting_SE.do" style="color:teal;">Do-File</a><br><br /><br /></p>
+<div id="slides-1" class="section level4 col-xs-11 col-md-12">
+<h4><strong>Slides</strong></h4>
+<p><a href="https://andrewproctor.github.io/assets/panelseminar_slides_2018.pdf" style="color:teal;">Panel
+Data Regression</a></p>
+<p><a href="https://andrewproctor.github.io/assets/IVseminar_slides_2018.pdf" style="color:teal;">Instrumental
+Variables Regression</a></p>
+<p><strong>IV Seminar Supplement</strong> — Correcting standard errors
+when doing IV regression by hand:
+<a href="https://andrewproctor.github.io/assets/Correcting_SE.do" style="color:teal;">Do-File</a><br><br /><br /></p>
 </div>
 <div class = "row">
 <div class="col-md-6">
 <div class="col-xs-1 col-md-0">
 
 </div>
-<div class="col-xs-11 col-md-12">
-<h4 id="seminar-exercises"><strong>Seminar Exercises</strong></h4>
-<p><strong>Panel Methods</strong>: <a href="https://andrewproctor.github.io/assets/panel_exercise_2018_instructions.pdf" style="color:teal;">Instructions</a> | <a href="https://andrewproctor.github.io/assets/panel_exercise_solutions.do" style="color:teal;">Do File</a> | <a href="https://andrewproctor.github.io/assets/panel_exercise_solutions_log.txt" style="color:teal;">Log File</a> | <a href="https://andrewproctor.github.io/assets/panel_exercise_regoutput.doc" style="color:teal;">Regression Output</a></p>
-<p><strong>Instrumental Variables</strong>: <a href="https://andrewproctor.github.io/assets/IV_exercise_instructions.pdf" style="color:teal;">Instructions</a> | <a href="https://andrewproctor.github.io/assets/IV_exercise_solutions.do" style="color:teal;">Do File</a> | <a href="https://andrewproctor.github.io/assets/IV_exercise_solutions_log.txt" style="color:teal;">Log File</a></p>
+<div id="seminar-exercises" class="section level4 col-xs-11 col-md-12">
+<h4><strong>Seminar Exercises</strong></h4>
+<p><strong>Panel Methods</strong>:
+<a href="https://andrewproctor.github.io/assets/panel_exercise_2018_instructions.pdf" style="color:teal;">Instructions</a>
+|
+<a href="https://andrewproctor.github.io/assets/panel_exercise_solutions.do" style="color:teal;">Do
+File</a> |
+<a href="https://andrewproctor.github.io/assets/panel_exercise_solutions_log.txt" style="color:teal;">Log
+File</a> |
+<a href="https://andrewproctor.github.io/assets/panel_exercise_regoutput.doc" style="color:teal;">Regression
+Output</a></p>
+<p><strong>Instrumental Variables</strong>:
+<a href="https://andrewproctor.github.io/assets/IV_exercise_instructions.pdf" style="color:teal;">Instructions</a>
+|
+<a href="https://andrewproctor.github.io/assets/IV_exercise_solutions.do" style="color:teal;">Do
+File</a> |
+<a href="https://andrewproctor.github.io/assets/IV_exercise_solutions_log.txt" style="color:teal;">Log
+File</a></p>
 <p><br /><br /></p>
 </div>
 </div>
@@ -363,17 +379,36 @@ $(document).ready(function () {
 <div class="col-xs-1 col-md-0">
 
 </div>
-<div class="col-xs-11 col-md-12">
-<h4 id="assignments-1"><strong>Assignments</strong></h4>
-<p><strong>Panel Methods</strong>: <a href="https://andrewproctor.github.io/assets/panel_assignment_2018_instructions.pdf" style="color:teal;">Instructions</a> | <a href="https://andrewproctor.github.io/assets/panel_assignment_2018_solutions.pdf" style="color:teal;">Solutions</a> | <a href="https://andrewproctor.github.io/assets/panel_assignment_2018_solutions.do" style="color:teal;">Do File</a> | <a href="https://andrewproctor.github.io/assets/panel_assignment_2018_solutions_log.txt" style="color:teal;">Log File</a></p>
-<p><strong>Instrumental Variables</strong>: <a href="https://andrewproctor.github.io/assets/IV_assignment_2018_instructions.pdf" style="color:teal;">Instructions</a> | <a href="https://andrewproctor.github.io/assets/IV_assignment_2018_solutions.pdf" style="color:teal;">Solutions</a> | <a href="https://andrewproctor.github.io/assets/IV_assignment_2018_solutions.do" style="color:teal;">Do File</a> | <a href="https://andrewproctor.github.io/assets/IV_assignment_2018_solutions_log.txt" style="color:teal;">Log File</a></p>
+<div id="assignments-1" class="section level4 col-xs-11 col-md-12">
+<h4><strong>Assignments</strong></h4>
+<p><strong>Panel Methods</strong>:
+<a href="https://andrewproctor.github.io/assets/panel_assignment_2018_instructions.pdf" style="color:teal;">Instructions</a>
+|
+<a href="https://andrewproctor.github.io/assets/panel_assignment_2018_solutions.pdf" style="color:teal;">Solutions</a>
+|
+<a href="https://andrewproctor.github.io/assets/panel_assignment_2018_solutions.do" style="color:teal;">Do
+File</a> |
+<a href="https://andrewproctor.github.io/assets/panel_assignment_2018_solutions_log.txt" style="color:teal;">Log
+File</a></p>
+<p><strong>Instrumental Variables</strong>:
+<a href="https://andrewproctor.github.io/assets/IV_assignment_2018_instructions.pdf" style="color:teal;">Instructions</a>
+|
+<a href="https://andrewproctor.github.io/assets/IV_assignment_2018_solutions.pdf" style="color:teal;">Solutions</a>
+|
+<a href="https://andrewproctor.github.io/assets/IV_assignment_2018_solutions.do" style="color:teal;">Do
+File</a> |
+<a href="https://andrewproctor.github.io/assets/IV_assignment_2018_solutions_log.txt" style="color:teal;">Log
+File</a></p>
 <p><br> <br></p>
 </div>
 </div>
 </div>
-<div id="intro-to-data-science-in-r-sse-masters-course-7316" class="section level3">
-<h3><strong>Intro to Data Science in R (SSE Masters Course 7316)</strong></h3>
-<p>Visit the course website at: <a href="https://andrewproctor.github.io/rcourse/" style="color:teal;">https://andrewproctor.github.io/rcourse/</a></p>
+<div id="intro-to-data-science-in-r-sse-masters-course-7316"
+class="section level3">
+<h3><strong>Intro to Data Science in R (SSE Masters Course
+7316)</strong></h3>
+<p>Visit the course website at:
+<a href="https://andrewproctor.github.io/rcourse/" style="color:teal;">https://andrewproctor.github.io/rcourse/</a></p>
 </div>
 
 
@@ -385,7 +420,7 @@ $(document).ready(function () {
 
 // add bootstrap table styles to pandoc tables
 function bootstrapStylePandocTables() {
-  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+  $('tr.odd').parent('tbody').parent('table').addClass('table table-condensed');
 }
 $(document).ready(function () {
   bootstrapStylePandocTables();
@@ -403,7 +438,7 @@ $(document).ready(function () {
 
 $(document).ready(function () {
   $('.tabset-dropdown > .nav-tabs > li').click(function () {
-    $(this).parent().toggleClass('nav-tabs-open')
+    $(this).parent().toggleClass('nav-tabs-open');
   });
 });
 </script>

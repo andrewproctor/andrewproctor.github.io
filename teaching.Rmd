@@ -1,8 +1,9 @@
 ---
 title: "Teaching"
 output:
-  html_document:
-    theme: flatly
+  theme: 
+      bootswatch: simplex
+      primary: "#75AADB"
 urlcolor: blue
 linkcolor: blue	
 citecolor: blue

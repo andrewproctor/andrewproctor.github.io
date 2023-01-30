@@ -12,7 +12,9 @@ navbar:
     href: assets/AndrewProctor_CV.pdf
 output:
   html_document:
-    theme: flatly
+    theme: 
+      bootswatch: simplex
+      primary: "#75AADB"
     lib_dir: site_libs
     self_contained: no
 urlcolor: blue
