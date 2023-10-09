@@ -2,6 +2,7 @@
 title: "Andrew Proctor"
 output:
   html_document:
+    title: Andrew Proctor
     highlight: tango
     css: notitle.css
     theme: 
