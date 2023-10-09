@@ -1,7 +1,9 @@
 ---
+title: "Andrew Proctor"
 output:
   html_document:
     highlight: tango
+    css: notitle.css
     theme: 
       bootswatch: simplex
       primary: "#75AADB"
