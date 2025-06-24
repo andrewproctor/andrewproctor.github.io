@@ -1,6 +1,6 @@
 project:
   type: website
-
+  output-dir: docs
 website:
   title: "Andrew Proctor | University of Munich"
   image: images/lmu_logo.png
