@@ -1,0 +1,568 @@
+-------------------------------------------------------------------------------------------------------
+      name:  <unnamed>
+       log:  C:\Users\AN.4271\Dropbox\Teaching 2018\Assignment4\Assignment4log.log
+  log type:  text
+ opened on:  19 Oct 2018, 13:40:29
+
+.                 
+.         * Import data
+.         use "assignments3to4data.dta", clear
+(Quality of Government Basic dataset 2018 - Time-Series)
+
+.         
+. ********** Data Preparation
+. 
+.         keep if year == 2013
+(14,984 observations deleted)
+
+.         rename hf_prights prop_rights
+
+.         rename ht_colonial colonizer
+
+.         
+.         * Region Dummie 
+.         summarize country if !missing(logGDP, prop_rights,ajr_settmort) ///
+>                 & (colonizer != 0)
+
+    Variable |        Obs        Mean    Std. Dev.       Min        Max
+-------------+---------------------------------------------------------
+     country |          0
+
+.         tabulate colonizer if !missing(logGDP, prop_rights,ajr_settmort) ///
+>                 & (colonizer != 0)
+
+                        Colonial Origin |      Freq.     Percent        Cum.
+----------------------------------------+-----------------------------------
+                               1. Dutch |          2        2.78        2.78
+                             2. Spanish |         17       23.61       26.39
+                             5. British |         24       33.33       59.72
+                              6. French |         22       30.56       90.28
+                          7. Portuguese |          3        4.17       94.44
+                             8. Belgian |          3        4.17       98.61
+                         10. Australian |          1        1.39      100.00
+----------------------------------------+-----------------------------------
+                                  Total |         72      100.00
+
+. 
+.         ** Exploratory analysis
+.         scatter logGDP prop_rights
+
+.         
+.         
+. ********** Regression Analysis
+. 
+. *** Specification without Controls
+.         eststo clear
+
+.         * Structural Equation
+.         eststo: reg logGDP prop_rights, robust
+
+Linear regression                               Number of obs     =        171
+                                                F(1, 169)         =     195.39
+                                                Prob > F          =     0.0000
+                                                R-squared         =     0.4561
+                                                Root MSE          =     .88918
+
+------------------------------------------------------------------------------
+             |               Robust
+      logGDP |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+ prop_rights |   .0339381    .002428    13.98   0.000     .0291451    .0387311
+       _cons |   7.658236   .1519778    50.39   0.000     7.358217    7.958256
+------------------------------------------------------------------------------
+(est1 stored)
+
+. 
+.         * Reduced Form
+.         eststo: reg logGDP ajr_settmort if ///
+>                 !missing(logGDP, prop_rights, ajr_settmort), robust
+
+Linear regression                               Number of obs     =         84
+                                                F(1, 82)          =      71.04
+                                                Prob > F          =     0.0000
+                                                R-squared         =     0.4525
+                                                Root MSE          =     .87112
+
+------------------------------------------------------------------------------
+             |               Robust
+      logGDP |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+ajr_settmort |   -.600912   .0712961    -8.43   0.000    -.7427427   -.4590813
+       _cons |   11.53606   .3368205    34.25   0.000     10.86602    12.20611
+------------------------------------------------------------------------------
+(est2 stored)
+
+. 
+.         * First-Stage
+.         eststo: reg prop_rights ajr_settmort if ///
+>                 !missing(logGDP, prop_rights, ajr_settmort), robust
+
+Linear regression                               Number of obs     =         84
+                                                F(1, 82)          =      33.12
+                                                Prob > F          =     0.0000
+                                                R-squared         =     0.3217
+                                                Root MSE          =      18.85
+
+------------------------------------------------------------------------------
+             |               Robust
+ prop_rights |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+ajr_settmort |  -9.850866   1.711804    -5.75   0.000    -13.25619   -6.445543
+       _cons |   83.90967   8.757441     9.58   0.000     66.48832     101.331
+------------------------------------------------------------------------------
+(est3 stored)
+
+.         predict proprights_hat, xb
+(119 missing values generated)
+
+.         label var proprights_hat "Predicted Property Rights from first stage"
+
+. 
+.         *IV Regression
+.         eststo: ivreg2 logGDP (prop_rights = ajr_settmort), robust
+
+IV (2SLS) estimation
+--------------------
+
+Estimates efficient for homoskedasticity only
+Statistics robust to heteroskedasticity
+
+                                                      Number of obs =       84
+                                                      F(  1,    82) =    50.19
+                                                      Prob > F      =   0.0000
+Total (centered) SS     =  113.6566857                Centered R2   =   0.2274
+Total (uncentered) SS   =  6558.874052                Uncentered R2 =   0.9866
+Residual SS             =  87.81075149                Root MSE      =    1.022
+
+------------------------------------------------------------------------------
+             |               Robust
+      logGDP |      Coef.   Std. Err.      z    P>|z|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+ prop_rights |   .0610009   .0085076     7.17   0.000     .0443264    .0776754
+       _cons |   6.417496   .3368406    19.05   0.000     5.757301    7.077692
+------------------------------------------------------------------------------
+Underidentification test (Kleibergen-Paap rk LM statistic):             14.049
+                                                   Chi-sq(1) P-val =    0.0002
+------------------------------------------------------------------------------
+Weak identification test (Cragg-Donald Wald F statistic):               38.897
+                         (Kleibergen-Paap rk Wald F statistic):         33.116
+Stock-Yogo weak ID test critical values: 10% maximal IV size             16.38
+                                         15% maximal IV size              8.96
+                                         20% maximal IV size              6.66
+                                         25% maximal IV size              5.53
+Source: Stock-Yogo (2005).  Reproduced by permission.
+NB: Critical values are for Cragg-Donald F statistic and i.i.d. errors.
+------------------------------------------------------------------------------
+Hansen J statistic (overidentification test of all instruments):         0.000
+                                                 (equation exactly identified)
+------------------------------------------------------------------------------
+Instrumented:         prop_rights
+Excluded instruments: ajr_settmort
+------------------------------------------------------------------------------
+(est4 stored)
+
+.         
+.         * IV Manual Estimates
+.         eststo: reg logGDP proprights_hat if !missing(logGDP, prop_rights, ajr_settmort)
+
+      Source |       SS           df       MS      Number of obs   =        84
+-------------+----------------------------------   F(1, 82)        =     67.77
+       Model |  51.4305115         1  51.4305115   Prob > F        =    0.0000
+    Residual |  62.2261743        82  .758855784   R-squared       =    0.4525
+-------------+----------------------------------   Adj R-squared   =    0.4458
+       Total |  113.656686        83  1.36935766   Root MSE        =    .87112
+
+--------------------------------------------------------------------------------
+        logGDP |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
+---------------+----------------------------------------------------------------
+proprights_hat |   .0610009   .0074098     8.23   0.000     .0462605    .0757414
+         _cons |   6.417496   .2999408    21.40   0.000     5.820818    7.014174
+--------------------------------------------------------------------------------
+(est5 stored)
+
+. 
+.         * Create tables
+.         esttab using "Tables/iv_nocontrols", ///
+>                 title("Table 1: IV Regression of GDP and Property Rights (no controls)") ///
+>                 mtitles("Log GDP (OLS)" "Log GDP (Reduced Form)" ///
+>                 "Property Rights (1st Stage)" "Log GDP (IV)" "Log GDP (Manual IV)") ///
+>                 se label wrap noabbrev rtf  ///
+>                 star(* 0.10 ** 0.05 *** 0.01) b(%9.2fc) compress one replace 
+(output written to Tables/iv_nocontrols.rtf)
+
+.         eststo clear
+
+.         
+. drop proprights_hat
+
+.         
+. *** Specification with climate and disease environment controls
+.         eststo clear
+
+.         * OLS - Structural Equation
+.         eststo: reg logGDP prop_rights latitude malaria yellow, robust
+
+Linear regression                               Number of obs     =        144
+                                                F(4, 139)         =     119.16
+                                                Prob > F          =     0.0000
+                                                R-squared         =     0.7312
+                                                Root MSE          =     .64614
+
+------------------------------------------------------------------------------
+             |               Robust
+      logGDP |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+ prop_rights |   .0219638     .00272     8.08   0.000      .016586    .0273417
+    latitude |  -.0048649   .0048226    -1.01   0.315    -.0144001    .0046703
+     malaria |  -1.476075   .1954295    -7.55   0.000    -1.862473   -1.089676
+      yellow |   -.459047   .1943137    -2.36   0.020    -.8432397   -.0748542
+       _cons |   8.996391   .2187448    41.13   0.000     8.563893    9.428888
+------------------------------------------------------------------------------
+(est1 stored)
+
+. 
+.         * Reduced Form
+.         eststo: reg logGDP ajr_settmort latitude malaria yellow if ///
+>                 !missing(prop_rights,latitude,malaria, yellow), robust
+
+Linear regression                               Number of obs     =         79
+                                                F(4, 74)          =      41.28
+                                                Prob > F          =     0.0000
+                                                R-squared         =     0.6817
+                                                Root MSE          =     .66812
+
+------------------------------------------------------------------------------
+             |               Robust
+      logGDP |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+ajr_settmort |   -.218518   .0858687    -2.54   0.013    -.3896151   -.0474209
+    latitude |   .0030529   .0076783     0.40   0.692    -.0122464    .0183522
+     malaria |  -1.646633   .2291362    -7.19   0.000    -2.103197   -1.190069
+      yellow |  -.0212402    .204048    -0.10   0.917    -.4278148    .3853343
+       _cons |   10.41944   .5089283    20.47   0.000     9.405376     11.4335
+------------------------------------------------------------------------------
+(est2 stored)
+
+.         test latitude malaria yellow // F Test of controls
+
+ ( 1)  latitude = 0
+ ( 2)  malaria = 0
+ ( 3)  yellow = 0
+
+       F(  3,    74) =   21.70
+            Prob > F =    0.0000
+
+.         
+.         * First-Stage
+.         eststo: reg prop_rights ajr_settmort latitude malaria yellow if ///
+>                 !missing(logGDP), robust
+
+Linear regression                               Number of obs     =         79
+                                                F(4, 74)          =      13.60
+                                                Prob > F          =     0.0000
+                                                R-squared         =     0.4134
+                                                Root MSE          =     17.321
+
+------------------------------------------------------------------------------
+             |               Robust
+ prop_rights |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+ajr_settmort |  -6.548457   2.261546    -2.90   0.005    -11.05468   -2.042229
+    latitude |   .4378589    .205008     2.14   0.036     .0293715    .8463463
+     malaria |  -4.679847   5.935447    -0.79   0.433    -16.50648     7.14679
+      yellow |   .4735504   5.823566     0.08   0.935    -11.13016    12.07726
+       _cons |   61.67465   12.09088     5.10   0.000     37.58305    85.76626
+------------------------------------------------------------------------------
+(est3 stored)
+
+.         test latitude malaria yellow // F Test of controls
+
+ ( 1)  latitude = 0
+ ( 2)  malaria = 0
+ ( 3)  yellow = 0
+
+       F(  3,    74) =    2.21
+            Prob > F =    0.0940
+
+.         predict proprights_hat, xb
+(124 missing values generated)
+
+.         label var proprights_hat "Predicted Property Rights from first stage"
+
+.         
+.         *IV Regression
+.         eststo: ivreg2 logGDP (prop_rights = ajr_settmort) ///
+>                 latitude malaria yellow, robust
+
+IV (2SLS) estimation
+--------------------
+
+Estimates efficient for homoskedasticity only
+Statistics robust to heteroskedasticity
+
+                                                      Number of obs =       79
+                                                      F(  4,    74) =    47.86
+                                                      Prob > F      =   0.0000
+Total (centered) SS     =  103.7935513                Centered R2   =   0.7065
+Total (uncentered) SS   =  6135.642187                Uncentered R2 =   0.9950
+Residual SS             =  30.46818956                Root MSE      =     .621
+
+------------------------------------------------------------------------------
+             |               Robust
+      logGDP |      Coef.   Std. Err.      z    P>|z|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+ prop_rights |   .0333694   .0096028     3.47   0.001     .0145482    .0521905
+    latitude |  -.0115582   .0081153    -1.42   0.154     -.027464    .0043476
+     malaria |   -1.49047    .244455    -6.10   0.000    -1.969593   -1.011347
+      yellow |  -.0370423   .1679445    -0.22   0.825    -.3662075    .2921229
+       _cons |   8.361393   .3767933    22.19   0.000     7.622891    9.099894
+------------------------------------------------------------------------------
+Underidentification test (Kleibergen-Paap rk LM statistic):              7.578
+                                                   Chi-sq(1) P-val =    0.0059
+------------------------------------------------------------------------------
+Weak identification test (Cragg-Donald Wald F statistic):                9.638
+                         (Kleibergen-Paap rk Wald F statistic):          8.384
+Stock-Yogo weak ID test critical values: 10% maximal IV size             16.38
+                                         15% maximal IV size              8.96
+                                         20% maximal IV size              6.66
+                                         25% maximal IV size              5.53
+Source: Stock-Yogo (2005).  Reproduced by permission.
+NB: Critical values are for Cragg-Donald F statistic and i.i.d. errors.
+------------------------------------------------------------------------------
+Hansen J statistic (overidentification test of all instruments):         0.000
+                                                 (equation exactly identified)
+------------------------------------------------------------------------------
+Instrumented:         prop_rights
+Included instruments: latitude malaria yellow
+Excluded instruments: ajr_settmort
+------------------------------------------------------------------------------
+(est4 stored)
+
+.         
+.         *IV Manual Estimates
+.         eststo: reg logGDP proprights_hat latitude malaria yellow if ///
+>                 !missing(prop_rights, ajr_settmort), robust   
+
+Linear regression                               Number of obs     =         79
+                                                F(4, 74)          =      41.28
+                                                Prob > F          =     0.0000
+                                                R-squared         =     0.6817
+                                                Root MSE          =     .66812
+
+--------------------------------------------------------------------------------
+               |               Robust
+        logGDP |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
+---------------+----------------------------------------------------------------
+proprights_hat |   .0333694   .0131128     2.54   0.013     .0072415    .0594972
+      latitude |  -.0115582   .0118961    -0.97   0.334    -.0352616    .0121452
+       malaria |   -1.49047   .2606317    -5.72   0.000     -2.00979   -.9711495
+        yellow |  -.0370423   .2042645    -0.18   0.857    -.4440482    .3699636
+         _cons |   8.361393   .4323428    19.34   0.000     7.499931    9.222855
+--------------------------------------------------------------------------------
+(est5 stored)
+
+. 
+.         * Create tables
+.         esttab using "Tables/iv_climatecontrols", ///
+>                 title("Table 2: IV Regression of GDP and Property Rights (disease and climate control
+> s)") ///
+>                 mtitles("Log GDP (OLS)" "Log GDP (Reduced Form)" ///
+>                 "Property Rights (1st Stage)" "Log GDP (IV)" "Log GDP (Manual IV)") ///
+>                 se label wrap noabbrev rtf   ///
+>                 star(* 0.10 ** 0.05 *** 0.01) b(%9.2fc) compress one replace 
+(output written to Tables/iv_climatecontrols.rtf)
+
+.         eststo clear
+
+. 
+. drop proprights_hat
+
+.         
+. *** Specification with fractionalization controls
+.         * Structural Equation
+.         eststo: reg logGDP prop_rights al_ethnic al_language al_religion, robust
+
+Linear regression                               Number of obs     =        160
+                                                F(4, 155)         =      64.69
+                                                Prob > F          =     0.0000
+                                                R-squared         =     0.5358
+                                                Root MSE          =      .8372
+
+------------------------------------------------------------------------------
+             |               Robust
+      logGDP |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+ prop_rights |   .0296515   .0029868     9.93   0.000     .0237514    .0355515
+   al_ethnic |   .0201182   .4717228     0.04   0.966    -.9117169    .9519532
+ al_language |  -1.111674   .3975957    -2.80   0.006    -1.897079   -.3262687
+ al_religion |  -.4633357   .3160421    -1.47   0.145    -1.087641    .1609697
+       _cons |    8.51192   .2720293    31.29   0.000     7.974556    9.049283
+------------------------------------------------------------------------------
+(est1 stored)
+
+.         
+.         * Reduced Form
+.         eststo: reg logGDP ajr_settmort al_ethnic al_language al_religion if ///
+>                 !missing(prop_rights), robust
+
+Linear regression                               Number of obs     =         81
+                                                F(4, 76)          =      27.76
+                                                Prob > F          =     0.0000
+                                                R-squared         =     0.5655
+                                                Root MSE          =     .79184
+
+------------------------------------------------------------------------------
+             |               Robust
+      logGDP |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+ajr_settmort |   -.414605   .0901133    -4.60   0.000    -.5940811   -.2351288
+   al_ethnic |  -.4650621   .5227991    -0.89   0.377    -1.506307    .5761825
+ al_language |  -1.200836   .4046634    -2.97   0.004    -2.006793   -.3948789
+ al_religion |   .5343871   .3502542     1.53   0.131    -.1632047    1.231979
+       _cons |   11.25004   .3803367    29.58   0.000     10.49253    12.00754
+------------------------------------------------------------------------------
+(est2 stored)
+
+.         test al_ethnic al_language al_religion // F Test of controls
+
+ ( 1)  al_ethnic = 0
+ ( 2)  al_language = 0
+ ( 3)  al_religion = 0
+
+       F(  3,    76) =    5.84
+            Prob > F =    0.0012
+
+.         
+.         * First-Stage
+.         eststo: reg prop_rights ajr_settmort al_ethnic al_language al_religion if ///
+>                 !missing(logGDP), robust
+
+Linear regression                               Number of obs     =         81
+                                                F(4, 76)          =      12.81
+                                                Prob > F          =     0.0000
+                                                R-squared         =     0.4238
+                                                Root MSE          =     17.857
+
+------------------------------------------------------------------------------
+             |               Robust
+ prop_rights |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+ajr_settmort |  -7.029462    1.99706    -3.52   0.001    -11.00695   -3.051973
+   al_ethnic |  -24.79113   12.93737    -1.92   0.059    -50.55815    .9758774
+ al_language |  -1.124205    8.61768    -0.13   0.897     -18.2878    16.03939
+ al_religion |   25.99458   8.050208     3.23   0.002     9.961204    42.02796
+       _cons |   73.06891   8.000477     9.13   0.000     57.13458    89.00324
+------------------------------------------------------------------------------
+(est3 stored)
+
+.         test al_ethnic al_language al_religion // F Test of controls
+
+ ( 1)  al_ethnic = 0
+ ( 2)  al_language = 0
+ ( 3)  al_religion = 0
+
+       F(  3,    76) =    4.07
+            Prob > F =    0.0098
+
+.         predict proprights_hat, xb
+(128 missing values generated)
+
+.         label var proprights_hat "Predicted Property Rights from first stage"
+
+.         
+.         *IV Regression
+.         eststo: ivreg2 logGDP (prop_rights = ajr_settmort) al_ethnic al_language ///
+>                 al_religion, robust
+
+IV (2SLS) estimation
+--------------------
+
+Estimates efficient for homoskedasticity only
+Statistics robust to heteroskedasticity
+
+                                                      Number of obs =       81
+                                                      F(  4,    76) =    17.73
+                                                      Prob > F      =   0.0000
+Total (centered) SS     =  109.6631218                Centered R2   =   0.3463
+Total (uncentered) SS   =  6370.379128                Uncentered R2 =   0.9887
+Residual SS             =  71.68372756                Root MSE      =    .9407
+
+------------------------------------------------------------------------------
+             |               Robust
+      logGDP |      Coef.   Std. Err.      z    P>|z|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+ prop_rights |    .058981   .0132476     4.45   0.000     .0330162    .0849459
+   al_ethnic |   .9971446   .8417043     1.18   0.236    -.6525656    2.646855
+ al_language |  -1.134529   .6400263    -1.77   0.076    -2.388958    .1198993
+ al_religion |  -.9988003   .6097703    -1.64   0.101    -2.193928    .1963276
+       _cons |   6.940358   .6865283    10.11   0.000     5.594787    8.285929
+------------------------------------------------------------------------------
+Underidentification test (Kleibergen-Paap rk LM statistic):             10.597
+                                                   Chi-sq(1) P-val =    0.0011
+------------------------------------------------------------------------------
+Weak identification test (Cragg-Donald Wald F statistic):               15.357
+                         (Kleibergen-Paap rk Wald F statistic):         12.390
+Stock-Yogo weak ID test critical values: 10% maximal IV size             16.38
+                                         15% maximal IV size              8.96
+                                         20% maximal IV size              6.66
+                                         25% maximal IV size              5.53
+Source: Stock-Yogo (2005).  Reproduced by permission.
+NB: Critical values are for Cragg-Donald F statistic and i.i.d. errors.
+------------------------------------------------------------------------------
+Hansen J statistic (overidentification test of all instruments):         0.000
+                                                 (equation exactly identified)
+------------------------------------------------------------------------------
+Instrumented:         prop_rights
+Included instruments: al_ethnic al_language al_religion
+Excluded instruments: ajr_settmort
+------------------------------------------------------------------------------
+(est4 stored)
+
+.         
+.         *IV Manual Estimates
+.         eststo: reg logGDP proprights_hat al_ethnic al_language al_religion if ///
+>                 !missing(prop_rights, ajr_settmort), robust   
+
+Linear regression                               Number of obs     =         81
+                                                F(4, 76)          =      27.76
+                                                Prob > F          =     0.0000
+                                                R-squared         =     0.5655
+                                                Root MSE          =     .79184
+
+--------------------------------------------------------------------------------
+               |               Robust
+        logGDP |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
+---------------+----------------------------------------------------------------
+proprights_hat |    .058981   .0128194     4.60   0.000      .033449     .084513
+     al_ethnic |   .9971446    .705366     1.41   0.162    -.4077136    2.402003
+   al_language |  -1.134529   .4086588    -2.78   0.007    -1.948444   -.3206148
+   al_religion |  -.9988003    .555431    -1.80   0.076    -2.105037    .1074363
+         _cons |   6.940358   .6755369    10.27   0.000      5.59491    8.285806
+--------------------------------------------------------------------------------
+(est5 stored)
+
+. 
+.         * Create tables
+.         esttab using "Tables/iv_fractcontrols", ///
+>                 title("Table 3: IV Regression of GDP and Property Rights (fractionalization controls)
+> ") ///
+>                 mtitles("Log GDP (OLS)" "Log GDP (Reduced Form)" ///
+>                 "Property Rights (1st Stage)" "Log GDP (IV)" "Log GDP (Manual IV)") ///
+>                 se label wrap noabbrev rtf  ///
+>                 star(* 0.10 ** 0.05 *** 0.01) b(%9.2fc) compress one replace 
+(output written to Tables/iv_fractcontrols.rtf)
+
+.         eststo clear
+
+. 
+. 
+. 
+. 
+. ********** End do-file
+. 
+. log close _all
+      name:  <unnamed>
+       log:  C:\Users\AN.4271\Dropbox\Teaching 2018\Assignment4\Assignment4log.log
+  log type:  text
+ closed on:  19 Oct 2018, 13:40:31
+-------------------------------------------------------------------------------------------------------
