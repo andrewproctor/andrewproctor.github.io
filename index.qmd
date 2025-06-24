@@ -18,7 +18,8 @@ about:
 ---
 
 ::: {#about}
-Hi there!  I'm Andrew.  
+<span style="font-size: 1.3rem">Hi there!  I'm Andrew.</span>
+
 
 I work at the [University of Munich](https://www.econ.lmu.de/en/).  My research 
 focuses on sources of human capital and labor market inequality.  I'm also really interested in microeconometric methods that help us answer these questions.  
