@@ -16,7 +16,7 @@ summary h6 {
 
 .navbar-brand img {
   height: 100% !important;
-  max-height: 70px;  /* You can increase if needed */
+  max-height: 60px;  /* You can increase if needed */
   object-fit: contain;
   padding: 0;
 }
