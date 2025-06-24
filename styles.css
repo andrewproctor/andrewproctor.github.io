@@ -1,0 +1,15 @@
+/* css styles */
+
+/* Fix heading color inside <summary> so it matches normal headings */
+summary h1,
+summary h2,
+summary h3,
+summary h4,
+summary h5,
+summary h6 {
+  display: inline;
+  vertical-align: middle;
+  margin: 0;  /* Optional: remove extra spacing below heading */
+  color: #343a40 !important;
+  text-decoration: none !important;
+}

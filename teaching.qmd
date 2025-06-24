@@ -1,0 +1,15 @@
+---
+title: "Teaching"
+---
+
+# *PhD Econometrics*
+
+Here is some description.
+
+# **Intro to Data Science in R (Stockholm School of Economics)**
+
+Visit the course website at:  <a href="https://andrewproctor.github.io/rcourse/" style="color:teal;">https://andrewproctor.github.io/rcourse/</a>
+  
+  
+  
+  

@@ -1,0 +1,42 @@
+project:
+  type: website
+
+website:
+  title: "Andrew Proctor | University of Munich"
+  image: images/lmu_logo.png
+  favicon: images/lmu_logo.png
+  navbar:
+    title: " "
+    logo: "images/lmu_logo.png"
+    right:
+      - href: index.qmd
+        text: Home
+    twitter-card: 
+      title: Andrew Proctor
+      description: The personal website of Andrew Proctor
+      image: images/lmu_logo.png
+      image-alt: |
+        A square logo made from Ella Kaye's name - 
+        first name on top of last name in dark gray capital letters, 
+        separated by a horizontal bright pink line, on a very light grey background
+      image-width: 500
+      image-height: 500      
+  open-graph: 
+    #description: The personal website of Andrew Proctor
+    image: images/lmu_logo.png
+    image-width: 500
+    image-height: 500
+    locale: en-GB      
+format:
+  html:
+    theme:
+      - litera 
+      - amp.scss
+    monofont: Monaco
+    link-external-newwindow: true
+    fontsize: 1.1rem
+    title-block-categories: false
+    css: styles.css
+    
+editor: source
+
