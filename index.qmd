@@ -132,22 +132,38 @@ Despite the increase in female labor force participation over the last decades, 
 </script>
 
 <script>
-  document.addEventListener("DOMContentLoaded", function () {
-    const allDetails = document.querySelectorAll("details");
-
-    allDetails.forEach((detail) => {
-      detail.addEventListener("toggle", function () {
-        if (!detail.open) return;
-
-        const parent = detail.parentElement;
-        const siblingDetails = parent.querySelectorAll(":scope > details");
-
-        siblingDetails.forEach((sibling) => {
-          if (sibling !== detail) {
-            sibling.removeAttribute("open");
-          }
-        });
+document.addEventListener("DOMContentLoaded", () => {
+  // Wrap the CV toggle to close details first
+  if (typeof toggleInlineDescription === "function") {
+    const _origToggle = toggleInlineDescription;
+    window.toggleInlineDescription = function() {
+      // Close all open <details>
+      document.querySelectorAll("details[open]").forEach(d => d.open = false);
+      // Hide inline description icon update will be done in listener
+      // Call original toggle
+      _origToggle();
+    };
+  }
+  // Collapse logic for <details> and hide CV
+  document.querySelectorAll("details").forEach(detail => {
+    detail.addEventListener("toggle", () => {
+      if (!detail.open) return;
+      // Close all other <details> not ancestors/descendants
+      document.querySelectorAll("details").forEach(other => {
+        if (other === detail) return;
+        if (other.contains(detail) || detail.contains(other)) return;
+        other.open = false;
       });
+      // Hide CV inline description
+      const desc = document.getElementById("inline-description");
+      const icon = document.getElementById("toggle-icon");
+      if (desc) desc.style.display = 'none';
+      if (icon) icon.textContent = '▶';
     });
   });
+});
 </script>
+
+
+
+
