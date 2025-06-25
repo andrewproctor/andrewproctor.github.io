@@ -130,3 +130,24 @@ Despite the increase in female labor force participation over the last decades, 
     icon.textContent = show ? "▼" : "▶";
   }
 </script>
+
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    const allDetails = document.querySelectorAll("details");
+
+    allDetails.forEach((detail) => {
+      detail.addEventListener("toggle", function () {
+        if (!detail.open) return;
+
+        const parent = detail.parentElement;
+        const siblingDetails = parent.querySelectorAll(":scope > details");
+
+        siblingDetails.forEach((sibling) => {
+          if (sibling !== detail) {
+            sibling.removeAttribute("open");
+          }
+        });
+      });
+    });
+  });
+</script>
