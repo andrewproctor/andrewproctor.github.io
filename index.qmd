@@ -10,11 +10,10 @@ about:
   links:
     - icon: envelope-fill
       text: Email
-      href: andrew.proctor@econ.lmu.de
+      href: "mailto:andrew.proctor@econ.lmu.de"
     - icon: github
       text: Github
       href: https://github.com/andrewproctor
-
 ---
 
 ::: {#about}
@@ -116,7 +115,7 @@ Despite the increase in female labor force participation over the last decades, 
   <span style="display: inline; color: #6c757d; font-size: 0.5em; vertical-align: middle;" id="toggle-icon">▶</span>
   <span style="margin-left: 0.2rem; vertical-align: middle;">CV</span>
   <span id="inline-description" style="display: none; margin-left: 0.5rem; color: #6c757d; vertical-align: middle;">
-    <a class="btn btn-primary" href="https://andrewproctor.net/assets/AndrewProctor_CV.pdf" role="button">PDF</a>
+    <a class="btn btn-primary" href="/assets/AndrewProctor_CV.pdf" role="button">PDF</a>
   </span>
 </h2>
 
