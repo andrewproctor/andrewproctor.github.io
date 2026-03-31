@@ -11,6 +11,7 @@ project:
   output-dir: docs
   resources:
     - assets/  
+    - hcfi_seminar.html
 website:
   title: "Andrew Proctor | University of Munich"
   image: images/lmu_logo.png

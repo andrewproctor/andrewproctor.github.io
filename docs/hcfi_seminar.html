@@ -1,0 +1,1285 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Seminar Preferences</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,300;8..60,400;8..60,600&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink: #2c2c2c;
+    --paper: #fafaf7;
+    --accent: #2d7a4f;
+    --accent-light: #ecf4ef;
+    --accent-hover: #1f5c3b;
+    --border: #d0d3d8;
+    --border-light: #e2e4e8;
+    --muted: #505660;
+    --ranked-bg: #f5f6f4;
+    --drag-shadow: rgba(45, 122, 79, 0.12);
+    --rank-number: #2d7a4f;
+    --error: #a03020;
+    --error-bg: #fdf0ee;
+    --success: #2b6e45;
+    --success-bg: #e8f2ec;
+    --wk2: #5b7fa6;
+    --wk3: #7a6b94;
+    --wk4: #6a8a6e;
+    --wk5: #a07850;
+    --wk6: #8a5a5a;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--paper);
+    color: var(--ink);
+    line-height: 1.6;
+    min-height: 100vh;
+  }
+
+  .container {
+    max-width: 920px;
+    margin: 0 auto;
+    padding: 3rem 2rem 4rem;
+  }
+
+  header {
+    margin-bottom: 2.5rem;
+    border-bottom: 2px solid var(--ink);
+    padding-bottom: 1.5rem;
+  }
+
+  header h1 {
+    font-family: 'Source Serif 4', Georgia, serif;
+    font-size: 2rem;
+    font-weight: 600;
+    letter-spacing: -0.02em;
+    line-height: 1.2;
+    margin-bottom: 0.25rem;
+  }
+
+  header .subtitle {
+    font-family: 'Source Serif 4', Georgia, serif;
+    font-size: 1.15rem;
+    font-weight: 400;
+    color: var(--muted);
+    margin-bottom: 0.6rem;
+  }
+
+  header p {
+    color: var(--muted);
+    font-size: 0.95rem;
+    line-height: 1.5;
+    max-width: 640px;
+  }
+
+  /* ── Identity fields ── */
+  .identity {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+    margin-bottom: 2rem;
+  }
+
+  .field label {
+    display: block;
+    font-size: 0.8rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--muted);
+    margin-bottom: 0.35rem;
+  }
+
+  .field input, .field select {
+    width: 100%;
+    padding: 0.6rem 0.75rem;
+    border: 1.5px solid var(--border);
+    border-radius: 6px;
+    font-family: inherit;
+    font-size: 0.95rem;
+    background: #fff;
+    transition: border-color 0.2s;
+  }
+
+  .field input:focus, .field select:focus {
+    outline: none;
+    border-color: var(--accent);
+    box-shadow: 0 0 0 3px var(--accent-light);
+  }
+
+  /* ── Presentation question ── */
+  .presentation-q {
+    margin-bottom: 2.5rem;
+    padding: 1.25rem;
+    background: #fff;
+    border: 1.5px solid var(--border-light);
+    border-radius: 8px;
+  }
+
+  .presentation-q .q-label {
+    font-size: 0.95rem;
+    font-weight: 500;
+    margin-bottom: 0.75rem;
+  }
+
+  .radio-group {
+    display: flex;
+    gap: 1.5rem;
+  }
+
+  .radio-group label {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    font-size: 0.9rem;
+    cursor: pointer;
+  }
+
+  .radio-group input[type="radio"] {
+    accent-color: var(--accent);
+    width: 1rem;
+    height: 1rem;
+  }
+
+  /* ── Section title ── */
+  .section-title {
+    font-family: 'Source Serif 4', Georgia, serif;
+    font-size: 1.3rem;
+    font-weight: 600;
+    margin-bottom: 0.4rem;
+  }
+
+  .section-desc {
+    color: var(--muted);
+    font-size: 0.92rem;
+    line-height: 1.5;
+    margin-bottom: 1.25rem;
+    max-width: 700px;
+  }
+
+  /* ── Week counter bar ── */
+  .week-counter-bar {
+    display: flex;
+    gap: 0.5rem;
+    margin-bottom: 1.25rem;
+    flex-wrap: wrap;
+  }
+
+  .week-counter-chip {
+    display: flex;
+    align-items: center;
+    gap: 0.35rem;
+    padding: 0.3rem 0.65rem;
+    border-radius: 20px;
+    font-size: 0.78rem;
+    font-weight: 600;
+    border: 1.5px solid var(--border);
+    background: #fff;
+    transition: background 0.2s, border-color 0.2s, color 0.2s;
+  }
+
+  .week-counter-chip .dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+
+  .week-counter-chip.met {
+    border-color: var(--success);
+    background: var(--success-bg);
+    color: var(--success);
+  }
+
+  .week-counter-chip.unmet {
+    border-color: var(--error);
+    background: var(--error-bg);
+    color: var(--error);
+  }
+
+  /* ── Two-column layout ── */
+  .columns {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+    margin-bottom: 2.5rem;
+  }
+
+  .column-header {
+    font-family: 'Source Serif 4', Georgia, serif;
+    font-size: 1.05rem;
+    font-weight: 600;
+    margin-bottom: 0.75rem;
+    display: flex;
+    align-items: baseline;
+    gap: 0.5rem;
+  }
+
+  .column-header .count {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.8rem;
+    font-weight: 500;
+    color: var(--muted);
+  }
+
+  /* ── Week group headers ── */
+  .week-group-header {
+    font-size: 0.78rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    color: var(--muted);
+    padding: 0.6rem 0.5rem 0.3rem;
+    margin-top: 0.4rem;
+    border-top: 1px solid var(--border-light);
+  }
+
+  .week-group-header:first-child { margin-top: 0; border-top: none; }
+
+  /* ── Paper list (available) ── */
+  .paper-pool {
+    min-height: 200px;
+    border: 1.5px dashed var(--border);
+    border-radius: 8px;
+    padding: 0.5rem;
+    background: #fff;
+    transition: border-color 0.2s, background 0.2s;
+    max-height: 70vh;
+    overflow-y: auto;
+  }
+
+  .paper-pool.drag-over {
+    border-color: var(--accent);
+    background: var(--accent-light);
+  }
+
+  /* ── Ranked list ── */
+  .ranked-list {
+    min-height: 200px;
+    border: 1.5px solid var(--accent);
+    border-radius: 8px;
+    padding: 0.5rem;
+    background: var(--ranked-bg);
+    transition: border-color 0.2s, background 0.2s;
+    max-height: 70vh;
+    overflow-y: auto;
+  }
+
+  .ranked-list.drag-over {
+    border-color: var(--accent-hover);
+    background: var(--accent-light);
+  }
+
+  .ranked-list .empty-state {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 120px;
+    color: var(--muted);
+    font-size: 0.85rem;
+    font-style: italic;
+    text-align: center;
+    padding: 1rem;
+  }
+
+  /* ── Paper cards ── */
+  .paper-card {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.5rem;
+    padding: 0.55rem 0.65rem;
+    margin-bottom: 0.3rem;
+    border-radius: 6px;
+    background: #fff;
+    border: 1px solid var(--border-light);
+    cursor: grab;
+    user-select: none;
+    transition: box-shadow 0.15s, border-color 0.15s, transform 0.1s, opacity 0.2s;
+    position: relative;
+  }
+
+  .paper-card:hover {
+    border-color: var(--border);
+    box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+  }
+
+  .paper-card:active, .paper-card.dragging {
+    cursor: grabbing;
+    box-shadow: 0 4px 16px var(--drag-shadow);
+    transform: scale(1.01);
+    z-index: 100;
+    opacity: 0.92;
+  }
+
+  .paper-card .rank-badge {
+    display: none;
+    flex-shrink: 0;
+    width: 1.5rem;
+    height: 1.5rem;
+    border-radius: 50%;
+    background: var(--accent);
+    color: #fff;
+    font-size: 0.7rem;
+    font-weight: 600;
+    align-items: center;
+    justify-content: center;
+    margin-top: 0.1rem;
+  }
+
+  .ranked-list .paper-card .rank-badge {
+    display: flex;
+  }
+
+  .paper-card .week-badge {
+    flex-shrink: 0;
+    font-size: 0.65rem;
+    font-weight: 600;
+    padding: 0.1rem 0.4rem;
+    border-radius: 3px;
+    color: #fff;
+    margin-top: 0.15rem;
+    white-space: nowrap;
+  }
+
+  .paper-card .week-badge.wk2 { background: var(--wk2); }
+  .paper-card .week-badge.wk3 { background: var(--wk3); }
+  .paper-card .week-badge.wk4 { background: var(--wk4); }
+  .paper-card .week-badge.wk5 { background: var(--wk5); }
+  .paper-card .week-badge.wk6 { background: var(--wk6); }
+
+  .paper-card .grip {
+    flex-shrink: 0;
+    color: var(--border);
+    margin-top: 0.1rem;
+    font-size: 0.8rem;
+    line-height: 1;
+  }
+
+  .paper-card .paper-info {
+    flex: 1;
+    min-width: 0;
+  }
+
+  .paper-card .paper-subtopic {
+    font-size: 0.76rem;
+    font-weight: 600;
+    color: var(--muted);
+    letter-spacing: 0.02em;
+    margin-bottom: 0.1rem;
+  }
+
+  .paper-card .paper-title {
+    font-size: 0.85rem;
+    font-weight: 500;
+    line-height: 1.35;
+    color: var(--ink);
+    margin-bottom: 0.15rem;
+  }
+
+  .paper-card .paper-link {
+    font-size: 0.76rem;
+    color: var(--accent);
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.25rem;
+    font-weight: 500;
+    transition: color 0.15s;
+  }
+
+  .paper-card .paper-link:hover {
+    color: var(--accent-hover);
+    text-decoration: underline;
+  }
+
+  .paper-card .paper-link svg {
+    width: 12px; height: 12px;
+    flex-shrink: 0;
+  }
+
+  /* Drop indicator line */
+  .drop-indicator {
+    height: 2px;
+    background: var(--accent);
+    border-radius: 2px;
+    margin: 0 0.5rem;
+    transition: opacity 0.1s;
+  }
+
+  /* ── Submit ── */
+  .submit-area {
+    text-align: center;
+  }
+
+  .submit-btn {
+    font-family: inherit;
+    font-size: 1rem;
+    font-weight: 600;
+    padding: 0.75rem 2.5rem;
+    border: none;
+    border-radius: 8px;
+    background: var(--accent);
+    color: #fff;
+    cursor: pointer;
+    transition: background 0.2s, transform 0.1s, box-shadow 0.2s;
+  }
+
+  .submit-btn:hover {
+    background: var(--accent-hover);
+    box-shadow: 0 4px 12px var(--drag-shadow);
+  }
+
+  .submit-btn:active { transform: scale(0.98); }
+
+  .submit-btn:disabled {
+    background: var(--border);
+    cursor: not-allowed;
+    box-shadow: none;
+    transform: none;
+  }
+
+  .validation-hint {
+    margin-top: 0.5rem;
+    font-size: 0.82rem;
+    color: var(--error);
+    display: none;
+  }
+
+  .validation-hint.visible { display: block; }
+
+  /* ── Messages ── */
+  .message {
+    margin-top: 1rem;
+    padding: 0.75rem 1rem;
+    border-radius: 6px;
+    font-size: 0.9rem;
+    display: none;
+  }
+
+  .message.error {
+    display: block;
+    background: var(--error-bg);
+    color: var(--error);
+    border: 1px solid var(--error);
+  }
+
+  .message.success {
+    display: block;
+    background: var(--success-bg);
+    color: var(--success);
+    border: 1px solid var(--success);
+  }
+
+  /* ── Responsive ── */
+  @media (max-width: 700px) {
+    .container { padding: 2rem 1rem 3rem; }
+    header h1 { font-size: 1.5rem; }
+    .identity { grid-template-columns: 1fr; }
+    .columns { grid-template-columns: 1fr; }
+    .ranked-list { min-height: 100px; }
+    .week-counter-bar { gap: 0.3rem; }
+  }
+
+  @media print { .submit-area { display: none; } }
+
+  /* ── Password gate ── */
+  .password-gate {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    padding: 2rem;
+  }
+
+  .password-box {
+    max-width: 380px;
+    width: 100%;
+    text-align: center;
+  }
+
+  .password-box h2 {
+    font-family: 'Source Serif 4', Georgia, serif;
+    font-size: 1.4rem;
+    font-weight: 600;
+    margin-bottom: 0.25rem;
+  }
+
+  .password-box .pw-subtitle {
+    font-size: 0.9rem;
+    color: var(--muted);
+    margin-bottom: 1.5rem;
+  }
+
+  .password-box .pw-field {
+    display: flex;
+    gap: 0.5rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .password-box .pw-field input {
+    flex: 1;
+    padding: 0.6rem 0.75rem;
+    border: 1.5px solid var(--border);
+    border-radius: 6px;
+    font-family: inherit;
+    font-size: 0.95rem;
+    background: #fff;
+  }
+
+  .password-box .pw-field input:focus {
+    outline: none;
+    border-color: var(--accent);
+    box-shadow: 0 0 0 3px var(--accent-light);
+  }
+
+  .password-box .pw-field button {
+    padding: 0.6rem 1.25rem;
+    border: none;
+    border-radius: 6px;
+    background: var(--accent);
+    color: #fff;
+    font-family: inherit;
+    font-size: 0.9rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.2s;
+  }
+
+  .password-box .pw-field button:hover {
+    background: var(--accent-hover);
+  }
+
+  .password-box .pw-error {
+    font-size: 0.82rem;
+    color: var(--error);
+    display: none;
+  }
+
+  .password-box .pw-error.visible {
+    display: block;
+  }
+
+  .form-content { display: none; }
+  .form-content.unlocked { display: block; }
+</style>
+</head>
+<body>
+
+<!-- Password gate -->
+<div class="password-gate" id="passwordGate">
+  <div class="password-box">
+    <h2>Seminar Preferences</h2>
+    <div class="pw-subtitle">Please enter the access code.</div>
+    <div class="pw-field">
+      <input type="password" id="pwInput" placeholder="Access code" autocomplete="off">
+      <button id="pwBtn">Enter</button>
+    </div>
+    <div class="pw-error" id="pwError">Incorrect code. Please try again.</div>
+  </div>
+</div>
+
+<!-- Form (hidden until password entered) -->
+<div class="form-content" id="formContent">
+<div class="container">
+  <header>
+    <h1>Seminar Preferences</h1>
+    <div class="subtitle">Human Capital Formation and Investment</div>
+    <p>Please complete the form below to help us plan the seminar schedule and assign paper presentations.</p>
+  </header>
+
+  <div class="identity">
+    <div class="field">
+      <label for="studentName">Full name *</label>
+      <input type="text" id="studentName" placeholder="e.g. Andrew Proctor" required>
+    </div>
+    <div class="field">
+      <label for="studentEmail">Email *</label>
+      <input type="email" id="studentEmail" placeholder="e.g. andrew.proctor@econ.lmu.de" required>
+    </div>
+  </div>
+
+  <!-- Presentation format question -->
+  <div class="presentation-q">
+    <div class="q-label">Would you prefer that the journal article presentations (one per student) be done individually or in groups of two?</div>
+    <div class="radio-group">
+      <label><input type="radio" name="presFormat" value="individual"> Individually</label>
+      <label><input type="radio" name="presFormat" value="pairs"> In groups of two</label>
+      <label><input type="radio" name="presFormat" value="no_preference"> No preference</label>
+    </div>
+  </div>
+
+  <!-- Paper ranking section -->
+  <div class="section-title">Paper Preferences</div>
+  <div class="section-desc">
+    Please rank your top 12 paper candidates, including at least two from each week. This ranking will be used to determine which papers we cover in class and to assign presentations to students.
+  </div>
+
+  <div class="week-counter-bar" id="weekCounterBar"></div>
+
+  <div class="columns">
+    <div>
+      <div class="column-header">
+        Available Papers
+        <span class="count" id="poolCount"></span>
+      </div>
+      <div class="paper-pool" id="paperPool"></div>
+    </div>
+    <div>
+      <div class="column-header">
+        Your Top 12
+        <span class="count" id="rankedCount">(0 / 12)</span>
+      </div>
+      <div class="ranked-list" id="rankedList">
+        <div class="empty-state">Drag papers here to rank them</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="submit-area">
+    <button class="submit-btn" id="submitBtn" disabled>Submit Preferences</button>
+    <div class="validation-hint" id="validationHint"></div>
+    <div class="message" id="formMessage"></div>
+  </div>
+</div>
+</div>
+
+<script>
+// ═══════════════════════════════════════════════════════════════
+//  ✏️  PASSWORD CONFIGURATION
+// ═══════════════════════════════════════════════════════════════
+//
+//  To set your password, run this in your browser console:
+//
+//    crypto.subtle.digest('SHA-256', new TextEncoder().encode('YOUR_PASSWORD'))
+//      .then(h => console.log(Array.from(new Uint8Array(h)).map(b => b.toString(16).padStart(2,'0')).join('')))
+//
+//  Then paste the resulting hash below.
+//
+//  Default password: "hcfi2026"
+
+const PASSWORD_HASH = '639e1f732560f784e86db88beaeff91c7217ce7be5e3da7df9485580589eae70';
+
+(function() {
+  const gate = document.getElementById('passwordGate');
+  const form = document.getElementById('formContent');
+  const input = document.getElementById('pwInput');
+  const btn = document.getElementById('pwBtn');
+  const err = document.getElementById('pwError');
+
+  async function sha256(str) {
+    const buf = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(str));
+    return Array.from(new Uint8Array(buf)).map(b => b.toString(16).padStart(2, '0')).join('');
+  }
+
+  async function checkPassword() {
+    const hash = await sha256(input.value);
+    if (hash === PASSWORD_HASH) {
+      gate.style.display = 'none';
+      form.classList.add('unlocked');
+    } else {
+      err.classList.add('visible');
+      input.value = '';
+      input.focus();
+    }
+  }
+
+  btn.addEventListener('click', checkPassword);
+  input.addEventListener('keydown', e => { if (e.key === 'Enter') checkPassword(); });
+  input.focus();
+})();
+</script>
+
+<script>
+// ═══════════════════════════════════════════════════════════════
+//  ✏️  CONFIGURATION — EDIT THESE
+// ═══════════════════════════════════════════════════════════════
+
+// 1) Google Apps Script Web App URL (see setup instructions below)
+const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbz8ca2rnwbC2x7qRm5TisF3epf7DQZX4WJDkKboFzT1fez-L3Y_bSda0kcTdspt0Dbw3g/exec';
+
+// 2) Paper list — grouped by week
+//    id:    short identifier (used in spreadsheet)
+//    title: display title
+//    url:   Dropbox sharing link (use ?dl=0 for preview)
+//    week:  integer 2–6
+const PAPERS = [
+  // ── Week 2: Financial and nonfinancial resources ──
+  { id: "carneiro_etal_2021", week: 2, subtopic: "2.1: Income, wealth and cash transfers",
+    title: "Carneiro et al (JPE 2021) - Intergenerational Mobility and the Timing of Parental Income",
+    url: "https://www.dropbox.com/scl/fi/zj6jdpmbk5q5bz7pu9ljm/Carneiro-et-al-JPE-2021-Intergenerational-Mobility-and-the-Timing-of-Parental-Income.pdf?rlkey=pikxk2mvmu0e6d7xz3ikdd00u&dl=0" },
+  { id: "cornelissen_etal_2018", week: 2, subtopic: "2.2: Time and caregiving inputs",
+    title: "Cornelissen et al (JPE 2018) - Who benefits from universal child care?  Estimating Marginal Returns to Early Child Care Attendance",
+    url: "https://www.dropbox.com/scl/fi/cpsvjb68viq74arbpl2nd/Cornelissen-et-al-JPE-2018-Who-benefits-from-universal-child-care.pdf?rlkey=om0qqcsw84tnakjoix9ajgi7m&dl=0" },
+  { id: "doyle_2020", week: 2, subtopic: "2.3: Home environment, parenting practices & skills",
+    title: "Doyle (JPE 2020) - The first 2000 days and child skills",
+    url: "https://www.dropbox.com/scl/fi/cfqd7ng24g22rxf6rv3ya/Doyle-JPE-2020-The-first-2000-days-and-child-skills.pdf?rlkey=5aaex6s267z4xt6f0ws36zs7i&dl=0" },
+  { id: "houmark_etal_2024", week: 2, subtopic: "2.4: Cognitive skills and the technology of skill formation",
+    title: "Houmark, Ronda, and Rosholm (AER 2024) - The Nurture of Nature and the Nature of Nurture: How Genes and Investments Interact in the Formation of Skills",
+    url: "https://www.dropbox.com/scl/fi/ojufpx1g7wo1to10wy1yg/Houmark-Ronda-and-Rosholm-AER-2024-The-Nurture-of-Nature-and-the-Nature-of-Nurture.pdf?rlkey=93s2w4x3cmrugqm16k2js3qul&dl=0" },
+  { id: "bayer_mcmillan_2012", week: 2, subtopic: "2.5: Neighborhoods and Place-Based Determinants",
+    title: "Bayer & McMillan (Journal of Public Economics 2012) - Tiebout sorting & neighborhood stratification",
+    url: "https://www.dropbox.com/scl/fi/n2j6r9w71s5q45m7rgk2p/Bayer-McMillan-Journal-of-Public-Economics-2012-Tiebout-sorting-neighborhood-stratification.pdf?rlkey=44k539mtdgo4bsgfogta13cg9&dl=0" },
+    
+  // ── Week 3: Institutional and labor market environment ──
+  { id: "matthewes_2020", week: 3, subtopic: "3.1: Public educational investment and design",
+    title: "Matthewes (Economic Journal 2020) - Better together? Heterogenous effects of tracking on student achievement",
+    url: "https://www.dropbox.com/scl/fi/uhqvmzd1le8rdh2gu9q6c/Matthewes-Economic-Journal-2020-Better-together-Heterogenous-effects-of-tracking-on-student-achievement.pdf?rlkey=n6lcdkc29jruow9ue1vy3k7y4&dl=0" },
+  { id: "londonovelez_etal_forth", week: 3, subtopic: "3.2: Credit constraints & financial aid provision",
+    title: "Londoño-Vélez et al (JPE forth) - Financial Aid and Upward Mobility: Evidence from Colombia’s Ser Pilo Paga",
+    url: "https://www.dropbox.com/scl/fi/n1yiyx4otxrmq3nfm5i5k/Londo-o-V-lez-et-al-JPE-forth-Financial-Aid-and-Upward-Mobility.pdf?rlkey=qkm4pqinmrud4ly7ddd34n9gj&dl=0" },
+  { id: "blundell_etal_2016", week: 3, subtopic: "3.3: Labor Market Policies",
+    title: "Blundell et al (Econometrica 2016) - Female Labor Supply, Human Capital, and Welfare Reform",
+    url: "https://www.dropbox.com/scl/fi/kw870wp5cimpv2qi40xh7/Blundell-et-al-Econometrica-2016-Female-Labor-Supply-Human-Capital-and-Welfare-Reform.pdf?rlkey=t8ztx3n1rzdl3g76eud0eraea&dl=0" },
+  { id: "fredriksson_etal_2018", week: 3, subtopic: "3.4: Search, learning and matching",
+    title: "Fredriksson, Hensvik and Skans (AER 2018) - Mismatch of Talent: Evidence on Match Quality, Entry Wages, and Job Mobility",
+    url: "https://www.dropbox.com/scl/fi/zgmlzi7exhkljlhngq76w/Fredriksson-Hensvik-and-Skans-AER-2018-Mismatch-of-Talent.pdf?rlkey=bdybimm1x7vmvpqz2g7wvvfhy&dl=0" },
+  { id: "card_etal_2025", week: 3, subtopic: "3.5: Social Norms, Stratification & Discrimination",
+    title: "Card, Colella & Lalive (RESTUD 2025) - Gender Preferences in Job Vacancies and Workplace Gender Diversity",
+    url: "https://www.dropbox.com/scl/fi/5sq4s1y1mvlqks0gldpnp/Card-Colella-Lalive-RESTUD-2025-Gender-Preferences-in-Job-Vacancies-and-Workplace-Gender-Diversity.pdf?rlkey=30ayyr8tbaskokq4s3lbenyrm&dl=0" },
+
+  // ── Week 4: Stochastic environment ──
+  { id: "salvanes_etal_2024", week: 4, subtopic: "4.1: Transitory Shocks",
+    title: "Salvanes, Willage, and Willen (JLE 2024) - The Effect of Labor Market Shocks across the Life Cycle",
+    url: "https://www.dropbox.com/scl/fi/yxloulqi1zgzn3zou5cza/Salvanes-Willage-and-Willen-JLE-2024-The-Effect-of-Labor-Market-Shocks-across-the-Life-Cycle.pdf?rlkey=nb5jzph5k9rzcd92ohe9ip688&dl=0" },
+  { id: "adukia_etal_2020", week: 4, subtopic: "4.2: Labor demand & skill premia shocks",
+    title: "Adukia, Asher & Novosad (AEJ Applied 2020) - Educational Investment Responses to Economic Opportunity: Evidence from Indian Road Construction",
+    url: "https://www.dropbox.com/scl/fi/4w7y1chsctg9gita6vivo/Adukia-Asher-Novosad-AEJ-Applied-2020-Educational-Investment-Responses-to-Economic-Opportunity.pdf?rlkey=6lfudvvdrg8wn6vegth591kpo&dl=0" },
+  { id: "cavounidis_lang_2020", week: 4, subtopic: "4.3: Structural changes in labor demand",
+    title: "Cavounidis and Lang (JPE 2020) - Ben-Porath meets Lazear: Microfoundations for Dynamic Skill Formation",
+    url: "https://www.dropbox.com/scl/fi/bfc3sajz8um5enx225uqk/Cavounidis-and-Lang-JPE-2020-Ben-Porath-meets-Lazear-Microfoundations-for-Dynamic-Skill-Formation.pdf?rlkey=gdur3fzdit3edi8unmv9siapk&dl=0" },
+  { id: "silos_smith_2015", week: 4, subtopic: "4.4: Static and dynamic portfolio risks",
+    title: "Silos and Smith (RED 2015) - Human capital portfolios",
+    url: "https://www.dropbox.com/scl/fi/ghx2j6z0s39v4vwvvva8d/Silos-and-Smith-RED-2015-Human-capital-portfolios.pdf?rlkey=uw21x57yk3m2ydfs3b3f31gzq&dl=0" },
+  { id: "stuart_2022", week: 4, subtopic: "4.5: Aggregate shocks & the business cycle",
+    title: "Stuart (AEJ Applied 2022) - The Long-Run Effects of Recessions on Education and Income",
+    url: "https://www.dropbox.com/scl/fi/ah3zoadouqj4fcfoh286e/Stuart-AEJ-Applied-2022-Long-Run-Effects-of-Recessions-on-Education-and-Income.pdf?rlkey=tdqa1c8wisgq8t0e5dfv1ywua&dl=0" },
+    
+  // ── Week 5: Intra-household dynamics and social interactions ──
+  { id: "adda_etal_2017", week: 5, subtopic: "5.1: Fertility and caregiving",
+    title: "Adda, Dustmann, and Stevens (JPE 2017) - The Career Costs of Children",
+    url: "https://www.dropbox.com/scl/fi/42ayp0t7ro78es7kcjqne/Adda-Dustmann-and-Stevens-JPE-2017-The-Career-Costs-of-Children.pdf?rlkey=lyvtholw03wesxgfalusxayes&dl=0" },
+  { id: "altmejd_etal_2021", week: 5, subtopic: "5.2: Family structure and spillovers",
+    title: "Altmejd et al (QJE 2021) - O Brother, Where Start Thou? Sibling Spillovers on College and Major Choice in Four Countries",
+    url: "https://www.dropbox.com/scl/fi/52asgjnvs7txnuhf3f10d/Altmejd-et-al-QJE-2021-O-Brother-Where-Start-Though-Sibling-Spillovers-on-College-and-Major-Choice-in-Four-Countries.pdf?rlkey=gwb2ca3uaxyqkudhqc8if2vpm&dl=0" },
+  { id: "breda_etal_2023", week: 5, subtopic: "5.3: Peers, mentors and advisors",
+    title: "Breda et al (Economic Journal 2023) - How effective are female role models in steering girls towards STEM",
+    url: "https://www.dropbox.com/scl/fi/3wb4f8juk7gw25h5hct77/Breda-et-al-Economic-Journal-2023-How-effective-are-female-role-models-in-steering-girls-towards-STEM.pdf?rlkey=6hpfe4bm2uesmvswhyuj3cfls&dl=0" },
+  { id: "battisti_etal_2021", week: 5, subtopic: "5.4: Networks",
+    title: "Battisti, Peri, and Romiti (Economic Journal 2021) - Dynamic Effects of Co-Ethnic Networks on Immigrants' Economic Success",
+    url: "https://www.dropbox.com/scl/fi/3atbosyo0zfdwllaxenwa/Battisti-Peri-and-Romiti-Economic-Journal-2021-Dynamic-Effects-of-Co-Ethnic-Networks-on-Immigrants-Economic-Success.pdf?rlkey=tyr8rqt9203iyhc3ey5b74iqy&dl=0" },
+  { id: "borella_etal_2023", week: 5, subtopic: "5.5: Marriage, intramarital equity and sorting",
+    title: "Borella, De Nardi and Yang (RESTUD 2023) - Are Marriage-Related Taxes Holding Back Female Labour Supply",
+    url: "https://www.dropbox.com/scl/fi/iskpdv5oia3xyiood8xqk/Borella-De-Nardi-and-Yang-RESTUD-2023-Are-Marriage-Related-Taxes-Holding-Back-Female-Labour-Supply.pdf?rlkey=n1t0bi6h0nghgqb3fccos3xyd&dl=0" },
+  { id: "berman_etal_2025", week: 5, subtopic: "5.6: Parental Motives",
+    title: "Berman, Rotunno & Ziparo (EJ 2025) - Sweet Child of Mine: Parental Income, Child Health and Inequality",
+    url: "https://www.dropbox.com/scl/fi/9vk8m3e24ogv1n2j1z5al/Berman-Rotunno-Ziparo-EJ-2025-Parental-Income-Child-Health-and-Inequality.pdf?rlkey=nusjwk7iu6ptq86dwof19hb5t&dl=0" },
+    
+  // ── Week 6: Behavioral determinants ──
+  { id: "wiswall_zafar_2018", week: 6, subtopic: "6.1: Taste preferences & nonpecuniary amenities",
+    title: "Wiswall and Zafar (QJE 2018) - Preference for the Workplace, Investment in Human Capital, and Gender",
+    url: "https://www.dropbox.com/scl/fi/vmetrf1ncv77l5gwxittt/Wiswall-and-Zafar-QJE-2018-Preference-for-the-Workplace-Investment-in-Human-Capital-and-Gender.pdf?rlkey=oxe4hqacz5bej8uwnh21d7y19&dl=0" },
+  { id: "golsteyn_etal_2013", week: 6, subtopic: "6.2: Risk & time preferences",
+    title: "Golsteyn, Gronqvist, and Lindahl (Economic Journal 2013) - Adolescent Time Preferences Predict Lifetime Outcomes",
+    url: "https://www.dropbox.com/scl/fi/3nsfiu2tizgp2lhluoyql/Golsteyn-Gronqvist-and-Lindahl-Economic-Journal-2013-Adolescent-Time-Preferences-Predict-Lifetime-Outcomes.pdf?rlkey=jqvzt319ksybigrz8fgr0slv2&dl=0" },
+  { id: "zumbuehl_etal_2021", week: 6, subtopic: "6.3: Non-cognitive skills and higher-order cognition",
+    title: "Zumbuehl, Dohmen & Pfann (Econ Journal 2021) - Parental Involvement and the Intergenerational Transmission of Economic Preferences, Attitudes and Personality Traits",
+    url: "https://www.dropbox.com/scl/fi/jgaw03iz5ujl2yt3ngu53/Zumbuehl-Dohmen-Pfann-Econ-Journal-2021-The-Intergenerational-Transmission-of-Economic-Preference.pdf?rlkey=yl6bwudnvyjmujacmw6sd959k&dl=0" },
+  { id: "arcidiacono_etal_2025", week: 6, subtopic: "6.4: Information & beliefs",
+    title: "Arcidiacono, Aucejo, Maurel & Ransom (JPE 2025) - College Attrition & the Dynamics of Information Revelation",
+    url: "https://www.dropbox.com/scl/fi/2vr5wwsqd80k8mtlmtdxl/Arcidiacono-Aucejo-Maurel-Ransom-JPE-2025-College-Attrition-the-Dynamics-of-Information-Revelation.pdf?rlkey=xnhne72wnm7dgflygs2cwrwe9&dl=0" },
+];
+
+
+// 3) Constraints
+const REQUIRED_RANK_COUNT = 12;
+const MIN_PER_WEEK = 2;
+const WEEKS = [2, 3, 4, 5, 6];
+const WEEK_COLORS = { 2: 'wk2', 3: 'wk3', 4: 'wk4', 5: 'wk5', 6: 'wk6' };
+const WEEK_TOPICS = {
+  2: 'Financial and nonfinancial resources',
+  3: 'Institutional and labor market environment',
+  4: 'Stochastic environment',
+  5: 'Intra-household dynamics and social interactions',
+  6: 'Behavioral determinants'
+};
+
+
+// ═══════════════════════════════════════════════════════════════
+//  FORM LOGIC
+// ═══════════════════════════════════════════════════════════════
+
+const pool = document.getElementById('paperPool');
+const ranked = document.getElementById('rankedList');
+const poolCount = document.getElementById('poolCount');
+const rankedCount = document.getElementById('rankedCount');
+const submitBtn = document.getElementById('submitBtn');
+const formMessage = document.getElementById('formMessage');
+const validationHint = document.getElementById('validationHint');
+const weekCounterBar = document.getElementById('weekCounterBar');
+
+let draggedEl = null;
+let touchData = null;
+
+// ── Build week counter chips ──
+function buildWeekCounters() {
+  WEEKS.forEach(w => {
+    const chip = document.createElement('span');
+    chip.className = 'week-counter-chip';
+    chip.id = `weekChip${w}`;
+    chip.innerHTML = `<span class="dot" style="background:var(--wk${w})"></span>Week ${w}: <span class="wk-n">0</span>`;
+    weekCounterBar.appendChild(chip);
+  });
+}
+
+// ── Build paper cards ──
+function createCard(paper) {
+  const card = document.createElement('div');
+  card.className = 'paper-card';
+  card.dataset.id = paper.id;
+  card.dataset.week = paper.week;
+  card.dataset.subtopic = paper.subtopic;
+  card.draggable = true;
+  card.innerHTML = `
+    <span class="rank-badge"></span>
+    <span class="week-badge ${WEEK_COLORS[paper.week]}">Week ${paper.week}</span>
+    <span class="grip">⠿</span>
+    <div class="paper-info">
+      <div class="paper-subtopic">${paper.subtopic}</div>
+      <div class="paper-title">${paper.title}</div>
+      <a class="paper-link" href="${paper.url}" target="_blank" rel="noopener" onclick="event.stopPropagation()">
+        <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M6 3.5H3.5a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1V10"/><path d="M9.5 2.5h4v4"/><path d="M13.5 2.5 8 8"/></svg>
+        View paper
+      </a>
+    </div>
+  `;
+  return card;
+}
+
+function init() {
+  buildWeekCounters();
+
+  // Group papers by week in the pool
+  WEEKS.forEach(w => {
+    const weekPapers = PAPERS.filter(p => p.week === w);
+    const header = document.createElement('div');
+    header.className = 'week-group-header';
+    header.textContent = `Week ${w}: ${WEEK_TOPICS[w]}`;
+    pool.appendChild(header);
+    weekPapers.forEach(p => pool.appendChild(createCard(p)));
+  });
+
+  updateCounts();
+  setupDragAndDrop();
+  setupTouchDragAndDrop();
+  submitBtn.addEventListener('click', handleSubmit);
+}
+
+// ── Counts, badges, and validation ──
+function getWeekCounts() {
+  const counts = {};
+  WEEKS.forEach(w => counts[w] = 0);
+  ranked.querySelectorAll('.paper-card').forEach(card => {
+    const w = parseInt(card.dataset.week);
+    if (counts[w] !== undefined) counts[w]++;
+  });
+  return counts;
+}
+
+function updateCounts() {
+  const rankedCards = ranked.querySelectorAll('.paper-card');
+  const poolCards = pool.querySelectorAll('.paper-card');
+  const n = rankedCards.length;
+
+  poolCount.textContent = `(${poolCards.length} remaining)`;
+  rankedCount.textContent = `(${n} / ${REQUIRED_RANK_COUNT})`;
+
+  // Rank badges
+  rankedCards.forEach((card, i) => {
+    card.querySelector('.rank-badge').textContent = i + 1;
+  });
+
+  // Empty state
+  const empty = ranked.querySelector('.empty-state');
+  if (n === 0 && !empty) {
+    ranked.innerHTML = '<div class="empty-state">Drag papers here to rank them</div>';
+  } else if (n > 0 && empty) {
+    empty.remove();
+  }
+
+  // Week counters and validation
+  const wc = getWeekCounts();
+  let allWeeksMet = true;
+  const unmetWeeks = [];
+
+  WEEKS.forEach(w => {
+    const chip = document.getElementById(`weekChip${w}`);
+    chip.querySelector('.wk-n').textContent = wc[w];
+    chip.classList.remove('met', 'unmet');
+    if (wc[w] >= MIN_PER_WEEK) {
+      chip.classList.add('met');
+    } else if (n > 0) {
+      chip.classList.add('unmet');
+      allWeeksMet = false;
+      unmetWeeks.push(`Week ${w}`);
+    } else {
+      allWeeksMet = false;
+      unmetWeeks.push(`Week ${w}`);
+    }
+  });
+
+  const countOk = n === REQUIRED_RANK_COUNT;
+  const valid = countOk && allWeeksMet;
+  submitBtn.disabled = !valid;
+
+  // Validation hint
+  if (n > 0 && !valid) {
+    const hints = [];
+    if (!countOk) hints.push(`Select ${REQUIRED_RANK_COUNT - n} more paper${REQUIRED_RANK_COUNT - n !== 1 ? 's' : ''}`);
+    if (!allWeeksMet) hints.push(`Need at least ${MIN_PER_WEEK} from: ${unmetWeeks.join(', ')}`);
+    validationHint.textContent = hints.join(' · ');
+    validationHint.classList.add('visible');
+  } else {
+    validationHint.classList.remove('visible');
+  }
+
+  rankedCount.style.color = countOk ? 'var(--accent)' : 'var(--muted)';
+}
+
+// ── Desktop drag-and-drop ──
+function setupDragAndDrop() {
+  document.addEventListener('dragstart', e => {
+    const card = e.target.closest('.paper-card');
+    if (!card) return;
+    draggedEl = card;
+    card.classList.add('dragging');
+    e.dataTransfer.effectAllowed = 'move';
+    e.dataTransfer.setData('text/plain', card.dataset.id);
+  });
+
+  document.addEventListener('dragend', () => {
+    if (draggedEl) draggedEl.classList.remove('dragging');
+    draggedEl = null;
+    clearDropIndicators();
+    pool.classList.remove('drag-over');
+    ranked.classList.remove('drag-over');
+  });
+
+  [pool, ranked].forEach(container => {
+    container.addEventListener('dragover', e => {
+      e.preventDefault();
+      e.dataTransfer.dropEffect = 'move';
+      container.classList.add('drag-over');
+      if (container === ranked) positionDropIndicator(container, e.clientY);
+    });
+
+    container.addEventListener('dragleave', e => {
+      if (!container.contains(e.relatedTarget)) {
+        container.classList.remove('drag-over');
+        clearDropIndicators();
+      }
+    });
+
+    container.addEventListener('drop', e => {
+      e.preventDefault();
+      container.classList.remove('drag-over');
+      if (!draggedEl) return;
+
+      if (container === ranked) {
+        const current = ranked.querySelectorAll('.paper-card').length;
+        const alreadyRanked = draggedEl.parentElement === ranked;
+        if (!alreadyRanked && current >= REQUIRED_RANK_COUNT) {
+          clearDropIndicators();
+          return;
+        }
+        const insertBefore = getInsertPosition(container, e.clientY);
+        container.insertBefore(draggedEl, insertBefore);
+      } else {
+        // Return to pool — insert into correct week group
+        returnToPool(draggedEl);
+      }
+      clearDropIndicators();
+      updateCounts();
+    });
+  });
+}
+
+function returnToPool(card) {
+  const week = parseInt(card.dataset.week);
+  const headers = pool.querySelectorAll('.week-group-header');
+  let targetHeader = null;
+  headers.forEach(h => {
+    if (h.textContent.startsWith(`Week ${week}:`)) targetHeader = h;
+  });
+  if (targetHeader) {
+    let sibling = targetHeader.nextElementSibling;
+    while (sibling && sibling.classList.contains('paper-card') && parseInt(sibling.dataset.week) === week) {
+      sibling = sibling.nextElementSibling;
+    }
+    pool.insertBefore(card, sibling);
+  } else {
+    pool.appendChild(card);
+  }
+}
+
+function getInsertPosition(container, y) {
+  const cards = [...container.querySelectorAll('.paper-card:not(.dragging)')];
+  for (const card of cards) {
+    const rect = card.getBoundingClientRect();
+    if (y < rect.top + rect.height / 2) return card;
+  }
+  return null;
+}
+
+function positionDropIndicator(container, y) {
+  clearDropIndicators();
+  const indicator = document.createElement('div');
+  indicator.className = 'drop-indicator';
+  const insertBefore = getInsertPosition(container, y);
+  container.insertBefore(indicator, insertBefore);
+}
+
+function clearDropIndicators() {
+  document.querySelectorAll('.drop-indicator').forEach(el => el.remove());
+}
+
+// ── Touch support ──
+function setupTouchDragAndDrop() {
+  let clone = null;
+
+  document.addEventListener('touchstart', e => {
+    const card = e.target.closest('.paper-card');
+    if (!card || e.target.closest('.paper-link')) return;
+    draggedEl = card;
+    card.classList.add('dragging');
+
+    const touch = e.touches[0];
+    const rect = card.getBoundingClientRect();
+    touchData = {
+      offsetX: touch.clientX - rect.left,
+      offsetY: touch.clientY - rect.top
+    };
+
+    clone = card.cloneNode(true);
+    clone.style.cssText = `
+      position:fixed; z-index:9999; pointer-events:none;
+      width:${rect.width}px; opacity:0.9;
+      box-shadow: 0 8px 24px var(--drag-shadow);
+      left:${rect.left}px; top:${rect.top}px;
+    `;
+    document.body.appendChild(clone);
+    card.style.opacity = '0.3';
+  }, { passive: true });
+
+  document.addEventListener('touchmove', e => {
+    if (!draggedEl || !clone) return;
+    e.preventDefault();
+    const touch = e.touches[0];
+    clone.style.left = (touch.clientX - touchData.offsetX) + 'px';
+    clone.style.top = (touch.clientY - touchData.offsetY) + 'px';
+    const el = document.elementFromPoint(touch.clientX, touch.clientY);
+    pool.classList.toggle('drag-over', pool.contains(el) || el === pool);
+    ranked.classList.toggle('drag-over', ranked.contains(el) || el === ranked);
+  }, { passive: false });
+
+  document.addEventListener('touchend', e => {
+    if (!draggedEl || !clone) return;
+    clone.remove();
+    clone = null;
+    draggedEl.style.opacity = '';
+    draggedEl.classList.remove('dragging');
+
+    const touch = e.changedTouches[0];
+    const target = document.elementFromPoint(touch.clientX, touch.clientY);
+
+    if (ranked.contains(target) || target === ranked) {
+      const current = ranked.querySelectorAll('.paper-card').length;
+      const alreadyRanked = draggedEl.parentElement === ranked;
+      if (alreadyRanked || current < REQUIRED_RANK_COUNT) {
+        const insertBefore = getInsertPosition(ranked, touch.clientY);
+        ranked.insertBefore(draggedEl, insertBefore);
+      }
+    } else if (pool.contains(target) || target === pool) {
+      returnToPool(draggedEl);
+    }
+
+    pool.classList.remove('drag-over');
+    ranked.classList.remove('drag-over');
+    draggedEl = null;
+    touchData = null;
+    updateCounts();
+  }, { passive: true });
+}
+
+// ── Submit ──
+async function handleSubmit() {
+  const name = document.getElementById('studentName').value.trim();
+  const email = document.getElementById('studentEmail').value.trim();
+  const presFormat = document.querySelector('input[name="presFormat"]:checked');
+
+  if (!name || !email) {
+    showMessage('error', 'Please enter your name and email.');
+    return;
+  }
+  if (!presFormat) {
+    showMessage('error', 'Please answer the presentation format question.');
+    return;
+  }
+
+  const rankedCards = ranked.querySelectorAll('.paper-card');
+  if (rankedCards.length !== REQUIRED_RANK_COUNT) {
+    showMessage('error', `Please rank exactly ${REQUIRED_RANK_COUNT} papers.`);
+    return;
+  }
+
+  const wc = getWeekCounts();
+  const unmet = WEEKS.filter(w => wc[w] < MIN_PER_WEEK);
+  if (unmet.length > 0) {
+    showMessage('error', `You need at least ${MIN_PER_WEEK} papers from each week. Missing: ${unmet.map(w => 'Week ' + w).join(', ')}.`);
+    return;
+  }
+
+  submitBtn.disabled = true;
+  submitBtn.textContent = 'Submitting…';
+
+  try {
+    const rankings = [...rankedCards].map((card, i) => ({
+      rank: i + 1,
+      paper_id: card.dataset.id,
+      subtopic: card.dataset.subtopic,
+      paper_title: card.querySelector('.paper-title').textContent,
+      week: parseInt(card.dataset.week)
+    }));
+
+    const payload = {
+      timestamp: new Date().toISOString(),
+      name,
+      email,
+      presentation_format: presFormat.value,
+      rankings
+    };
+
+    await fetch(GOOGLE_SCRIPT_URL, {
+      method: 'POST',
+      mode: 'no-cors',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload)
+    });
+
+    showMessage('success', 'Thank you! Your preferences have been submitted.');
+    submitBtn.textContent = 'Submitted ✓';
+  } catch (err) {
+    showMessage('error', 'Something went wrong — please try again or email andrew.proctor@econ.lmu.de.');
+    submitBtn.disabled = false;
+    submitBtn.textContent = 'Submit Preferences';
+  }
+}
+
+function showMessage(type, text) {
+  formMessage.className = `message ${type}`;
+  formMessage.textContent = text;
+}
+
+init();
+</script>
+
+<!--
+═══════════════════════════════════════════════════════════════════
+  SETUP INSTRUCTIONS — Google Sheets backend
+═══════════════════════════════════════════════════════════════════
+
+  STEP 1: Create a Google Sheet
+  ─────────────────────────────
+  Create a new Google Sheet. Name the first sheet "Responses".
+  Add these column headers in Row 1:
+
+    A: Timestamp
+    B: Name
+    C: Email
+    D: Presentation Format
+    E: Rank 1
+    F: Rank 2
+    G: Rank 3
+    H: Rank 4
+    I: Rank 5
+    J: Rank 6
+    K: Rank 7
+    L: Rank 8
+    M: Rank 9
+    N: Rank 10
+    O: Rank 11
+    P: Rank 12
+
+  STEP 2: Add the Apps Script
+  ───────────────────────────
+  In the Google Sheet, go to Extensions → Apps Script.
+  Delete any existing code and paste the following:
+
+  ┌──────────────────────────────────────────────────────────┐
+  │                                                          │
+  │  function doPost(e) {                                    │
+  │    var sheet = SpreadsheetApp                            │
+  │      .getActiveSpreadsheet()                             │
+  │      .getSheetByName('Responses');                       │
+  │                                                          │
+  │    var data = JSON.parse(e.postData.contents);           │
+  │                                                          │
+  │    var row = [                                           │
+  │      data.timestamp,                                     │
+  │      data.name,                                          │
+  │      data.email,                                         │
+  │      data.presentation_format                            │
+  │    ];                                                    │
+  │                                                          │
+  │    data.rankings                                         │
+  │      .sort(function(a, b) { return a.rank - b.rank; })  │
+  │      .forEach(function(r) {                              │
+  │        row.push('[Week ' + r.week + '] ' +               │
+  │          r.subtopic + ' | ' +                            │
+  │          r.paper_id + ' — ' + r.paper_title);           │
+  │      });                                                 │
+  │                                                          │
+  │    sheet.appendRow(row);                                 │
+  │                                                          │
+  │    return ContentService                                 │
+  │      .createTextOutput(                                  │
+  │        JSON.stringify({ status: 'ok' })                  │
+  │      )                                                   │
+  │      .setMimeType(ContentService.MimeType.JSON);         │
+  │  }                                                       │
+  │                                                          │
+  └──────────────────────────────────────────────────────────┘
+
+  STEP 3: Deploy as a Web App
+  ───────────────────────────
+  • Click Deploy → New deployment
+  • Type: Web app
+  • Execute as: Me
+  • Who has access: Anyone
+  • Click Deploy, then Authorize when prompted
+  • Copy the Web App URL
+
+  STEP 4: Paste the URL
+  ─────────────────────
+  Replace 'YOUR_GOOGLE_APPS_SCRIPT_URL_HERE' at the top of
+  this file's <script> section with your Web App URL.
+
+  STEP 5: Host the form
+  ─────────────────────
+  Option A — GitHub Pages (free):
+    Push this file to a GitHub repo, enable Pages in settings.
+
+  Option B — LMU webspace:
+    Upload to your LMU personal web directory if available.
+
+  Option C — Local / direct:
+    Just open the .html file in a browser for testing.
+    (Google Sheets submission requires hosting on a web server.)
+
+═══════════════════════════════════════════════════════════════════
+-->
+</body>
+</html>
