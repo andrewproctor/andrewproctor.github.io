@@ -1,0 +1,592 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Scheduling Poll — Human Capital Formation and Investment Seminar</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,300;8..60,400;8..60,600&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink: #2c2c2c;
+    --paper: #fbfdf9;
+    --accent: #2d7a4f;
+    --accent-light: #ecf4ef;
+    --accent-hover: #1f5c3b;
+    --border: #d0d3d8;
+    --border-light: #e2e4e8;
+    --muted: #505660;
+    --error: #a03020;
+    --error-bg: #fdf0ee;
+    --success: #2b6e45;
+    --success-bg: #e8f2ec;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html { font-size: 20px; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--paper);
+    color: var(--ink);
+    line-height: 1.6;
+    min-height: 100vh;
+  }
+
+  .container {
+    max-width: 1320px;
+    margin: 0 auto;
+    padding: 3rem 2rem 4rem;
+  }
+
+  header {
+    margin-bottom: 2.5rem;
+    border-bottom: 2px solid var(--ink);
+    padding-bottom: 1.5rem;
+  }
+
+  header h1 {
+    font-family: 'Source Serif 4', Georgia, serif;
+    font-size: 2rem;
+    font-weight: 600;
+    letter-spacing: -0.02em;
+    line-height: 1.2;
+    margin-bottom: 0.25rem;
+  }
+
+  header .subtitle {
+    font-family: 'Source Serif 4', Georgia, serif;
+    font-size: 1.2rem;
+    font-weight: 400;
+    color: var(--muted);
+    margin-bottom: 0.6rem;
+  }
+
+  header p {
+    color: var(--muted);
+    font-size: 1rem;
+    line-height: 1.5;
+  }
+
+  /* ── Identity fields ── */
+  .identity {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+    margin-bottom: 2rem;
+  }
+
+  .field label {
+    display: block;
+    font-size: 0.85rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--muted);
+    margin-bottom: 0.35rem;
+  }
+
+  .field input {
+    width: 100%;
+    padding: 0.6rem 0.75rem;
+    border: 1.5px solid var(--border);
+    border-radius: 6px;
+    font-family: inherit;
+    font-size: 1rem;
+    background: #fff;
+    transition: border-color 0.2s;
+  }
+
+  .field input:focus {
+    outline: none;
+    border-color: var(--accent);
+    box-shadow: 0 0 0 3px var(--accent-light);
+  }
+
+  /* ── Question blocks ── */
+  .question-block {
+    margin-bottom: 2.5rem;
+    padding: 1.5rem;
+    background: #fff;
+    border: 1.5px solid var(--border-light);
+    border-radius: 8px;
+  }
+
+  .question-block .q-label {
+    font-size: 1rem;
+    font-weight: 500;
+    margin-bottom: 1rem;
+  }
+
+  .option-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+
+  .option-list label {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.5rem;
+    font-size: 0.95rem;
+    cursor: pointer;
+    padding: 0.6rem 0.75rem;
+    border-radius: 6px;
+    border: 1.5px solid var(--border-light);
+    transition: background 0.15s, border-color 0.15s;
+  }
+
+  .option-list label:hover {
+    background: var(--accent-light);
+    border-color: var(--border);
+  }
+
+  .option-list input[type="checkbox"],
+  .option-list input[type="radio"] {
+    accent-color: var(--accent);
+    width: 1.1rem;
+    height: 1.1rem;
+    margin-top: 0.15rem;
+    flex-shrink: 0;
+  }
+
+  .option-list .option-text {
+    flex: 1;
+  }
+
+  .option-list .option-date {
+    font-weight: 600;
+  }
+
+  .option-list .option-detail {
+    font-size: 0.85rem;
+    color: var(--muted);
+  }
+
+  /* ── Submit ── */
+  .submit-area {
+    text-align: center;
+  }
+
+  .submit-btn {
+    font-family: inherit;
+    font-size: 1rem;
+    font-weight: 600;
+    padding: 0.75rem 2.5rem;
+    border: none;
+    border-radius: 8px;
+    background: var(--accent);
+    color: #fff;
+    cursor: pointer;
+    transition: background 0.2s, transform 0.1s, box-shadow 0.2s;
+  }
+
+  .submit-btn:hover {
+    background: var(--accent-hover);
+    box-shadow: 0 4px 12px rgba(45, 122, 79, 0.12);
+  }
+
+  .submit-btn:active { transform: scale(0.98); }
+
+  .submit-btn:disabled {
+    background: var(--border);
+    cursor: not-allowed;
+    box-shadow: none;
+    transform: none;
+  }
+
+  .message {
+    margin-top: 1rem;
+    padding: 0.75rem 1rem;
+    border-radius: 6px;
+    font-size: 0.95rem;
+    display: none;
+  }
+
+  .message.error {
+    display: block;
+    background: var(--error-bg);
+    color: var(--error);
+    border: 1px solid var(--error);
+  }
+
+  .message.success {
+    display: block;
+    background: var(--success-bg);
+    color: var(--success);
+    border: 1px solid var(--success);
+  }
+
+  /* ── Password gate ── */
+  .password-gate {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    padding: 2rem;
+  }
+
+  .password-box {
+    max-width: 380px;
+    width: 100%;
+    text-align: center;
+  }
+
+  .password-box h2 {
+    font-family: 'Source Serif 4', Georgia, serif;
+    font-size: 1.4rem;
+    font-weight: 600;
+    margin-bottom: 0.25rem;
+  }
+
+  .password-box .pw-subtitle {
+    font-size: 0.95rem;
+    color: var(--muted);
+    margin-bottom: 1.5rem;
+  }
+
+  .password-box .pw-field {
+    display: flex;
+    gap: 0.5rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .password-box .pw-field input {
+    flex: 1;
+    padding: 0.6rem 0.75rem;
+    border: 1.5px solid var(--border);
+    border-radius: 6px;
+    font-family: inherit;
+    font-size: 1rem;
+    background: #fff;
+  }
+
+  .password-box .pw-field input:focus {
+    outline: none;
+    border-color: var(--accent);
+    box-shadow: 0 0 0 3px var(--accent-light);
+  }
+
+  .password-box .pw-field button {
+    padding: 0.6rem 1.25rem;
+    border: none;
+    border-radius: 6px;
+    background: var(--accent);
+    color: #fff;
+    font-family: inherit;
+    font-size: 0.95rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.2s;
+  }
+
+  .password-box .pw-field button:hover {
+    background: var(--accent-hover);
+  }
+
+  .password-box .pw-error {
+    font-size: 0.85rem;
+    color: var(--error);
+    display: none;
+  }
+
+  .password-box .pw-error.visible {
+    display: block;
+  }
+
+  .form-content { display: none; }
+  .form-content.unlocked { display: block; }
+
+  /* ── Responsive ── */
+  @media (max-width: 900px) {
+    html { font-size: 17px; }
+    .container { padding: 2rem 1.25rem 3rem; }
+  }
+
+  @media (max-width: 600px) {
+    html { font-size: 16px; }
+    .container { padding: 1.5rem 1rem 2.5rem; }
+    header h1 { font-size: 1.5rem; }
+    .identity { grid-template-columns: 1fr; }
+    .password-box .pw-field { flex-direction: column; }
+    .password-box .pw-field button { width: 100%; padding: 0.65rem; }
+  }
+
+  @media print { .submit-area { display: none; } }
+</style>
+</head>
+<body>
+
+<!-- Password gate -->
+<div class="password-gate" id="passwordGate">
+  <div class="password-box">
+    <h2>Scheduling Poll</h2>
+    <div class="pw-subtitle">Please enter the access code.</div>
+    <div class="pw-field">
+      <input type="password" id="pwInput" placeholder="Access code" autocomplete="off">
+      <button id="pwBtn">Enter</button>
+    </div>
+    <div class="pw-error" id="pwError">Incorrect code. Please try again.</div>
+  </div>
+</div>
+
+<!-- Form -->
+<div class="form-content" id="formContent">
+<div class="container">
+  <header>
+    <h1>Scheduling Poll</h1>
+    <div class="subtitle">Human Capital Formation and Investment Seminar</div>
+    <p>Please indicate your availability and preference for rescheduling the May 25th meeting.</p>
+  </header>
+
+  <div class="identity" style="grid-template-columns: 1fr;">
+    <div class="field">
+      <label for="studentName">Full name *</label>
+      <input type="text" id="studentName" placeholder="e.g. Andrew Proctor" required>
+    </div>
+  </div>
+
+  <!-- Availability -->
+  <div class="question-block">
+    <div class="q-label">Which of the following times are you available? (Select all that apply)</div>
+    <div class="option-list">
+      <label>
+        <input type="checkbox" name="available" value="may18_double">
+        <span class="option-text">
+          <span class="option-date">Monday, May 18th — 13:15 to 17:15</span>
+          <span class="option-detail">Double lecture (with a 30-minute break), replacing the May 25th session</span>
+        </span>
+      </label>
+      <label>
+        <input type="checkbox" name="available" value="may28_thu">
+        <span class="option-text">
+          <span class="option-date">Thursday, May 28th — 13:15 to 15:00</span>
+          <span class="option-detail">Rescheduled to Thursday of the same week</span>
+        </span>
+      </label>
+      <label>
+        <input type="checkbox" name="available" value="may29_fri">
+        <span class="option-text">
+          <span class="option-date">Friday, May 29th — 13:15 to 15:00</span>
+          <span class="option-detail">Rescheduled to Friday of the same week</span>
+        </span>
+      </label>
+      <label>
+        <input type="checkbox" name="available" value="jun1_mon">
+        <span class="option-text">
+          <span class="option-date">Monday, June 1st — 13:15 to 15:00</span>
+          <span class="option-detail">Rescheduled to the following Monday</span>
+        </span>
+      </label>
+    </div>
+  </div>
+
+  <!-- Preference -->
+  <div class="question-block">
+    <div class="q-label">Which option would you most prefer?</div>
+    <div class="option-list">
+      <label>
+        <input type="radio" name="preferred" value="may18_double">
+        <span class="option-text"><span class="option-date">Monday, May 18th — double lecture (13:15–17:15)</span></span>
+      </label>
+      <label>
+        <input type="radio" name="preferred" value="may28_thu">
+        <span class="option-text"><span class="option-date">Thursday, May 28th — 13:15 to 15:00</span></span>
+      </label>
+      <label>
+        <input type="radio" name="preferred" value="may29_fri">
+        <span class="option-text"><span class="option-date">Friday, May 29th — 13:15 to 15:00</span></span>
+      </label>
+      <label>
+        <input type="radio" name="preferred" value="jun1_mon">
+        <span class="option-text"><span class="option-date">Monday, June 1st — 13:15 to 15:00</span></span>
+      </label>
+    </div>
+  </div>
+
+  <div class="submit-area">
+    <button class="submit-btn" id="submitBtn">Submit</button>
+    <div class="message" id="formMessage"></div>
+  </div>
+</div>
+</div>
+
+<script>
+// ═══════════════════════════════════════════════════════════════
+//  ✏️  PASSWORD
+// ═══════════════════════════════════════════════════════════════
+//  Default password: "hcfi2026"
+const PASSWORD_HASH = '639e1f732560f784e86db88beaeff91c7217ce7be5e3da7df9485580589eae70';
+
+(function() {
+  const gate = document.getElementById('passwordGate');
+  const form = document.getElementById('formContent');
+  const input = document.getElementById('pwInput');
+  const btn = document.getElementById('pwBtn');
+  const err = document.getElementById('pwError');
+
+  async function sha256(str) {
+    const buf = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(str));
+    return Array.from(new Uint8Array(buf)).map(b => b.toString(16).padStart(2, '0')).join('');
+  }
+
+  async function checkPassword() {
+    const hash = await sha256(input.value);
+    if (hash === PASSWORD_HASH) {
+      gate.style.display = 'none';
+      form.classList.add('unlocked');
+    } else {
+      err.classList.add('visible');
+      input.value = '';
+      input.focus();
+    }
+  }
+
+  btn.addEventListener('click', checkPassword);
+  input.addEventListener('keydown', e => { if (e.key === 'Enter') checkPassword(); });
+  input.focus();
+})();
+</script>
+
+<script>
+// ═══════════════════════════════════════════════════════════════
+//  ✏️  GOOGLE APPS SCRIPT URL
+// ═══════════════════════════════════════════════════════════════
+const GOOGLE_SCRIPT_URL = 'YOUR_GOOGLE_APPS_SCRIPT_URL_HERE';
+
+const submitBtn = document.getElementById('submitBtn');
+const formMessage = document.getElementById('formMessage');
+
+function showMessage(type, text) {
+  formMessage.className = `message ${type}`;
+  formMessage.textContent = text;
+}
+
+submitBtn.addEventListener('click', async function() {
+  const name = document.getElementById('studentName').value.trim();
+
+  if (!name) {
+    showMessage('error', 'Please enter your name.');
+    return;
+  }
+
+  const available = [...document.querySelectorAll('input[name="available"]:checked')]
+    .map(el => el.value);
+  const preferred = document.querySelector('input[name="preferred"]:checked');
+
+  if (available.length === 0) {
+    showMessage('error', 'Please select at least one time you are available.');
+    return;
+  }
+
+  if (!preferred) {
+    showMessage('error', 'Please select your preferred option.');
+    return;
+  }
+
+  submitBtn.disabled = true;
+  submitBtn.textContent = 'Submitting…';
+
+  try {
+    const payload = {
+      timestamp: new Date().toISOString(),
+      name,
+      available_may18_double: available.includes('may18_double') ? 'Yes' : 'No',
+      available_may28_thu: available.includes('may28_thu') ? 'Yes' : 'No',
+      available_may29_fri: available.includes('may29_fri') ? 'Yes' : 'No',
+      available_jun1_mon: available.includes('jun1_mon') ? 'Yes' : 'No',
+      preferred: preferred.value
+    };
+
+    await fetch(GOOGLE_SCRIPT_URL, {
+      method: 'POST',
+      mode: 'no-cors',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload)
+    });
+
+    showMessage('success', 'Thank you! Your response has been submitted.');
+    submitBtn.textContent = 'Submitted ✓';
+  } catch (err) {
+    showMessage('error', 'Something went wrong — please try again or email andrew.proctor@econ.lmu.de.');
+    submitBtn.disabled = false;
+    submitBtn.textContent = 'Submit';
+  }
+});
+</script>
+
+<!--
+═══════════════════════════════════════════════════════════════════
+  SETUP INSTRUCTIONS — Google Sheets backend
+═══════════════════════════════════════════════════════════════════
+
+  STEP 1: Create a Google Sheet
+  ─────────────────────────────
+  Create a new Google Sheet. Name the first sheet "Responses".
+  Add these column headers in Row 1:
+
+    A: Timestamp
+    B: Name
+    C: Available — Mon May 18 (double)
+    D: Available — Thu May 28
+    E: Available — Fri May 29
+    F: Available — Mon Jun 1
+    G: Preferred
+
+  STEP 2: Add the Apps Script
+  ───────────────────────────
+  Go to script.google.com, create a new project, and paste:
+
+  function doPost(e) {
+    var sheet = SpreadsheetApp
+      .openById('https://script.google.com/macros/s/AKfycbziN6M54hTPY8il1wONBmJHBb-iuHHauaJfwttipGbm0Vb8iHG3ef1j75mrjoPJTej1Mg/exec')
+      .getSheetByName('Responses');
+
+    var data = JSON.parse(e.postData.contents);
+
+    var row = [
+      data.timestamp,
+      data.name,
+      data.available_may18_double,
+      data.available_may28_thu,
+      data.available_may29_fri,
+      data.available_jun1_mon,
+      data.preferred
+    ];
+
+    sheet.appendRow(row);
+
+    return ContentService
+      .createTextOutput(
+        JSON.stringify({ status: 'ok' })
+      )
+      .setMimeType(ContentService.MimeType.JSON);
+  }
+
+  Replace YOUR_SHEET_ID_HERE with the ID from your Google Sheet URL.
+  (The long string between /d/ and /edit in the URL.)
+
+  STEP 3: Deploy as a Web App
+  ───────────────────────────
+  • Click Deploy → New deployment
+  • Type: Web app
+  • Execute as: Me
+  • Who has access: Anyone
+  • Click Deploy, then Authorize when prompted
+  • Copy the Web App URL
+
+  STEP 4: Paste the URL
+  ─────────────────────
+  Replace 'YOUR_GOOGLE_APPS_SCRIPT_URL_HERE' in this file's
+  <script> section with the Web App URL.
+
+  STEP 5: Host
+  ────────────
+  Add to your _quarto.yml resources and re-render,
+  or place directly in your docs/ folder.
+
+═══════════════════════════════════════════════════════════════════
+-->
+</body>
+</html>
