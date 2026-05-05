@@ -453,7 +453,7 @@ const PASSWORD_HASH = '639e1f732560f784e86db88beaeff91c7217ce7be5e3da7df94855805
 // ═══════════════════════════════════════════════════════════════
 //  ✏️  GOOGLE APPS SCRIPT URL
 // ═══════════════════════════════════════════════════════════════
-const GOOGLE_SCRIPT_URL = 'YOUR_GOOGLE_APPS_SCRIPT_URL_HERE';
+const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxrYy51JRuFr6KNFz_hkXj7B-mRm1ddBRVc4ezCEFS9JQd996gdsHrvHLfZauSQt3FTFg/exec';
 
 const submitBtn = document.getElementById('submitBtn');
 const formMessage = document.getElementById('formMessage');
@@ -509,7 +509,8 @@ submitBtn.addEventListener('click', async function() {
     showMessage('success', 'Thank you! Your response has been submitted.');
     submitBtn.textContent = 'Submitted ✓';
   } catch (err) {
-    showMessage('error', 'Something went wrong — please try again or email andrew.proctor@econ.lmu.de.');
+    showMessage('error', 'Error: ' + err.message + ' — please try again or email andrew.proctor@econ.lmu.de.');
+    console.error('Submission error:', err);
     submitBtn.disabled = false;
     submitBtn.textContent = 'Submit';
   }
